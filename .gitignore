@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.env*
+tmp/
+.playwright*/
+.vercel/
+# originali delle foto: pesanti e con i dati GPS; nel sito vanno solo le versioni preparate da sorgente/foto.py
+materiali/foto/*
+!materiali/foto/LEGGIMI.md
+# PDF del cliente (biglietto da visita e servizi): restano in locale
+materiali/*.pdf
+# documenti di lavoro con il cliente (bozze legali, messaggi): restano in locale, il repository è pubblico
+materiali/messaggio-per-luca.md
+materiali/testi-legali/

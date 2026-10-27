@@ -1,0 +1,46 @@
+/* Aggiunte al nucleo: voce di menu della sezione corrente, dati legali nel piede, pagine legali con indice.
+   Stessi colori e misure di 00-base.css, che resta quello della versione semplice. */
+
+/* ---------- menu: la sezione che contiene la pagina (Servizi nelle pagine dei servizi) ---------- */
+.nav a[aria-current="true"] { color: var(--testo); background-size: 100% 2px; }
+.menu nav a[aria-current="true"] { color: var(--accento-testo); }
+
+/* ---------- piede: dati legali e link alle note ---------- */
+.piede-legale { margin: 0; flex: 1 1 100%; line-height: 1.7; }
+.piede-dato { white-space: nowrap; }
+.piede-dato:first-child, .piede-dato:nth-child(2) { white-space: normal; }
+.piede-basso .piede-legale a { display: inline; padding: 0; color: inherit; }
+.piede-basso .piede-legale a:hover { color: var(--evidenza); }
+.piede .piede-note { display: flex; flex-wrap: wrap; gap: 0 20px; margin-left: auto; font-size: inherit; }
+.piede-note a { padding-block: 2px; }
+
+/* ---------- pagine legali: indice a lato sui computer, a tendina su tablet e telefono ---------- */
+.documento { display: grid; grid-template-columns: 250px minmax(0, 72ch); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.documento-indice { position: sticky; top: calc(var(--testata) + 28px); max-height: calc(100vh - var(--testata) - 56px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+.documento-indice-titolo { margin: 0 0 12px; font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--grigio); }
+.documento-indice ol, .documento-tendina ol { list-style: none; margin: 0; padding: 0; }
+.documento-indice ol { border-left: 2px solid var(--linea); }
+.documento-indice a { display: block; margin-left: -2px; padding: 6px 0 6px 16px; border-left: 2px solid transparent; color: var(--testo-2); font-size: .92rem; line-height: 1.35; text-decoration: none; transition: border-color .3s var(--ease), color .3s var(--ease); }
+.documento-indice a:hover { border-left-color: var(--arancio-vivo); color: var(--testo); }
+.documento-tendina { display: none; margin: 4px 0 8px; border: 1px solid var(--linea-forte); border-radius: 16px; background: var(--asfalto); }
+.documento-tendina summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding: 0 18px; font-weight: 700; cursor: pointer; list-style: none; }
+.documento-tendina summary::-webkit-details-marker { display: none; }
+.documento-tendina summary::after { content: ""; width: 9px; height: 9px; margin-top: -4px; border: solid currentColor; border-width: 0 2px 2px 0; transform: rotate(45deg); transition: transform .3s var(--ease); }
+.documento-tendina[open] summary::after { margin-top: 4px; transform: rotate(-135deg); }
+.documento-tendina ol { padding: 0 18px 12px; }
+.documento-tendina li + li { border-top: 1px solid var(--linea); }
+.documento-tendina a { display: block; padding: 10px 0; color: var(--testo-2); text-decoration: none; line-height: 1.35; }
+.documento-tendina a:hover { color: var(--evidenza); }
+.prosa h3 { margin: 1.4em 0 .4em; }
+.prosa li + li { margin-top: .35em; }
+.prosa strong { color: var(--testo); }
+.nota-recensioni { max-width: 72ch; }
+
+@media (max-width: 1099px) {
+  .documento { grid-template-columns: minmax(0, 72ch); }
+  .documento-indice { display: none; }
+  .documento-tendina { display: block; }
+}
+@media (max-width: 599px) {
+  .piede .piede-note { margin-left: 0; }
+}

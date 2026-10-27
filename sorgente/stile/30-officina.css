@@ -1,0 +1,105 @@
+/* L'officina al centro: la sezione della home subito dopo i servizi, le comodità in più, la pagina L'officina
+   e i rimandi dalle pagine di ritiro e officina mobile.
+   Solo token e classi di 00-base.css; le animazioni passano dai ganci che ci sono già:
+   data-iride (foto), .vantaggi-lista > li > .ico (icone a tratto), data-percorso (tappe). Niente JavaScript in più. */
+
+/* ---------- home: l'officina ---------- */
+.officina-home { padding-block: clamp(80px, 10vw, 140px); background: radial-gradient(50% 55% at 88% 18%, rgba(255, 92, 43, .09), transparent 70%), var(--notte); }
+.officina-home-griglia { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 40px clamp(32px, 6vw, 96px); align-items: center; }
+.officina-home h2 { margin-bottom: 24px; max-width: 17ch; }
+.officina-home .lead { margin-bottom: 30px; }
+.officina-home .azioni { gap: 12px 24px; }
+.officina-home-foto { aspect-ratio: 3 / 2; }
+/* aperto / chiuso in tempo reale, appoggiato sulla foto come un cartello */
+.foto > .stato { position: absolute; top: 14px; left: 14px; padding: 8px 14px; border-radius: 999px; background: var(--vetro); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.officina-punti { margin-top: clamp(48px, 6vw, 80px); grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.officina-punti p { margin: 0; }
+/* Luca passa sul fondo asfalto: la sezione dell'officina, prima, resta sul fondo notte */
+.p-home .luca { background: var(--asfalto); }
+
+/* ---------- home: recensioni ---------- */
+.recensioni-fonte { margin: -4px 0 4px; }
+
+/* ---------- home: comodità in più, più leggere dell'officina ---------- */
+.extra { padding-block: clamp(64px, 8vw, 110px); border-top: 1px solid var(--linea); }
+.extra-griglia { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 28px clamp(32px, 6vw, 96px); align-items: start; }
+.extra h2 { font-size: clamp(1.7rem, 3vw, 2.5rem); margin-bottom: 14px; }
+.extra-testa p { color: var(--testo-2); max-width: 44ch; margin: 0; }
+.extra-lista { list-style: none; margin: 0; padding: 0; }
+.extra-lista li { border-top: 1px solid var(--linea); }
+.extra-lista li:last-child { border-bottom: 1px solid var(--linea); }
+.extra-voce { display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; align-items: center; gap: 18px; padding: 20px 4px; color: var(--testo); text-decoration: none; }
+.extra-ico { display: grid; color: var(--ico); }
+.extra-ico .ico { width: 30px; height: 30px; stroke-width: 1.4; }
+.extra-voce h3 { font-size: 1.12rem; margin-bottom: 4px; transition: color .25s; }
+.extra-voce p { margin: 0; color: var(--testo-2); font-size: .95rem; }
+.extra-voce > .ico { color: var(--ico); transition: transform .3s var(--ease); }
+.extra-voce:hover h3 { color: var(--evidenza); }
+.extra-voce:hover > .ico { transform: translateX(4px); }
+
+/* ---------- home: dove e quando ---------- */
+.contatti-home-link { display: flex; flex-wrap: wrap; gap: 0 28px; }
+
+/* ---------- pagina L'officina ---------- */
+.officina-fascia { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 14px; }
+.officina-fascia .foto { height: clamp(280px, 34vw, 500px); }
+.officina-dove { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 40px clamp(32px, 6vw, 96px); align-items: center; }
+.officina-indirizzo { margin-bottom: 18px; font-size: clamp(1.5rem, 2.6vw, 2.1rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.15; }
+.officina-indirizzo span { display: block; margin-top: 6px; color: var(--grigio); font-size: 1rem; font-weight: 600; letter-spacing: 0; }
+.officina-dove-testo > p:not([class]) { color: var(--testo-2); max-width: 46ch; margin-bottom: 26px; }
+.officina-dove-testo .azioni { margin-bottom: 10px; }
+.officina-orari { padding: clamp(24px, 3vw, 36px); border-radius: 22px; background: var(--asfalto-2); border: 1px solid var(--linea); }
+.officina-orari h3 { margin-bottom: 12px; }
+.officina-orari .stato { display: flex; margin-bottom: 4px; }
+.officina-orari .orari { max-width: none; margin-bottom: 0; }
+.officina-orari .orari tr:last-child > * { border-bottom: 0; padding-bottom: 0; }
+/* le quattro sezioni: stessa forma dei vantaggi, due per riga perché il testo è più lungo */
+.officina-sezioni { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px clamp(32px, 5vw, 80px); }
+.officina-sezioni h2 { font-size: clamp(1.4rem, 2.2vw, 1.9rem); margin-bottom: 12px; }
+.officina-sezioni p { font-size: 1.02rem; max-width: 52ch; }
+.officina-cortesia { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 40px clamp(32px, 6vw, 96px); align-items: start; }
+.officina-cortesia-passi h2 { max-width: 20ch; font-size: clamp(2rem, 3.4vw, 3rem); }
+.officina-condizioni ul { margin: 0 0 14px; padding-left: 1.15em; }
+.officina-condizioni li { margin-bottom: .6em; padding-left: .2em; color: var(--testo-2); font-size: .97rem; }
+.officina-condizioni li::marker { color: var(--ico); }
+.officina-faq { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 28px clamp(32px, 6vw, 96px); align-items: start; }
+.officina-faq-testa .lead { margin: 0; max-width: 32ch; }
+
+/* ---------- tappe: la linea sta fuori dall'elenco numerato (pagina L'officina e Ritiro e consegna) ---------- */
+.percorso-tappe { list-style: none; margin: 0; padding: 0; }
+/* la linea finisce sul cerchio dell'ultima tappa: sotto, il fondo della tappa la copre (anche quando il testo va a capo) */
+.sezione:not(.sezione--asfalto) .percorso-tappe > .tappa:last-child { background: var(--notte); }
+
+/* ---------- rimandi all'officina dalle pagine di ritiro e officina mobile ---------- */
+.rimando-officina { margin-top: 44px; padding-top: 22px; border-top: 1px solid var(--linea); }
+.rimando-officina p { margin: 0 0 4px; color: var(--testo-2); max-width: 52ch; }
+.mobile-dettagli > p + .link { margin-top: -6px; }
+
+/* ---------- tablet ---------- */
+@media (max-width: 899px) {
+  .officina-home-griglia, .extra-griglia, .officina-dove, .officina-cortesia, .officina-faq { grid-template-columns: minmax(0, 1fr); }
+  /* i tre punti diventano righe: icona a sinistra, testo a destra */
+  .officina-punti { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .officina-punti li { display: grid; grid-template-columns: 34px minmax(0, 1fr); column-gap: 16px; padding-top: 18px; }
+  .officina-punti li > .ico { grid-row: span 2; width: 32px; height: 32px; margin: 0; }
+  .officina-fascia { grid-template-columns: minmax(0, 1fr); }
+  .officina-fascia .foto { height: auto; aspect-ratio: 3 / 2; }
+  /* 00-base toglie lo sticky a queste foto con position: static: la scritta "Foto di esempio" uscirebbe dalla foto */
+  .ritiro-foto, .luca-foto, .chi-foto { position: relative; }
+}
+
+/* ---------- telefono ---------- */
+@media (max-width: 599px) {
+  .officina-home .azioni .link { margin-inline: auto; }
+  .officina-sezioni { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .extra-voce { grid-template-columns: 28px minmax(0, 1fr) auto; gap: 14px; padding-block: 16px; }
+  .extra-ico .ico { width: 26px; height: 26px; }
+  .foto > .stato { top: 10px; left: 10px; padding: 6px 12px; font-size: .84rem; }
+  /* orari: i giorni restano su una riga, va a capo l'orario */
+  .officina-orari { padding: 22px 20px; }
+  .officina-orari .orari th, .contatti-home .orari th { white-space: nowrap; padding-right: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .extra-voce:hover > .ico { transform: none; }
+}
