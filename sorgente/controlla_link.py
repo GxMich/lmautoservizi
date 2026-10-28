@@ -65,7 +65,7 @@ def destinazione(cartella, valore):
 
 problemi, contati = [], {"pagine": 0, "riferimenti": 0, "assoluti": 0, "frammenti": 0}
 for radice, sotto, nomi in os.walk(DOCS):
-    sotto[:] = sorted(s for s in sotto if s != "assets")
+    sotto[:] = sorted(s for s in sotto if s not in ("assets", "domande"))  # domande/: questionario a sé, solo in anteprima
     for nome in sorted(nomi):
         if not nome.endswith(".html"):
             continue

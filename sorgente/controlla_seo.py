@@ -108,7 +108,7 @@ def tipi(dato):
 # ---------------------------------------------------------------- pagine
 pagine = {}
 for radice, sotto, nomi in os.walk(DOCS):
-    sotto[:] = sorted(s for s in sotto if s != "assets")
+    sotto[:] = sorted(s for s in sotto if s not in ("assets", "domande"))  # domande/: questionario a sé, solo in anteprima
     for nome in sorted(nomi):
         if nome.endswith(".html"):
             file = os.path.join(radice, nome)

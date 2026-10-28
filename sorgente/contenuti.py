@@ -24,7 +24,9 @@ COMUNE_OFFICINA = "Frassineto Po"
 PROVINCIA = "AL"
 GEO = None                         # (latitudine, longitudine) in gradi decimali
 REA = None                         # nella forma "AL-numero"
-FACEBOOK = "https://www.facebook.com/L.M.AUTOSERVIZI/"
+# Luca ha scritto di non avere Facebook né Instagram (chat del 9/10/2026). La pagina trovata online,
+# https://www.facebook.com/L.M.AUTOSERVIZI/, è collegata al vecchio sito: si rimette solo se Luca conferma che è sua.
+FACEBOOK = None
 INSTAGRAM = None
 RECENSIONI_GOOGLE = None           # link diretto "scrivi una recensione" della scheda Google
 PREZZI = None                      # fascia di prezzo per i dati strutturati, es. "€€"
@@ -36,7 +38,8 @@ DA_COMPLETARE = {
     "CAP_OFFICINA": "CAP dell'officina.",
     "GEO": "coordinate dell'officina (latitudine, longitudine), da Google Maps: tasto destro sul punto e clic sui numeri.",
     "REA": "numero REA della Camera di Commercio (visura camerale), da mostrare nel piede accanto alla partita IVA.",
-    "INSTAGRAM": "indirizzo del profilo Instagram, se esiste; se non c'è resta None e il sito non lo mostra.",
+    "FACEBOOK": "Luca dice di non avere Facebook: resta None, salvo conferma che la pagina L.M.AUTOSERVIZI trovata online è sua (domanda 7 del questionario).",
+    "INSTAGRAM": "Luca dice di non avere Instagram: resta None finché non apre un profilo.",
     "RECENSIONI_GOOGLE": "link diretto «scrivi una recensione» dal Profilo dell'attività su Google (Chiedi recensioni): aggiunge il pulsante sotto le recensioni.",
     "PREZZI": "fascia di prezzo o listino indicativo: per ora il sito non mostra prezzi.",
     "RECENSIONI_CON_PERMESSO": "conferma che le recensioni in home vengono da Google e che gli autori sono d'accordo: con True compare la nota del Codice del Consumo (nota_recensioni).",
