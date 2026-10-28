@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Domande per il sito | L.M. Autoservizi</title>
-<meta name="description" content="Le domande di Michele per completare il sito di L.M. Autoservizi: rispondi e invia su WhatsApp.">
+<title>Domande per il sito</title>
+<meta name="description" content="Domande per completare il sito: rispondi e invia le risposte su WhatsApp.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#0b0d10">
-<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+<link rel="icon" href="data:,">
 <link rel="preload" href="../assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face { font-family: "Archivo"; src: url("../assets/fonts/archivo-latin.woff2") format("woff2"); font-weight: 400 800; font-display: swap; }
@@ -22,10 +22,6 @@ body { margin: 0; background: var(--notte); color: var(--testo); font: 400 17px/
 a { color: inherit; }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
 .wrap { max-width: 720px; margin: 0 auto; padding: 0 var(--gutter); }
-.testata { display: flex; align-items: center; gap: 12px; padding: 18px 0; border-bottom: 1px solid var(--linea); }
-.testata img { width: 40px; height: 40px; }
-.testata strong { display: block; font-size: 17px; letter-spacing: -.01em; }
-.testata span { color: var(--grigio); font-size: 14px; }
 h1 { font-size: clamp(32px, 8vw, 48px); line-height: 1.05; letter-spacing: -.03em; margin: 36px 0 14px; font-weight: 800; }
 h1 em { font-style: normal; color: var(--arancio); }
 .lead { color: var(--testo-2); font-size: 18px; margin: 0 0 10px; }
@@ -72,14 +68,9 @@ textarea { min-height: 88px; resize: vertical; }
 </head>
 <body>
 <div class="wrap">
-  <header class="testata">
-    <img src="../assets/img/logo-arancio-84.png" width="40" height="40" alt="">
-    <div><strong>L.M. Autoservizi</strong><span>Domande per il sito</span></div>
-  </header>
-
   <main id="contenuto">
-    <h1>Ciao Luca, mi servono <em>due risposte</em>.</h1>
-    <p class="lead">Rispondi a quello che sai e lascia vuoto il resto. Alla fine tocca «Invia su WhatsApp»: si apre WhatsApp con le risposte già scritte per me.</p>
+    <h1>Domande per <em>il sito</em></h1>
+    <p class="lead">Rispondi a quello che sai e lascia vuoto il resto. Alla fine tocca «Invia su WhatsApp»: si apre WhatsApp con le risposte già scritte.</p>
     <p class="piccolo">Le risposte restano salvate su questo telefono mentre scrivi, così puoi chiudere e riprendere quando vuoi. La pagina non manda niente da sola: l'invio lo fai tu su WhatsApp.</p>
 
     <form id="domande" novalidate>
@@ -330,14 +321,15 @@ textarea { min-height: 88px; resize: vertical; }
         </div>
       </fieldset>
 
-      <fieldset class="d" data-titolo="Altro">
-        <legend><b>25</b>Altro che vuoi dirmi</legend>
-        <div class="parte"><textarea name="q25" data-parte="Note" placeholder="Idee, cose da cambiare, dubbi…" aria-label="Altro che vuoi dirmi"></textarea></div>
+      <fieldset class="d" data-titolo="Info in più">
+        <legend><b>25</b>Info in più</legend>
+        <p class="spiega">Qualsiasi altra cosa utile per il sito: servizi da aggiungere, idee, cose da cambiare, dubbi.</p>
+        <div class="parte"><textarea name="q25" data-parte="Info in più" placeholder="Scrivi qui" aria-label="Info in più"></textarea></div>
       </fieldset>
 
       <section class="fine" aria-labelledby="fine-t">
         <h2 id="fine-t">Fatto?</h2>
-        <p>Tocca il tasto: si apre WhatsApp con le risposte già scritte per Michele. Controlla e premi invia.</p>
+        <p>Tocca il tasto: si apre WhatsApp con le risposte già scritte. Controlla e premi invia.</p>
         <div class="azioni">
           <a class="btn btn--arancio" data-invia href="https://wa.me/393490595725"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>Invia su WhatsApp</a>
           <button class="btn btn--vuoto" type="button" data-copia>Copia le risposte</button>
@@ -381,7 +373,7 @@ textarea { min-height: 88px; resize: vertical; }
   }
 
   function messaggio() {
-    var parti = ["Ciao Michele, ecco le mie risposte per il sito:"], mancano = [];
+    var parti = ["Risposte alle domande per il sito:"], mancano = [];
     blocchi.forEach(function (b, i) {
       var r = risposte(b);
       if (!r.length) { mancano.push(i + 1); return; }
@@ -435,7 +427,7 @@ textarea { min-height: 88px; resize: vertical; }
 
   document.querySelector("[data-copia]").addEventListener("click", function () {
     var esito = document.querySelector("[data-esito]"), testo = messaggio();
-    function fatto() { esito.textContent = "Risposte copiate: incollale in un messaggio a Michele (349 059 5725)."; }
+    function fatto() { esito.textContent = "Risposte copiate: incollale in un messaggio WhatsApp al 349 059 5725."; }
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(testo).then(fatto, vecchio);
     else vecchio();
     function vecchio() {
