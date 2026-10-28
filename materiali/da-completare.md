@@ -9,7 +9,7 @@ Finché un valore resta `None`, il sito lo omette.
 - `INDIRIZZO_OFFICINA`: via e numero civico dell'officina (il biglietto riporta solo la sede legale): va in Contatti, nel piede e nei dati strutturati per Google.
 - `GEO`: coordinate dell'officina (latitudine, longitudine), da Google Maps: tasto destro sul punto e clic sui numeri.
 - `REA`: numero REA della Camera di Commercio (visura camerale), da mostrare nel piede accanto alla partita IVA.
-- `FACEBOOK`: Luca dice di non avere Facebook: resta None, salvo conferma che la pagina L.M.AUTOSERVIZI trovata online è sua (domanda 7 del questionario).
+- `FACEBOOK`: la pagina è di Luca ma per scelta non va sul sito: resta None (non serve completarlo).
 - `INSTAGRAM`: Luca dice di non avere Instagram: resta None finché non apre un profilo.
 - `RECENSIONI_GOOGLE`: link diretto «scrivi una recensione» dal Profilo dell'attività su Google (Chiedi recensioni): aggiunge il pulsante sotto le recensioni.
 - `PREZZI`: fascia di prezzo o listino indicativo: per ora il sito non mostra prezzi.
