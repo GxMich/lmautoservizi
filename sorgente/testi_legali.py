@@ -24,7 +24,7 @@ _EST = 'target="_blank" rel="noopener"'
 PRIVACY_IT = f"""<p><strong>Ultimo aggiornamento:</strong> {{aggiornamento}}</p>
 <p>In questa pagina ti spiego quali dati tratto, perché e per quanto tempo, come chiede il Regolamento europeo sulla protezione dei dati (GDPR, art. 13). In breve: uso i tuoi dati per risponderti, lavorare sulla tua auto e rispettare la legge. Il sito non usa cookie né statistiche. Promemoria e offerte su WhatsApp solo se mi rispondi SÌ.</p>
 
-<h2>Chi sono</h2>
+<h2>Titolare del trattamento</h2>
 <p>Il titolare del trattamento è <strong>{{titolare}}</strong>, ditta individuale, {{sede_legale}}, P.IVA {{piva}}. Telefono e WhatsApp {{telefono}}, email <a href="mailto:{{email}}">{{email}}</a>, PEC <a href="mailto:{{pec}}">{{pec}}</a>.</p>
 <!-- DA VERIFICARE: aggiungere l'indirizzo dell'officina se diverso dalla sede legale. -->
 <p>Non ho nominato un responsabile della protezione dei dati (DPO), perché per un'officina come la mia non è obbligatorio. Per qualsiasi domanda sui tuoi dati scrivi o chiama direttamente me.</p>

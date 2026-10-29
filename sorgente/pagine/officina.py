@@ -23,10 +23,9 @@ ICO = {
     # il capannone con la serranda: l'officina nella home, accanto a ritiro e domicilio
     "officina": svg('<path d="M2.5 20.5V9.2L12 3.8l9.5 5.4v11.3"/><path d="M6.5 20.5v-8.8h11v8.8M6.5 14.6h11M6.5 17.5h11"/>'),
 }
-# Icona e rimando (pagina, frammento, testo) di ognuna delle quattro sezioni di OFFICINA_PAGINA["sezioni"], nello stesso ordine.
+# Icona e rimando (pagina, frammento, testo) di ognuna delle sezioni di OFFICINA_PAGINA["sezioni"], nello stesso ordine.
+# Orari e vettura di cortesia hanno già il loro spazio nella pagina: niente sezioni doppie.
 SEZIONI_EXTRA = [("attrezzi", ("servizi", "", "Tutti i servizi")),
-                 ("orario", None),
-                 ("cortesia", ("officina", "cortesia", "Come funziona")),
                  ("pagamenti", ("condizioni", "", "Garanzia e condizioni"))]
 
 

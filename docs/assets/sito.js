@@ -23,7 +23,7 @@
     aperto: "Aperto ora, fino alle ", apre: "Chiuso, apre alle ", riapre: "Chiuso, riapre ", domani: "domani", alle: " alle ", chiuso: "Chiuso",
     ciao: "Ciao Luca, ti scrivo dal sito.", servizio: "Servizio: ", mezzo: "Mezzo: ",
     pronto: "Messaggio pronto: premi Invia in WhatsApp. Se non si è aperto, ", apriQui: "aprilo da qui",
-    misura: "Misura: ", erroreMisura: "Scrivi la misura completa, per esempio 205 / 55 / 16.", errorePezzo: "Scrivi cosa ti serve.",
+    misura: "Misura: ", erroreMisura: "Scrivi la misura completa, per esempio 205 / 55 / 16.", errorePezzo: "Scrivi cosa ti serve.", erroreMisuraTarga: "Scrivi la misura della gomma oppure la targa.",
     esempioMisura: "Esempio di misura", tuaMisura: "La misura che cerchi",
     apriMenu: "Apri il menu", chiudiMenu: "Chiudi il menu",
     temaChiaro: "Passa al tema chiaro", temaScuro: "Passa al tema scuro", breveChiaro: "Tema chiaro", breveScuro: "Tema scuro"
@@ -182,7 +182,7 @@
       var righe = [T.ciao, "", T.servizio + servizio];
       if (vendita) {
         if (tipoVendita.value === "gomme") {
-          righe.push(T.misura + form.elements.larghezza.value + "/" + form.elements.spalla.value + " R" + form.elements.cerchio.value);
+          if (form.elements.larghezza.value) righe.push(T.misura + form.elements.larghezza.value + "/" + form.elements.spalla.value + " R" + form.elements.cerchio.value);
           righe.push("Stagione: " + form.elements.stagione.value);
           if (form.elements["targa-gomme"].value.trim()) righe.push("Targa: " + form.elements["targa-gomme"].value.trim());
         } else {
@@ -259,15 +259,17 @@
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       if (vendita) {
-        var obbligati = tipoVendita.value === "gomme" ? [form.elements.larghezza, form.elements.spalla, form.elements.cerchio] : [form.elements.pezzo];
+        var misura = [form.elements.larghezza, form.elements.spalla, form.elements.cerchio];
+        var soloTarga = tipoVendita.value === "gomme" && form.elements["targa-gomme"].value.trim() && misura.every(function (c) { return !c.value.trim(); });
+        var obbligati = soloTarga ? [] : tipoVendita.value === "gomme" ? misura : [form.elements.pezzo];
         var invalido = obbligati.find(function (c) { return !c.value.trim() || (c.name !== "pezzo" && !/^\d+$/.test(c.value.trim())); });
         if (invalido) {
           invalido.setAttribute("aria-invalid", "true");
-          if (tipoVendita.value === "gomme") $("[data-errore-misura]", scheda).textContent = T.erroreMisura;
+          if (tipoVendita.value === "gomme") $("[data-errore-misura]", scheda).textContent = misura.every(function (c) { return !c.value.trim(); }) ? T.erroreMisuraTarga : T.erroreMisura;
           else $("[data-errore-pezzo]", scheda).textContent = T.errorePezzo;
           invalido.focus(); return;
         }
-        obbligati.forEach(function (c) { c.removeAttribute("aria-invalid"); });
+        misura.concat(form.elements.pezzo).forEach(function (c) { c.removeAttribute("aria-invalid"); });
         $("[data-errore-misura]", scheda).textContent = "";
         $("[data-errore-pezzo]", scheda).textContent = "";
       }
@@ -301,9 +303,19 @@
       e.preventDefault();
       var primo = null;
       obbligatori.forEach(function (c) { if (!controlla(c) && !primo) primo = c; });
+      if (form.hasAttribute("data-misura-o-targa")) {
+        // basta la misura completa oppure la targa: chi non trova la misura non resta bloccato
+        var campiMisura = $$(".misura input", form), erroreMisura = $(".misura", form).parentNode.querySelector(".errore");
+        var vuota = campiMisura.every(function (c) { return !c.value.trim(); });
+        var piena = campiMisura.every(function (c) { return /^\d+$/.test(c.value.trim()); });
+        var ok = piena || (vuota && form.elements.targa.value.trim());
+        campiMisura.forEach(function (c) { if (ok) c.removeAttribute("aria-invalid"); else c.setAttribute("aria-invalid", "true"); });
+        erroreMisura.textContent = ok ? "" : (vuota ? T.erroreMisuraTarga : T.erroreMisura);
+        if (!ok && !primo) primo = vuota ? campiMisura[0] : campiMisura.find(function (c) { return !/^\d+$/.test(c.value.trim()); });
+      }
       if (primo) { primo.focus(); return; }
       var f = form.elements, righe = [form.getAttribute("data-intro"), ""];
-      if (f.larghezza) righe.push(T.misura + f.larghezza.value + "/" + f.spalla.value + " R" + f.cerchio.value);
+      if (f.larghezza && f.larghezza.value) righe.push(T.misura + f.larghezza.value + "/" + f.spalla.value + " R" + f.cerchio.value);
       $$("[data-etichetta]", form).forEach(function (c) {
         var v = (c.value || "").trim();
         if (v) righe.push(c.getAttribute("data-etichetta") + ": " + v);

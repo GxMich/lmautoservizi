@@ -45,7 +45,6 @@ RECENSIONI_CON_PERMESSO = None     # True quando Beatrice, Denise e Paolo hanno 
 
 # Spiegazione dei dati mancanti: genera.py la stampa per ogni valore rimasto None.
 DA_COMPLETARE = {
-    "CAP_OFFICINA": "CAP dell'officina.",
     "FACEBOOK": "la pagina è di Luca ma per scelta non va sul sito: resta None (non serve completarlo).",
     "INSTAGRAM": "Luca dice di non avere Instagram: resta None finché non apre un profilo.",
     "RECENSIONI_GOOGLE": "link diretto «scrivi una recensione» dal Profilo dell'attività su Google (Chiedi recensioni): aggiunge il pulsante sotto le recensioni.",
@@ -61,24 +60,6 @@ RECENSIONI = [("Trovare un meccanico bravo è difficile, ma trovare una persona 
               ("Estremamente competente, gentile e disponibile. Ti spiega molto bene il lavoro che andrà a fare e come. Onesto ed esperto, consiglio a chiunque.", "Denise F."),
               ("Sostituzione batteria. Passaggio a casa e viceversa. Persona a mio avviso affidabile. Tutto ok", "Paolo C.")]
 
-DETT = [
-    ("manutenzione", "Tagliando e manutenzione", "Manutenzione ordinaria e straordinaria su auto di tutte le marche. Ti dico cosa serve e quanto costa prima di iniziare.",
-     ["Assistenza e manutenzione programmata", "Riparazioni meccaniche, anche sul ponte", "Preventivo gratuito dopo la diagnosi"]),
-    ("diagnosi", "Diagnosi centraline", "Una spia accesa sul cruscotto si legge subito, prima di decidere cosa fare. Software aggiornato ogni giorno.",
-     ["Lettura degli errori e delle spie", "Programmazione delle centraline", "Diagnosi in officina o, nei casi semplici, da te"]),
-    ("elettrauto", "Elettrauto", "Diagnosi e riparazione di ogni genere di difetto elettrico.",
-     ["Problemi di avviamento e di ricarica", "Impianto luci, accessori e cablaggi", "Preventivo prima di iniziare"]),
-    ("clima", "Climatizzatore", "Controllo e ricarica dell'impianto di climatizzazione. Ho la formazione per il recupero dei gas fluorurati nei veicoli.",
-     ["Controllo dell'impianto", "Ricarica del gas", "Formazione sul recupero dei gas fluorurati (Reg. CE 307/2008)"]),
-    ("gomme", "Gomme", "Il cambio dei pneumatici sul cerchio si fa in officina. Le forature e il cambio delle ruote già montate le faccio anche da te.",
-     ["Sostituzione pneumatici, equilibratura, convergenza e campanatura", "Riparazione delle forature", "Cambio stagionale delle ruote montate"]),
-    ("carrozzeria", "Carrozzeria", "Lavori di carrozzeria, verniciatura, saldatura e sistemazioni varie. Chiedi un preventivo gratuito e confronta i prezzi.",
-     ["Carrozzeria e sistemazioni varie", "Verniciatura", "Saldatura"]),
-    ("revisione", "Pre-revisione", "Non farti trovare impreparato: ti controllo l'auto gratis prima della revisione periodica e ti prenoto la revisione.",
-     ["Controllo generale gratuito", "Prenotazione della revisione", "Sono abilitato come responsabile tecnico delle revisioni"]),
-    ("aziende", "Consulenza alle imprese", "Consulenza per le imprese che operano nel settore automobilistico. Ne parliamo e capiamo insieme di cosa hai bisogno.",
-     ["Un tecnico con vent'anni di esperienza multimarca", "Un confronto su misura per la tua attività"]),
-]
 
 FAQ_R = [("Quanto costa il ritiro?", "Niente: ritiro e riconsegna sono sempre gratis, entro 20 km dall'officina."),
          ("Fino a dove arrivi?", f"{ZONA_TESTO[0].upper()}{ZONA_TESTO[1:]}. Se non sei sicuro, chiamami."),

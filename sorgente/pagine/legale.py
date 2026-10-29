@@ -10,7 +10,7 @@ from sito import (inizia, scrivi, head, testata, intro, piede, briciole, href, n
 
 # Data dell'ultima modifica dei testi legali, mostrata in cima all'informativa.
 # Va cambiata a mano quando cambia testi_legali.py o quando si accendono le statistiche.
-AGGIORNAMENTO = datetime.date(2026, 10, 27)
+AGGIORNAMENTO = datetime.date(2026, 10, 29)
 MESI = ("gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre")
 ESTERNO = 'target="_blank" rel="noopener"'
 
@@ -120,7 +120,7 @@ def condizioni():
 <p>In breve, le regole del prestito:</p>
 {vettura}
 <h2 id="altre-informazioni">Altre informazioni</h2>
-<p>Come tratto i dati della patente, del contratto e del verbale lo spiego nella pagina <a href="{href("privacy", frammento="vettura-di-cortesia")}">{nome("privacy")}</a>. Dove si trova l'officina e come lavoro lo trovi in <a href="{href("officina")}">{nome("officina")}</a>; come funzionano il ritiro dell'auto e la vettura di cortesia in <a href="{href("ritiro")}">{nome("ritiro")}</a>.</p>
+<p>Come tratto i dati della patente, del contratto e del verbale lo spiego nella pagina <a href="{href("privacy", frammento="vettura-di-cortesia")}">{nome("privacy")}</a>. Dove si trova l'officina e come lavoro lo trovi in <a href="{href("officina")}">{nome("officina")}</a>; come funziona il ritiro dell'auto in <a href="{href("ritiro")}">{nome("ritiro")}</a>, e la vettura di cortesia passo per passo in <a href="{href("officina", frammento="cortesia")}">{nome("officina")}</a>.</p>
 <p>L'officina è abilitata per {abilitazioni()}, come prevede la legge 122/1992 sull'autoriparazione.</p>
 <p>Per qualsiasi dubbio chiamami al <a href="tel:{TEL}">{tel_txt()}</a> o scrivimi a <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>'''
     scrivi(head("Garanzia e condizioni | L.M. Autoservizi",

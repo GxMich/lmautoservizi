@@ -51,7 +51,7 @@ def costruisci():
     scrivi(head("Gomme e ricambi a Frassineto Po | L.M. Autoservizi",
                 "Ricambi, gomme, lubrificanti, additivi, accessori e batterie: chiedi su WhatsApp disponibilità e prezzo, poi ritiri in officina a Frassineto Po.",
                 [azienda(), briciole("Gomme e ricambi")], immagine="servizio-gommista") + testata()
-           + intro("Gomme e ricambi", "Dimmi cosa ti serve: ti rispondo con disponibilità e prezzo. Niente spedizioni: ritiri in officina, e al montaggio penso io.") + f'''
+           + intro("Gomme e ricambi", "Dimmi cosa ti serve: ti rispondo con disponibilità e prezzo. Lo ritiri in officina, e al montaggio penso io.") + f'''
 <section class="sezione" aria-labelledby="catalogo-t">
   <div class="wrap">
     <h2 id="catalogo-t">Cosa trovi</h2>
@@ -70,22 +70,24 @@ def costruisci():
     <div>
       <h2 id="gomme-t">Vendita pneumatici</h2>
       <p class="lead">Estive, invernali e quattro stagioni. La misura è scritta sul fianco, per esempio 205/55 R16: se non la trovi, dimmi la targa e la ricavo io.</p>
-      <form class="modulo" data-wa data-intro="{attr("Ciao Luca, vorrei un preventivo per delle gomme.")}" novalidate aria-labelledby="gomme-t">
+      <form class="modulo" data-wa data-intro="{attr("Ciao Luca, vorrei un preventivo per delle gomme.")}" data-misura-o-targa novalidate aria-labelledby="gomme-t">
         <fieldset class="campo">
-          <legend>Misura della gomma</legend>
+          <legend>Misura della gomma <span>(oppure la targa, qui sotto)</span></legend>
           <div class="misura">
-            <label><span class="sr">Larghezza</span><input name="larghezza" inputmode="numeric" maxlength="3" placeholder="205" required autocomplete="off"></label><i aria-hidden="true">/</i>
-            <label><span class="sr">Spalla</span><input name="spalla" inputmode="numeric" maxlength="2" placeholder="55" required autocomplete="off"></label><i aria-hidden="true">R</i>
-            <label><span class="sr">Cerchio in pollici</span><input name="cerchio" inputmode="numeric" maxlength="2" placeholder="16" required autocomplete="off"></label>
+            <label><span class="sr">Larghezza</span><input name="larghezza" inputmode="numeric" maxlength="3" placeholder="205" autocomplete="off"></label><i aria-hidden="true">/</i>
+            <label><span class="sr">Spalla</span><input name="spalla" inputmode="numeric" maxlength="2" placeholder="55" autocomplete="off"></label><i aria-hidden="true">R</i>
+            <label><span class="sr">Cerchio in pollici</span><input name="cerchio" inputmode="numeric" maxlength="2" placeholder="16" autocomplete="off"></label>
           </div>
           <p class="errore" aria-live="polite"></p>
         </fieldset>
+        <div class="campo"><label for="g-targa">Targa <span>(se non trovi la misura)</span></label>
+          <div class="targa">{TARGA_UE}<input id="g-targa" name="targa" class="targa-campo" data-etichetta="Targa" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="8" placeholder="AB123CD"></div></div>
         <div class="campi-due">
           <div class="campo"><label for="g-stagione">Che gomme cerchi</label><select id="g-stagione" name="stagione" data-etichetta="Stagione"><option>Estive</option><option>Invernali</option><option>Quattro stagioni</option><option>Non lo so, consigliami tu</option></select></div>
           <div class="campo"><label for="g-mezzo">Mezzo <span>(facoltativo)</span></label><input id="g-mezzo" name="mezzo" data-etichetta="Mezzo" placeholder="Es. Fiat Panda 2015"></div>
         </div>
         <button class="btn btn--arancio btn--pieno" type="submit">{I["chat"]}Chiedi disponibilità su WhatsApp</button>
-        <p class="nota">Ti rispondo con disponibilità e prezzo. Niente spedizioni: il montaggio si fa in officina.</p>
+        <p class="nota">Ti rispondo con disponibilità e prezzo. Il montaggio si fa in officina.</p>
         <p class="esito" role="status" hidden></p>
       </form>
       {spunte(["Montaggio ed equilibratura in officina", "Convergenza e campanatura", "Deposito delle gomme che non usi, fino al prossimo cambio", "Riparazione delle forature, anche da te"])}
@@ -111,7 +113,7 @@ def costruisci():
       <div class="campo"><label for="rc-pezzo">Che pezzo ti serve</label><input id="rc-pezzo" name="pezzo" data-etichetta="Pezzo" required placeholder="Es. pastiglie dei freni anteriori"><p class="errore" aria-live="polite"></p></div>
       <div class="campo"><label for="rc-mezzo">Mezzo <span>(facoltativo)</span></label><input id="rc-mezzo" name="mezzo" data-etichetta="Mezzo" placeholder="Es. Fiat Panda 2015"></div>
       <button class="btn btn--arancio btn--pieno" type="submit">{I["chat"]}Chiedi su WhatsApp</button>
-      <p class="nota">Si apre WhatsApp con il messaggio già scritto. Niente spedizioni: ritiri in officina, dopo il pagamento.</p>
+      <p class="nota">Si apre WhatsApp con il messaggio già scritto. L'invio lo confermi tu.</p>
       <p class="esito" role="status" hidden></p>
     </form>
   </div>

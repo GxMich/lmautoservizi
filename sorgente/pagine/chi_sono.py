@@ -1,7 +1,7 @@
 """Chi sono: Luca, il suo percorso e gli attestati (si aprono a grandezza piena)."""
 from contenuti import ATT, ANNI_ESPERIENZA
 from sito import (inizia, scrivi, head, testata, intro, finale, piede, foto, azienda, briciole, risorsa,
-                  attr, anni_esperienza, abilitazioni, lightbox, I)
+                  attr, anni_esperienza, abilitazioni, lightbox, indirizzo_officina, I)
 
 def costruisci():
     inizia("chi")
@@ -21,7 +21,7 @@ def costruisci():
     <div>
       <dl class="tessera">
         <div><dt>Titolare</dt><dd>Luca Miglietta</dd></div>
-        <div><dt>Officina</dt><dd>Via Ticineto 15, Frassineto Po (AL)</dd></div>
+        <div><dt>Officina</dt><dd>{indirizzo_officina()}</dd></div>
         <div><dt>Esperienza</dt><dd>{anni_esperienza()} anni, multimarca</dd></div>
         <div><dt>Mezzi</dt><dd>Auto, fuoristrada, furgoni e camper</dd></div>
         <div><dt>Officina abilitata</dt><dd>{abilitazioni().capitalize()}</dd></div>

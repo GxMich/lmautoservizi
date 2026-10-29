@@ -22,7 +22,7 @@ API per i moduli delle pagine
 - Tendina WhatsApp: SERVIZI, EXTRA, dati_servizio(), apri(chiave, testo), apri_servizio(id, testo); scheda() è già nel piede.
 - Foto: foto_info(spazio), img(spazio, sizes, ...), foto(spazio, sizes, classe), nota_foto(spazio).
 - Pezzi: head(titolo, descrizione, schema=(), immagine="officina", noindex=False), testata(), intro(titolo, testo),
-  orari(), spunte(voci), casella(s), griglia_servizi(con_foto=True), finale(titolo=None, testo=None), piede(extra=""), lightbox() da passare a piede().
+  orari(), spunte(voci), casella(s), griglia_servizi(con_foto=True), finale(titolo=None, testo=None, pulsante=None), piede(extra=""), lightbox() da passare a piede().
 - Dati strutturati: azienda(), briciole(nome=None); sito_web() (WebSite) head() lo aggiunge da sé alla home.
   ZONA e zona_servita(): comuni serviti e areaServed; SERVIZI_PAGINE: le pagine dei servizi (catalogo nei dati strutturati, Servizi evidenziato nel menu).
 - Testi legali: senza_commenti(html) toglie le note interne <!-- ... --> dei testi di testi_legali.py;
@@ -580,7 +580,7 @@ def scheda():
             <label><span class="sr">Cerchio in pollici</span><input name="cerchio" inputmode="numeric" maxlength="2" placeholder="16" autocomplete="off"></label>
           </div><p class="errore" data-errore-misura aria-live="polite"></p></fieldset>
           <div class="campo"><label for="scheda-stagione">Che gomme cerchi</label><select id="scheda-stagione" name="stagione"><option>Estive</option><option>Invernali</option><option>Quattro stagioni</option><option>Non lo so, consigliami tu</option></select></div>
-          <div class="campo"><label for="scheda-targa-gomme">Targa <span>(facoltativa)</span></label><input id="scheda-targa-gomme" name="targa-gomme" maxlength="8" placeholder="AB123CD" autocomplete="off" autocapitalize="characters"></div>
+          <div class="campo"><label for="scheda-targa-gomme">Targa <span>(se non trovi la misura)</span></label><input id="scheda-targa-gomme" name="targa-gomme" maxlength="8" placeholder="AB123CD" autocomplete="off" autocapitalize="characters"></div>
         </div>
         <div data-pannello-vendita="ricambi" hidden>
           <div class="campo"><label for="scheda-targa-ricambi">Targa <span>(facoltativa)</span></label><input id="scheda-targa-ricambi" name="targa-ricambi" maxlength="8" placeholder="AB123CD" autocomplete="off" autocapitalize="characters"></div>
@@ -698,8 +698,10 @@ def griglia_servizi(con_foto=True):
     return f'<ul class="servizi-griglia">{altro}{casella(domicilio, con_foto)}{resto}{noleggio}</ul>'
 
 
-def finale(titolo=None, testo=None):
+def finale(titolo=None, testo=None, pulsante=None):
+    """Chiusura della pagina: il numero grande, il pulsante principale (di norma la scelta del servizio in home) e WhatsApp."""
     titolo = titolo or "Ti serve una mano con il tuo mezzo?"
+    pulsante = pulsante or f'<a class="btn btn--arancio" href="{href("home", frammento="servizi")}">Scegli il servizio {I["freccia"]}</a>'
     testo = testo or "Chiamami o scrivimi: ti dico quando puoi portarmelo in officina, o quando posso passare a ritirarlo."
     return f'''
 <section class="finale">
@@ -707,7 +709,7 @@ def finale(titolo=None, testo=None):
     <div><h2>{titolo}</h2><p>{testo}</p></div>
     <div class="finale-azioni">
       <a class="numerone" href="tel:{TEL}">{tel_txt()}</a>
-      <div class="azioni"><a class="btn btn--arancio" href="{href("home", frammento="servizi")}">Scegli il servizio {I["freccia"]}</a><a class="btn btn--vuoto" href="{wa()}" target="_blank" rel="noopener">{I["chat"]}WhatsApp</a></div>
+      <div class="azioni">{pulsante}<a class="btn btn--vuoto" href="{wa()}" target="_blank" rel="noopener">{I["chat"]}WhatsApp</a></div>
     </div>
   </div>
 </section>

@@ -9,9 +9,6 @@ from sito import (inizia, scrivi, head, testata, piede, orari, griglia_servizi, 
 
 def costruisci():
     inizia("home")
-    # L'officina: tre punti con le icone che si disegnano (gancio .vantaggi-lista di 00-base.js).
-    punti = "".join(f'<li>{ICO[ico]}<h3>{titolo}</h3><p>{testo}</p></li>'
-                    for ico, (titolo, testo) in zip(("orario", "cortesia", "preventivo"), HOME["officina_punti"]))
     # I tre modi, alla pari: stesse carte, stesso peso, ognuna porta alla sua pagina.
     modi = "".join(f'<li>{ico}<p class="modi-etichetta">{etichetta}</p><h3>{titolo}</h3><p>{testo}</p>'
                    f'<a class="link" href="{link}">{azione} {I["freccia"]}</a></li>'
@@ -23,11 +20,15 @@ def costruisci():
     caratteri = max(len(riga_a), len(riga_b) + 1)
     recensioni = "".join(f'<figure class="voce"><blockquote lang="it"><p>{testo}</p></blockquote><figcaption>{nome}</figcaption></figure>' for testo, nome in RECENSIONI)
     tutte = f'<a class="link" href="{MAPS}" target="_blank" rel="noopener">Tutte le recensioni su Google {I["esterno"]}</a>'
+    # Le recensioni con il nome compaiono solo con il permesso di chi le ha scritte, come dice la privacy;
+    # fino ad allora resta l'invito a leggerle sulla scheda Google.
+    recensioni_sito = (f'<div class="voci">{recensioni}</div>\n    {nota_recensioni()}' if RECENSIONI_CON_PERMESSO
+                       else '<p class="lead recensioni-invito">Le recensioni dei miei clienti sono sulla mia scheda Google: le trovi tutte, anche quelle critiche.</p>')
     if RECENSIONI_GOOGLE:  # con il link diretto, i due collegamenti stanno in riga
         tutte = f'<div class="azioni">{tutte}<a class="link" href="{RECENSIONI_GOOGLE}" target="_blank" rel="noopener">Lascia una recensione {I["esterno"]}</a></div>'
     eroe_stock = foto_info("eroe")[4]
-    scrivi(head("Meccanico di fiducia a Frassineto Po | L.M. Autoservizi",
-                "L'officina di Luca Miglietta a Frassineto Po: meccanica, elettrauto, gomme, carrozzeria e diagnosi, multimarca. Orario continuato, vettura di cortesia gratuita.",
+    scrivi(head("Meccanico a Frassineto Po e Casale Monferrato | L.M. Autoservizi",
+                "Meccanico a Frassineto Po, vicino a Casale: tagliandi, elettrauto, gomme e carrozzeria su tutte le marche. Ritiro gratis entro 20 km, preventivo gratuito.",
                 [azienda()], immagine="officina") + testata() + f'''
 <section class="eroe" aria-labelledby="eroe-t">
   <div class="eroe-fascio" aria-hidden="true"></div>
@@ -43,7 +44,7 @@ def costruisci():
   </div>
   <div class="eroe-basso wrap">
     <div class="eroe-testo">
-      <p>Quando il tuo mezzo ha un problema, vuoi qualcuno che ti ascolti, ti spieghi cosa serve e lo sistemi. <strong>Sono Luca Miglietta</strong>: vedi il preventivo prima di iniziare e dalla prima telefonata alla riconsegna parli sempre con me.</p>
+      <p><strong>Sono Luca Miglietta, meccanico a Frassineto Po</strong>, vicino a Casale Monferrato. Ti spiego cosa serve e quanto costa prima di iniziare, e dalla prima telefonata alla riconsegna parli sempre con me.</p>
       <div class="azioni">
         <a class="btn btn--arancio" href="#servizi">Cosa ti serve? {I["giu"]}</a>
         <a class="btn btn--vuoto eroe-chiama" href="tel:{TEL}">{I["tel"]}{tel_txt()}</a>
@@ -89,7 +90,6 @@ def costruisci():
       </div>
       <figure class="foto officina-home-foto" data-iride>{img("officina", "(max-width: 899px) 100vw, 50vw")}<p class="stato" data-stato></p>{nota_foto("officina")}</figure>
     </div>
-    <ul class="vantaggi-lista officina-punti">{punti}</ul>
   </div>
 </section>
 
@@ -106,16 +106,15 @@ def costruisci():
         <div><dt>Officina abilitata</dt><dd>{abilitazioni().capitalize()}</dd></div>
         <div><dt>Climatizzatori</dt><dd>Recupero dei gas fluorurati, Reg.&nbsp;CE&nbsp;307/2008</dd></div>
       </dl>
-      <a class="link" href="{href("chi")}">Conosci Luca {I["freccia"]}</a>
+      <a class="link" href="{href("chi")}">Chi sono {I["freccia"]}</a>
     </div>
   </div>
 </section>
 
 <section class="recensioni" aria-labelledby="rec-t">
   <div class="wrap">
-    <h2 id="rec-t">Chi si è già affidato a Luca</h2>
-    <div class="voci">{recensioni}</div>
-    {nota_recensioni() if RECENSIONI_CON_PERMESSO else f'<p class="piccolo recensioni-fonte">Recensioni scelte da Luca tra quelle pubblicate su Google</p>'}
+    <h2 id="rec-t">Cosa dicono i clienti</h2>
+    {recensioni_sito}
     {tutte}
   </div>
 </section>

@@ -18,9 +18,9 @@ SERVIZI_PAGINE = {
         "description": "Tagliandi, manutenzione e riparazioni meccaniche sul ponte, su tutte le marche. Officina a Frassineto Po, vicino a Casale. Chiedi un preventivo gratuito.",
         "h1": "Meccanico a Frassineto Po",
         "risposta": ("Sono Luca Miglietta, di L.M. Autoservizi. Lavoro da solo nella mia officina a Frassineto Po, vicino a Casale Monferrato. "
-                     "Faccio tagliandi, manutenzione ordinaria e straordinaria e riparazioni meccaniche, anche sul ponte, su tutte le marche. "
+                     "Faccio tagliandi, manutenzione ordinaria e straordinaria e riparazioni meccaniche su tutte le marche. "
                      "Sono aperto dal lunedì al venerdì, dalle 7:30 alle 19:30, orario continuato. "
-                     "Scrivimi su WhatsApp o chiamami: il preventivo è gratuito e arriva prima di iniziare."),
+                     "Scrivimi su WhatsApp o chiamami: il preventivo è gratuito e te lo do prima di iniziare."),
         "comprende": [
             ("Tagliandi",
              "Tagliando secondo il piano di manutenzione della casa, su auto, fuoristrada, furgoni e camper."),
@@ -39,7 +39,7 @@ SERVIZI_PAGINE = {
             ("Un solo riferimento",
              "Lavoro da solo: la tua auto la segue la stessa persona, dalla prima telefonata alla riconsegna."),
             ("Vettura di cortesia gratuita",
-             "Ti lascio un'auto con il pieno, pulita e igienizzata. Ne ho una: chiedila quando prenoti."),
+             "Ne ho una sola: se è libera, la tieni finché il tuo mezzo è pronto. Chiedila quando prenoti."),
         ],
         "faq": [
             ("Fai il tagliando su auto di tutte le marche?",
@@ -52,7 +52,7 @@ SERVIZI_PAGINE = {
             ("E se durante il lavoro trovi altro da sistemare?",
              "Ti chiamo e ti spiego cosa ho trovato. I lavori in più li faccio solo dopo il tuo ok."),
             ("Quanto tempo resta in officina l'auto per il tagliando?",
-             ("Dipende dal mezzo e da cosa prevede il tagliando. Quando ci accordiamo ti dico quando portarla e quando riprenderla. "
+             ("Dipende dal mezzo e da cosa prevede il tagliando. Quando ci accordiamo ti dico quando portare il mezzo e quando riprenderlo. "
               "Con l'orario continuato puoi lasciarla prima del lavoro e passare a prenderla dopo.")),
         ],
         "nota_mezzo": "Es. tagliando in scadenza, rumore in frenata, perdita d'olio. Scrivi anche i chilometri.",
@@ -69,7 +69,7 @@ SERVIZI_PAGINE = {
                      "Mi occupo di avviamento, batteria e ricarica, impianto luci, accessori e cablaggi. "
                      "Controllo e ricarico anche il climatizzatore. "
                      "Sono aperto dal lunedì al venerdì, dalle 7:30 alle 19:30, orario continuato. "
-                     "Scrivimi su WhatsApp o chiamami: il preventivo è gratuito e arriva prima di iniziare."),
+                     "Scrivimi su WhatsApp o chiamami: il preventivo è gratuito e te lo do prima di iniziare."),
         "comprende": [
             ("Avviamento",
              "Se l'auto fatica a partire, controllo avviamento, batteria e ricarica e trovo dov'è il problema."),
@@ -80,7 +80,7 @@ SERVIZI_PAGINE = {
             ("Accessori e cablaggi",
              "Monto accessori e sistemo cablaggi, anche su furgoni e camper."),
             ("Difetti elettrici",
-             "Ogni genere di difetto elettrico, anche quelli che vanno e vengono. Prima cerco la causa, poi ti dico cosa serve."),
+             "Tutti i difetti elettrici, anche quelli che vanno e vengono. Prima cerco la causa, poi ti dico cosa serve."),
             ("Climatizzatore",
              "Controllo dell'impianto e ricarica del gas. Ho la formazione per il recupero dei gas fluorurati (Reg. CE 307/2008)."),
         ],
@@ -118,7 +118,7 @@ SERVIZI_PAGINE = {
                      "Lavoro da solo, con le attrezzature per montaggio, equilibratura e convergenza. "
                      "Riparo forature, faccio il cambio stagionale con il deposito delle gomme e vendo gomme estive, invernali e quattro stagioni. "
                      "Sono aperto dal lunedì al venerdì, dalle 7:30 alle 19:30, orario continuato. "
-                     "Scrivimi su WhatsApp o chiamami: il preventivo è gratuito e arriva prima di iniziare."),
+                     "Scrivimi su WhatsApp o chiamami: il preventivo è gratuito e te lo do prima di iniziare."),
         "comprende": [
             ("Sostituzione pneumatici",
              "Smonto e monto le gomme sul cerchio, in officina."),
@@ -146,7 +146,7 @@ SERVIZI_PAGINE = {
         "faq": [
             ("Quando si montano le gomme invernali?",
              ("Dove previsto dalle ordinanze, servono gomme invernali o catene a bordo, di solito dal 15 novembre al 15 aprile. "
-              "Le invernali si possono montare dal 15 ottobre. Le estive si rimontano entro il 15 maggio.")),
+              "Le invernali si possono montare dal 15 ottobre. Se hanno un codice di velocità più basso di quello del libretto, vanno tolte entro il 15 maggio.")),
             ("Ogni quanto si fa la convergenza?",
              ("Dipende dall'auto e da come la usi. Conviene controllarla quando monti gomme nuove o dopo un colpo forte contro una buca o un marciapiede. "
               "Anche se l'auto tira da un lato o le gomme si consumano in modo irregolare.")),
@@ -168,12 +168,12 @@ SERVIZI_PAGINE = {
     "carrozzeria": {
         "nome": "Carrozzeria",
         "title": "Carrozzeria a Frassineto Po, vicino a Casale | L.M. Autoservizi",
-        "description": "Carrozzeria, verniciatura, saldatura e sistemazioni varie a Frassineto Po, vicino a Casale. Mandami le foto del danno su WhatsApp per una prima idea.",
+        "description": "Carrozzeria, verniciatura, saldatura e piccoli lavori di carrozzeria a Frassineto Po, vicino a Casale. Mandami le foto del danno su WhatsApp per una prima idea.",
         "h1": "Carrozzeria a Frassineto Po",
         "risposta": ("Sono Luca Miglietta e lavoro da solo nella mia officina a Frassineto Po, vicino a Casale Monferrato. "
-                     "Faccio carrozzeria, verniciatura, saldatura e sistemazioni varie, su mezzi di tutte le marche. "
+                     "Faccio carrozzeria, verniciatura, saldatura e piccoli lavori di carrozzeria, su mezzi di tutte le marche. "
                      "Per una prima idea mandami le foto del danno su WhatsApp, oppure chiamami. "
-                     "Il preventivo è gratuito e arriva prima di iniziare. "
+                     "Il preventivo è gratuito e te lo do prima di iniziare. "
                      "Sono aperto dal lunedì al venerdì, dalle 7:30 alle 19:30, orario continuato."),
         "comprende": [
             ("Carrozzeria",
@@ -193,7 +193,7 @@ SERVIZI_PAGINE = {
             ("Un solo riferimento",
              "Parli sempre con me, dalla prima foto alla riconsegna. Ti aggiorno io su come va il lavoro."),
             ("Vettura di cortesia gratuita",
-             "Se il lavoro richiede più giorni, hai un'auto con il pieno, pulita e igienizzata."),
+             "Se il lavoro richiede più giorni e la vettura di cortesia è libera, la tieni finché il tuo mezzo è pronto."),
         ],
         "faq": [
             ("Posso mandarti le foto del danno?",
@@ -201,9 +201,9 @@ SERVIZI_PAGINE = {
             ("Sistemi anche un graffio o una piccola ammaccatura?",
              "Sì, faccio anche i lavori piccoli. Mandami una foto e ti dico come la vedo."),
             ("Ripari anche ruggine e parti da saldare?",
-             "Faccio saldature e sistemazioni varie, anche su furgoni e camper. Mandami una foto della zona e ti dico se conviene intervenire."),
+             "Faccio saldature e piccoli lavori di carrozzeria, anche su furgoni e camper. Mandami una foto della zona e ti dico se conviene intervenire."),
             ("Quanto resta in officina il mezzo?",
-             "Dipende dal lavoro: ne parliamo quando ti do il preventivo. Intanto puoi avere la vettura di cortesia gratuita: dimmelo quando prenoti."),
+             "Dipende dal lavoro: ne parliamo quando ti do il preventivo. Intanto, se è libera, hai la vettura di cortesia gratuita: dimmelo quando prenoti."),
             ("Quando e come pago?",
              "Paghi alla riconsegna, in contanti, con carta o con bancomat."),
         ],
@@ -215,14 +215,14 @@ SERVIZI_PAGINE = {
     "diagnosi": {
         "nome": "Diagnosi e pre-revisione",
         "title": "Diagnosi auto e pre-revisione a Frassineto Po | L.M. Autoservizi",
-        "description": "Spie, errori e programmazione centraline con software aggiornato ogni giorno, a Frassineto Po. Controllo gratuito prima della revisione: scrivimi.",
+        "description": "Spie, errori e programmazione delle centraline con software di diagnosi aggiornato, a Frassineto Po. Controllo gratuito prima della revisione: scrivimi.",
         "h1": "Diagnosi e pre-revisione a Frassineto Po",
         "risposta": ("Sono Luca Miglietta e lavoro da solo nella mia officina a Frassineto Po, vicino a Casale Monferrato. "
-                     "Leggo errori e spie e programmo centraline con software aggiornato ogni giorno. "
+                     "Leggo errori e spie e programmo le centraline con un software di diagnosi aggiornato. "
                      "Prima della revisione controllo gratis il mezzo e te la prenoto. "
                      "La fanno solo la Motorizzazione o i centri autorizzati. "
                      "Sono aperto dal lunedì al venerdì, 7:30–19:30, orario continuato. "
-                     "Scrivimi su WhatsApp o chiamami: il preventivo gratuito arriva prima di iniziare."),
+                     "Scrivimi su WhatsApp o chiamami: il preventivo è gratuito e te lo do prima di iniziare."),
         "comprende": [
             ("Lettura di errori e spie",
              "Collego la diagnosi e leggo cosa segnala la centralina, prima di decidere cosa fare."),
@@ -254,7 +254,7 @@ SERVIZI_PAGINE = {
             ("Cosa controlli nella pre-revisione?",
              "Guardo i punti che si verificano in revisione, come luci, freni, gomme e spie. Se trovo qualcosa ti dico cosa serve e quanto costa, e decidi tu."),
             ("Mi hanno detto che va programmata la centralina: lo fai?",
-             "Programmo le centraline con software aggiornato ogni giorno. Scrivimi marca, modello e anno del mezzo e ti dico se posso farlo e quanto costa."),
+             "Programmo le centraline. Scrivimi marca, modello e anno del mezzo e ti dico se posso farlo e quanto costa."),
             ("La diagnosi si può fare anche fuori dall'officina?",
              "Di solito la faccio in officina. Nei casi semplici leggo le spie anche sul posto, con l'assistenza a domicilio, entro 20 km da Frassineto Po."),
         ],
@@ -272,12 +272,12 @@ SERVIZI_PAGINE = {
         "risposta": ("Sono Luca Miglietta e nella mia officina a Frassineto Po progetto e costruisco allestimenti per il campeggio e il fuoristrada. "
                      "Il mio Ford Ranger attrezzato per il campeggio l'ho progettato e costruito da zero. "
                      "Lo stesso lavoro lo posso fare sul tuo pick-up, fuoristrada, furgone o camper: partiamo da come lo usi e da cosa vorresti fare. "
-                     "Il preventivo è gratuito e arriva prima di iniziare."),
+                     "Il preventivo è gratuito e te lo do prima di iniziare."),
         "comprende": [
             ("Allestimenti per il campeggio",
-             "Soluzioni per dormire e campeggiare con il tuo mezzo, pensate sul tuo modo di viaggiare."),
+             "Soluzioni per dormire e campeggiare con il tuo mezzo, pensate per il tuo modo di viaggiare."),
             ("Allestimenti per il fuoristrada",
-             "Modifiche e accessori per usare il mezzo fuori strada, con la stessa cura che metto in officina."),
+             "Modifiche e accessori per usare il mezzo fuori strada, con la stessa cura che metto in officina. Se una modifica va omologata o collaudata, te lo dico prima."),
             ("Progetto su misura",
              "Ascolto cosa ti serve, ti propongo una soluzione e ti dico quanto costa prima di iniziare."),
             ("Costruito in officina",
@@ -311,7 +311,7 @@ SERVIZI_HUB = {
     "intro": ("Nella mia officina a Frassineto Po, vicino a Casale Monferrato, seguo auto, fuoristrada, furgoni e camper. "
               "Lavoro su tutte le marche, da solo, dalla prima telefonata alla riconsegna. "
               "Scegli il servizio: per ognuno trovi cosa comprende e le domande più frequenti. "
-              "Il preventivo è gratuito e arriva prima di iniziare."),
+              "Il preventivo è gratuito e te lo do prima di iniziare."),
 }
 
 OFFICINA_PAGINA = {
@@ -323,17 +323,10 @@ OFFICINA_PAGINA = {
               "Sono aperto dal lunedì al venerdì, dalle 7:30 alle 19:30, senza pausa pranzo."),
     "sezioni": [
         ("Cosa trovi in officina",
-         ("Il ponte, per lavorare sotto il mezzo. La diagnosi, con software aggiornato ogni giorno. "
+         ("Il ponte, per lavorare sotto il mezzo. La diagnosi, con un software aggiornato. "
           "Le attrezzature per le gomme: montaggio, equilibratura e convergenza. "
           "L'officina è abilitata per meccatronica, carrozzeria e gommista, come chiede la legge 122/1992. "
           "E ci sono io, che seguo il tuo mezzo dall'inizio alla fine.")),
-        ("Orario continuato, dal lunedì al venerdì",
-         ("Sono aperto dalle 7:30 alle 19:30, senza pausa pranzo. "
-          "Puoi lasciare l'auto prima di andare al lavoro e riprenderla quando esci. "
-          "Sabato e domenica sono chiuso.")),
-        ("Vettura di cortesia gratuita",
-         ("Mentre riparo il tuo mezzo, ti lascio una vettura di cortesia gratuita, per tutta la riparazione. "
-          "Ne ho una sola, quindi chiedila quando prenoti. Te la consegno con il pieno, pulita e igienizzata, e le condizioni te le spiego alla consegna.")),
         ("Pagamenti",
          ("Paghi alla riconsegna, in contanti, con carta o con bancomat. "
           "Il preventivo è gratuito e i lavori in più li faccio solo dopo il tuo ok.")),
@@ -343,18 +336,18 @@ OFFICINA_PAGINA = {
          "Quando mi chiami o mi scrivi, dimmi che ti serve la vettura di cortesia."),
         ("La trovi pronta",
          "Quando porti il tuo mezzo, la trovi con il pieno, pulita e igienizzata. Ti spiego le condizioni alla consegna."),
-        ("La usi per tutta la riparazione",
-         "Resta a te finché il tuo mezzo è pronto. Ti aggiorno io su come va il lavoro."),
-        ("Fai cambio alla riconsegna",
+        ("La tieni finché il tuo mezzo è pronto",
+         "Ti aggiorno io su come va il lavoro."),
+        ("Ci scambiamo le chiavi",
          "Mi riporti la vettura di cortesia e riprendi il tuo mezzo. Paghi la riparazione alla riconsegna."),
     ],
     "faq": [
         ("Quali sono gli orari dell'officina?",
          "Dal lunedì al venerdì, dalle 7:30 alle 19:30, orario continuato. Sabato e domenica sono chiuso."),
         ("Serve l'appuntamento?",
-         "Meglio chiamare o scrivere prima, così ti dico quando portarla. Se ti serve la vettura di cortesia, dimmelo subito."),
+         "Meglio chiamare o scrivere prima, così ti dico quando portare il mezzo. Se ti serve la vettura di cortesia, dimmelo subito: ne ho una sola."),
         ("Come funziona la vettura di cortesia?",
-         "È gratuita e la tieni per tutta la riparazione. Ne ho una: chiedila quando prenoti. Te la consegno con il pieno, pulita e igienizzata, e ti spiego le condizioni alla consegna."),
+         "È gratuita. Ne ho una sola: se è libera, la tieni finché il tuo mezzo è pronto. Chiedila quando prenoti. Te la consegno con il pieno, pulita e igienizzata, e ti spiego le condizioni alla consegna."),
         ("Come posso pagare?",
          "Paghi alla riconsegna, in contanti, con carta o con bancomat."),
         ("Se faccio il tagliando da te, perdo la garanzia della casa?",
@@ -368,22 +361,14 @@ HOME = {
     "officina_titolo": "Ti aspetto in officina, a Frassineto Po.",
     "officina_testo": ("La mia officina è a pochi chilometri da Casale Monferrato. "
                        "Sono aperto dal lunedì al venerdì con orario continuato: lasci l'auto prima del lavoro e la riprendi dopo. "
-                       "Se ti serve, hai una vettura di cortesia gratuita: dimmelo quando prenoti."),
-    "officina_punti": [
-        ("Orario continuato 7:30–19:30",
-         "Dal lunedì al venerdì, senza pausa pranzo. Sabato e domenica chiuso."),
-        ("Vettura di cortesia gratuita",
-         "Con il pieno, pulita e igienizzata. Ne ho una: chiedila quando prenoti."),
-        ("Preventivo gratuito prima di iniziare",
-         "Ti dico cosa serve e quanto costa. Si parte solo quando ti va bene."),
-    ],
+                       "Se ti serve e se è libera, hai la vettura di cortesia gratuita: dimmelo quando prenoti."),
     # Subito dopo la griglia dei servizi: officina, ritiro e domicilio sullo stesso piano (Luca, 29/10/2026).
     # Ogni voce: (titolo, etichetta breve, testo).
     "modi_titolo": "In officina, con il ritiro o a domicilio.",
-    "modi_testo": "Scegli come ti è più comodo. Dall'altra parte trovi sempre me, e il preventivo è sempre gratuito.",
+    "modi_testo": "Scegli come ti è più comodo: rispondo sempre io e il preventivo è gratuito.",
     "modi_voci": [
         ("In officina", "Lun–ven 7:30–19:30",
-         "Porti il mezzo in Via Ticineto 15, a Frassineto Po. Lavoro con il ponte e le attrezzature giuste, e se la riparazione è lunga ti lascio la vettura di cortesia."),
+         "Porti il mezzo in Via Ticineto 15, a Frassineto Po. Lavoro con il ponte e le attrezzature giuste e, se è libera, ti lascio la vettura di cortesia."),
         ("Ritiro e consegna", "Gratis entro 20 km",
          "Passo a prendere il mezzo a casa o al lavoro, lo riparo in officina e te lo riporto dove vuoi."),
         ("A domicilio", "Interventi veloci",

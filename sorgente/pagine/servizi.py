@@ -124,7 +124,7 @@ def pagina_servizio(chi):
            + intro(p["h1"], p["risposta"]) + f'''
 <div class="servizio-cta">
   <div class="wrap">
-    <div class="azioni">{chiedi(chi, "Chiedi un preventivo")}{chiama()}</div>
+    <div class="azioni">{chiedi(chi, "Chiedi un preventivo su WhatsApp")}{chiama()}</div>
     <p class="piccolo">Scegli il mezzo e scrivimi due righe: il messaggio si apre su WhatsApp, già pronto.</p>
   </div>
 </div>
@@ -150,7 +150,7 @@ def pagina_servizio(chi):
     <div class="riquadro">
       <h2>Chiedi un preventivo</h2>
       <p>Tocca il pulsante, scegli il mezzo e scrivimi due righe. Il preventivo è gratuito e arriva prima di iniziare.</p>
-      {chiedi(chi, "Scrivimi su WhatsApp")}
+      {chiedi(chi, "Chiedi un preventivo su WhatsApp")}
       <a class="link" href="tel:{TEL}">{I["tel"]}Oppure chiama {tel_txt()}</a>
     </div>
   </div>
@@ -161,7 +161,7 @@ def pagina_servizio(chi):
     {elenco(p["correlati"])}
     <a class="link collegati-tutti" href="{href("servizi")}">Tutti i servizi {I["freccia"]}</a>
   </div>
-</section>''' + finale() + piede(lightbox() if "data-lightbox" in aggiunta else ""))
+</section>''' + finale(pulsante=chiedi(chi, "Chiedi un preventivo")) + piede(lightbox() if "data-lightbox" in aggiunta else ""))
 
 
 # ---------------------------------------------------------------- allestimenti: i lavori di Luca
@@ -237,7 +237,7 @@ def revisione():
         <button type="button" class="btn btn--vuoto" data-promemoria>{CALENDARIO}Aggiungi un promemoria al calendario</button>
       </div>
       <p class="nota" data-promemoria-esito role="status"></p>
-      <p class="nota">Il calcolo resta sul tuo telefono: a me non arriva niente.</p>
+      <p class="nota">Il calcolo resta sul tuo dispositivo: a me non arriva niente.</p>
     </form>
   </div>
 </section>'''

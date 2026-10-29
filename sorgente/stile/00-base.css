@@ -60,17 +60,12 @@ main { display: block; }
 @keyframes fulmine { 0%, 100% { opacity: 1; } 18% { opacity: .15; } 30% { opacity: 1; } 44% { opacity: .3; } 56% { opacity: 1; } }
 @keyframes scintilla { 0% { transform: scale(1) rotate(0); } 45% { transform: scale(1.55) rotate(90deg); } 100% { transform: scale(1) rotate(180deg); } }
 @keyframes spia { 0%, 100% { fill-opacity: 0; } 20%, 40% { fill-opacity: .9; } 30% { fill-opacity: .35; } }
-.anima .ico-gommista .gira { animation: gira 1.1s var(--ease); }
-.anima .ico-meccanica .chiave { animation: chiave .9s var(--ease); }
-.anima .ico-elettrauto .fulmine { animation: fulmine .8s linear; }
-.anima .ico-carrozzeria .scintilla { animation: scintilla .9s var(--ease); }
-.anima .ico-diagnosi .spia { animation: spia 1.2s ease-in-out; }
 @media (hover: hover) {
-  .servizio:hover .ico-gommista .gira, .sezione-servizio:hover .ico-gommista .gira { animation: gira 1.1s var(--ease); }
-  .servizio:hover .ico-meccanica .chiave, .sezione-servizio:hover .ico-meccanica .chiave { animation: chiave .9s var(--ease); }
-  .servizio:hover .ico-elettrauto .fulmine, .sezione-servizio:hover .ico-elettrauto .fulmine { animation: fulmine .8s linear; }
-  .servizio:hover .ico-carrozzeria .scintilla, .sezione-servizio:hover .ico-carrozzeria .scintilla { animation: scintilla .9s var(--ease); }
-  .servizio:hover .ico-diagnosi .spia, .sezione-servizio:hover .ico-diagnosi .spia { animation: spia 1.2s ease-in-out; }
+  .servizio:hover .ico-gommista .gira { animation: gira 1.1s var(--ease); }
+  .servizio:hover .ico-meccanica .chiave { animation: chiave .9s var(--ease); }
+  .servizio:hover .ico-elettrauto .fulmine { animation: fulmine .8s linear; }
+  .servizio:hover .ico-carrozzeria .scintilla { animation: scintilla .9s var(--ease); }
+  .servizio:hover .ico-diagnosi .spia { animation: spia 1.2s ease-in-out; }
 }
 
 /* ---------- bottoni e link ---------- */
@@ -207,8 +202,6 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 .servizio-ico .ico { width: clamp(56px, 6vw, 84px); height: clamp(56px, 6vw, 84px); stroke-width: 1.45; }
 .servizio-nome { font-weight: 800; font-size: clamp(1.15rem, 1.9vw, 1.6rem); line-height: 1.1; letter-spacing: -.02em; text-wrap: balance; }
 .servizio-desc { color: var(--testo-2); font-size: .92rem; line-height: 1.4; max-width: 30ch; transition: color .4s var(--ease); }
-.servizio--urgente { background: var(--arancio-vivo); border-color: var(--arancio-vivo); color: var(--su-arancio); }
-.servizio--urgente .servizio-ico, .servizio--urgente .servizio-desc { color: var(--su-arancio); }
 @media (hover: hover) {
   .servizio:hover { border-color: var(--arancio-vivo); color: #fff; }
   .servizio:hover .servizio-foto { clip-path: circle(150% at var(--x) var(--y)); }
@@ -218,10 +211,7 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
   .servizio:not(:has(.servizio-foto)):hover { color: var(--testo); background: var(--asfalto-3); }
   .servizio:not(:has(.servizio-foto)):hover .servizio-ico { color: var(--ico); }
   .servizio:not(:has(.servizio-foto)):hover .servizio-desc { color: var(--testo-2); }
-  .servizio--urgente:not(:has(.servizio-foto)):hover { background: var(--arancio-vivo); color: var(--su-arancio); }
-  .servizio--urgente:not(:has(.servizio-foto)):hover .servizio-ico, .servizio--urgente:not(:has(.servizio-foto)):hover .servizio-desc { color: var(--su-arancio); }
 }
-.servizi-largo { grid-column: 1 / -1; }
 .servizio--largo { aspect-ratio: auto; flex-direction: row; justify-content: center; gap: 18px; padding: 20px 24px; text-align: left; }
 .servizio--largo .servizio-ico .ico { width: 44px; height: 44px; }
 .servizio--largo .servizio-testo { display: grid; gap: 2px; }
@@ -254,20 +244,16 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 .fatti dd { margin: 0; font-weight: 600; line-height: 1.35; }
 
 /* ---------- vantaggi ---------- */
-.vantaggi { padding-block: clamp(80px, 10vw, 140px); background: var(--asfalto); }
-.vantaggi h2 { margin-bottom: clamp(40px, 5vw, 64px); }
 .vantaggi-lista { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px 32px; }
 .vantaggi-lista li { position: relative; display: flex; flex-direction: column; align-items: flex-start; padding-top: 22px; border-top: 1px solid var(--grigio-scuro); }
 .vantaggi-lista li::before { content: ""; position: absolute; top: -1px; left: 0; width: 44px; height: 1px; background: var(--arancio-vivo); }
 .vantaggi-lista > li > .ico { width: 36px; height: 36px; color: var(--ico); margin-bottom: 18px; stroke-width: 1.4; }
 .vantaggi-lista h3 { margin-bottom: 10px; }
 .vantaggi-lista p { color: var(--testo-2); font-size: .98rem; margin: 0 0 8px; flex: 1; }
-.vantaggi-zona { margin: 48px 0 0; padding-top: 24px; border-top: 1px solid var(--linea); color: var(--grigio); max-width: 70ch; }
 
 /* ---------- recensioni ---------- */
 .recensioni { padding-block: clamp(80px, 10vw, 140px); }
 .recensioni h2 { margin-bottom: clamp(36px, 5vw, 56px); }
-.recensioni-nota { margin-top: -24px; margin-bottom: 28px; }
 .voci { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-bottom: 24px; }
 .voce { margin: 0; padding: 30px 28px 26px; border-radius: 20px; background: var(--asfalto-2); border: 1px solid var(--linea); display: flex; flex-direction: column; }
 .voce::before { content: ""; display: block; width: 34px; height: 26px; margin-bottom: 18px; background: var(--ico); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 26'%3E%3Cpath d='M0 26V15C0 6 5 1 13 0l1 4c-4 1-7 4-7 9h6v13zm20 0V15c0-9 5-14 13-15l1 4c-4 1-7 4-7 9h6v13z'/%3E%3C/svg%3E") no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 26'%3E%3Cpath d='M0 26V15C0 6 5 1 13 0l1 4c-4 1-7 4-7 9h6v13zm20 0V15c0-9 5-14 13-15l1 4c-4 1-7 4-7 9h6v13z'/%3E%3C/svg%3E") no-repeat; }
@@ -292,19 +278,6 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 /* ---------- pagina servizi ---------- */
 .fascia { padding-top: clamp(40px, 6vw, 72px); }
 .foto--fascia { aspect-ratio: 21 / 9; }
-.servizi-documento { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
-.indice { position: sticky; top: calc(var(--testata) + 28px); }
-.indice ul { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--linea); }
-.indice a { display: flex; align-items: center; gap: 12px; margin-left: -2px; padding: 9px 0 9px 16px; border-left: 2px solid transparent; color: var(--testo-2); text-decoration: none; font-weight: 600; transition: border-color .3s var(--ease), color .3s var(--ease); }
-.indice a .ico { width: 22px; height: 22px; color: var(--grigio-scuro); transition: color .3s var(--ease); }
-.indice a:hover, .indice a.attivo { border-left-color: var(--arancio-vivo); color: var(--testo); }
-.indice a:hover .ico, .indice a.attivo .ico { color: var(--ico); }
-.sezione-servizio { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 28px; padding: 0 0 56px; margin-bottom: 56px; border-bottom: 1px solid var(--linea); scroll-margin-top: calc(var(--testata) + 28px); }
-.sezione-servizio:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
-.sezione-servizio-ico { display: grid; place-items: center; width: 76px; height: 76px; border-radius: 50%; background: var(--brace); color: var(--ico); }
-.sezione-servizio-ico .ico { width: 38px; height: 38px; }
-.sezione-servizio h2 { font-size: clamp(1.8rem, 3.4vw, 2.8rem); margin: 10px 0 16px; }
-.sezione-servizio .lead { margin-bottom: 20px; }
 .spunte { list-style: none; margin: 0 0 26px; padding: 0; display: grid; gap: 4px; }
 .spunte li { display: flex; gap: 12px; align-items: flex-start; padding: 5px 0; color: var(--testo-2); }
 .spunte .ico { width: 20px; height: 20px; margin-top: .15em; color: var(--ico); stroke-width: 2; }
@@ -363,7 +336,8 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 .campo > [aria-invalid="true"] { border-color: var(--bordo-errore); }
 .campi-due { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 14px; }
 .errore { margin: 8px 0 0; color: var(--errore); font-size: .88rem; font-weight: 600; }
-.errore:empty { display: none; }
+/* vuoto resta nella pagina (alto zero): così i lettori di schermo annunciano l'errore quando compare */
+.errore:empty { margin: 0; }
 .aiuto { margin: 8px 0 0; color: var(--grigio); font-size: .85rem; }
 .aiuto:empty { display: none; }
 .nota { margin: 12px 0 0; color: var(--grigio); font-size: .88rem; }
@@ -502,11 +476,6 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 .scheda-azioni { display: grid; gap: 10px; }
 .scheda-nota { margin: 14px 0 0; color: var(--grigio); font-size: .86rem; text-align: center; }
 .scheda-nota a { color: var(--evidenza); font-weight: 700; }
-.scheda.is-urgente .scheda-azioni [data-chiama] { order: -1; background: var(--arancio-vivo); color: var(--su-arancio); border-color: transparent; }
-.scheda.is-urgente .scheda-azioni [data-chiama]::before { background: var(--fanale); }
-.scheda.is-urgente .scheda-azioni [data-invia] { background: transparent; color: var(--testo); border-color: var(--grigio-scuro); }
-.scheda.is-urgente .scheda-azioni [data-invia]::before { background: var(--testo); }
-.scheda.is-urgente .scheda-azioni [data-invia]:hover { color: var(--notte); }
 
 /* ---------- passaggio tra le pagine e cambio di tema ---------- */
 @media (prefers-reduced-motion: no-preference) {
@@ -541,11 +510,6 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
   .voci { grid-template-columns: 1fr; }
   .voce { max-width: 680px; }
   .piede-griglia { grid-template-columns: 1fr 1fr; }
-  .servizi-documento { grid-template-columns: 1fr; }
-  .indice { position: static; }
-  .indice ul { display: flex; flex-wrap: wrap; gap: 8px; border: 0; }
-  .indice a { margin: 0; padding: 8px 14px; border: 1px solid var(--linea-forte); border-radius: 999px; font-size: .92rem; }
-  .indice a.attivo { border-color: var(--linea-forte); }
 }
 @media (max-width: 899px) {
   .eroe { height: auto; min-height: 100svh; max-height: none; display: flex; flex-direction: column; padding: calc(var(--testata) + 20px) 0 32px; }
@@ -568,7 +532,7 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 /* ---------- telefono ---------- */
 @media (max-width: 599px) {
   body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
-  .testata-chiama span, .marchio small, .testata .tema-bottone { display: none; }
+  .testata-chiama span, .testata .tema-bottone { display: none; }
   .testata-chiama { width: 44px; padding: 0; }
   .testata-azioni { gap: 8px; }
   .eroe { padding-bottom: 28px; }
@@ -592,9 +556,6 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
   .tessera { grid-template-columns: 1fr; }
   .tessera div:nth-child(odd) { border-right: 0; }
   .tessera div:nth-last-child(2) { border-bottom: 1px solid var(--linea); }
-  .sezione-servizio { grid-template-columns: 1fr; gap: 12px; }
-  .sezione-servizio-ico { width: 64px; height: 64px; }
-  .sezione-servizio-ico .ico { width: 32px; height: 32px; }
   .piede-griglia { grid-template-columns: 1fr; }
   .piede-basso { flex-direction: column; }
   .azioni .btn { flex: 1 1 100%; }
