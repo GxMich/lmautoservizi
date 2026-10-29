@@ -17,7 +17,7 @@ API per i moduli delle pagine
 - Link: href(id, frammento="") relativo alla pagina corrente (sulla stessa pagina diventa "#frammento");
   risorsa("assets/...") per file in docs/; url(id) e URL per gli indirizzi assoluti (canonical, schema).
   Le pagine in ASSOLUTE (la 404) ricevono sempre indirizzi assoluti.
-- Contatti: TEL, tel_txt(), wa(), EMAIL, MAPS, indirizzo_officina().
+- Contatti: TEL, tel_txt(), wa(), EMAIL, MAPS, indirizzo_officina(); anni_esperienza() per gli anni di lavoro di Luca.
 - Icone: I (interfaccia), ICONE (servizi), VANTAGGI_ICO, veicolo(id).
 - Tendina WhatsApp: SERVIZI, EXTRA, dati_servizio(), apri(chiave, testo), apri_servizio(id, testo); scheda() è già nel piede.
 - Foto: foto_info(spazio), img(spazio, sizes, ...), foto(spazio, sizes, classe), nota_foto(spazio).
@@ -32,7 +32,7 @@ API per i moduli delle pagine
 - Pacchetti: CSS e JS (tutti i file di sorgente/stile e sorgente/script in ordine di nome), V_CSS e V_JS per la cache."""
 import hashlib, json, math, os, posixpath, re, unicodedata
 from html import escape
-from contenuti import (TEL, TEL_TXT, WA, EMAIL, PEC, PIVA, MAPS, SEDE_LEGALE, GEAR_PIENO, FOTO_SLOT, STOCK,
+from contenuti import (TEL, TEL_TXT, WA, EMAIL, PEC, PIVA, MAPS, SEDE_LEGALE, GEAR_PIENO, FOTO_SLOT, STOCK, ANNO_INIZIO, ANNI_ESPERIENZA,
                        INDIRIZZO_OFFICINA, CAP_OFFICINA, COMUNE_OFFICINA, PROVINCIA, GEO, RAGGIO_KM, REA, FACEBOOK, INSTAGRAM, PREZZI)
 import testi_legali
 
@@ -146,6 +146,11 @@ def href(pagina, frammento=""):
 def risorsa(file):
     """File dentro docs/, per esempio risorsa("assets/img/favicon-32.png")."""
     return _relativo(file)
+
+
+def anni_esperienza():
+    """Gli anni di esperienza di Luca: il numero della generazione, che 00-base.js ricalcola nel browser ogni anno."""
+    return f'<span data-anni-da="{ANNO_INIZIO}">{ANNI_ESPERIENZA}</span>'
 
 
 def tel_txt():

@@ -4,7 +4,7 @@ from contenuti import RECENSIONI, RECENSIONI_GOOGLE, RECENSIONI_CON_PERMESSO, GE
 from testi_pagine import HOME
 from pagine.officina import ICO
 from sito import (inizia, scrivi, head, testata, piede, orari, griglia_servizi, foto, img, foto_info, nota_foto, azienda,
-                  href, I, VANTAGGI_ICO, TEL, EMAIL, MAPS, tel_txt, wa, nota_recensioni, indirizzo_officina)
+                  href, I, VANTAGGI_ICO, TEL, EMAIL, MAPS, tel_txt, wa, nota_recensioni, indirizzo_officina, anni_esperienza)
 
 
 def costruisci():
@@ -101,7 +101,7 @@ def costruisci():
       <p class="lead">Mi chiamo Luca Miglietta. Lavoro da solo: il tuo mezzo lo segue una persona sola, e al telefono rispondo io.</p>
       <p>Prima ascolto il problema, poi ti dico cosa serve e quanto costa. Il preventivo è gratuito e si parte solo quando ti va bene.</p>
       <dl class="fatti">
-        <div><dt>Esperienza</dt><dd>Più di dieci anni, tutte le marche</dd></div>
+        <div><dt>Esperienza</dt><dd>{anni_esperienza()} anni, tutte le marche</dd></div>
         <div><dt>Abilitazione</dt><dd>Responsabile tecnico delle revisioni</dd></div>
         <div><dt>Qualifica</dt><dd>Riparazioni elettromeccaniche dell'autoveicolo</dd></div>
         <div><dt>Climatizzatori</dt><dd>Recupero dei gas fluorurati, Reg.&nbsp;CE&nbsp;307/2008</dd></div>

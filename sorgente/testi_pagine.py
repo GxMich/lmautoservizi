@@ -5,7 +5,10 @@ Fonti dei fatti: contenuti.py, biglietto da visita, versione semplice approvata.
 # - "title" finisce sempre con " | L.M. Autoservizi" e resta entro 65 caratteri; "description" entro 155.
 # - "risposta" è il paragrafo che apre la pagina: è pensato per essere citato così com'è da Google e dagli assistenti AI.
 # - Le FAQ sono adatte anche al dato strutturato FAQPage (testo semplice, senza HTML).
-# - L'indirizzo dell'officina non è ancora confermato: nei testi c'è solo "a Frassineto Po".
+# - L'officina è in Via Ticineto 15 (confermato da Luca il 29/10/2026); nei testi brevi basta "a Frassineto Po".
+# - Gli anni di esperienza vengono da contenuti.ANNI_ESPERIENZA: si aggiornano da soli a ogni generazione.
+
+from contenuti import ANNI_ESPERIENZA
 
 SERVIZI_PAGINE = {
     # ------------------------------------------------------------------ MECCANICA
@@ -83,7 +86,7 @@ SERVIZI_PAGINE = {
         ],
         "perche": [
             ("Qualifica in elettromeccanica",
-             "Ho la qualifica di operatore di riparazioni elettromeccaniche per l'autoveicolo. Lavoro su tutte le marche da più di dieci anni."),
+             f"Ho la qualifica di operatore di riparazioni elettromeccaniche per l'autoveicolo. Lavoro su tutte le marche da {ANNI_ESPERIENZA} anni."),
             ("Formazione sui gas fluorurati",
              "Per il climatizzatore ho la formazione sul recupero dei gas fluorurati nei veicoli, secondo il Reg. CE 307/2008."),
             ("Prima il preventivo",

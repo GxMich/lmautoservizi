@@ -72,6 +72,8 @@
   aggiornaStato();
   setInterval(aggiornaStato, 60000);
   $$("[data-anno]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
+  // anni di esperienza di Luca: giusti anche se il sito non viene rigenerato a inizio anno
+  $$("[data-anni-da]").forEach(function (el) { el.textContent = new Date().getFullYear() - Number(el.getAttribute("data-anni-da")); });
 
   /* ---------- tema chiaro / scuro ---------- */
   var bottoniTema = $$("[data-tema-bottone]");

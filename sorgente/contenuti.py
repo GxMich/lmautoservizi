@@ -1,7 +1,7 @@
 """Dati dell'attività usati dal generatore (sorgente/genera.py).
 Fonti: biglietto da visita/PDF del cliente e testi già approvati del sito.
 I valori None sono dati ancora da chiedere a Luca: il sito li omette e genera.py li elenca in materiali/da-completare.md."""
-import os
+import datetime, os
 
 QUI = os.path.dirname(os.path.abspath(__file__))
 
@@ -24,7 +24,8 @@ COMUNE_OFFICINA = "Frassineto Po"
 PROVINCIA = "AL"
 GEO = (45.1284713, 8.5431679)      # il punto della scheda Google (link MAPS), in gradi decimali
 RAGGIO_KM = 20                     # ritiro, consegna e domicilio: raggio dall'officina, ritiro sempre gratis
-ANNO_INIZIO = 2006                 # inizio dell'esperienza di Luca: 20 anni nel 2026, il sito ricalcola il numero ogni anno
+ANNO_INIZIO = 2006                 # inizio dell'esperienza di Luca: 20 anni nel 2026 (lo ha detto lui il 29/10/2026)
+ANNI_ESPERIENZA = datetime.date.today().year - ANNO_INIZIO   # alla generazione; nella pagina lo ricalcola anche 00-base.js
 REA = "AL-271409"
 # La pagina https://www.facebook.com/L.M.AUTOSERVIZI/ è di Luca, ma per scelta non va sul sito (28/10/2026).
 # Instagram non c'è.

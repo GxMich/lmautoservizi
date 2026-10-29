@@ -2,7 +2,7 @@
 La diagnosi ha anche il calcolo della scadenza della revisione (script/20-revisione.js), il gommista le date delle gomme invernali."""
 from contenuti import TEL_TXT
 from testi_pagine import SERVIZI_PAGINE, SERVIZI_HUB
-from sito import (inizia, scrivi, head, testata, intro, finale, piede, foto, azienda, briciole, griglia_servizi, svg,
+from sito import (inizia, scrivi, head, testata, intro, finale, piede, foto, azienda, briciole, griglia_servizi, svg, anni_esperienza,
                   href, url, nome, zona_servita, I, ICONE, VANTAGGI_ICO, SERVIZI, TEL, tel_txt, dati_servizio, apri)
 
 CINQUE = ["meccanica", "elettrauto", "gommista", "carrozzeria", "diagnosi"]
@@ -64,7 +64,7 @@ def pagina_servizi():
              ("soccorso", VANTAGGI_ICO["mobile"], nome("mobile"), "Cambio della batteria, diagnosi con il computer, gomma bucata: per gli interventi veloci arrivo io.",
               f'<a class="link" href="{href("mobile")}">Cosa faccio sul posto {I["freccia"]}</a>'),
              ("aziende", ICONE["aziende"], "Consulenza alle imprese",
-              "Consulenza per le imprese che lavorano nel settore automobilistico, da un tecnico con più di dieci anni di esperienza multimarca. Ne parliamo e capiamo insieme di cosa hai bisogno.",
+              f"Consulenza per le imprese che lavorano nel settore automobilistico, da un tecnico con {anni_esperienza()} anni di esperienza multimarca. Ne parliamo e capiamo insieme di cosa hai bisogno.",
               apri("aziende", "Parliamone", "link link--bottone"))]
     voci_altri = "".join(f'''
       <li id="{id_}">{icona}<h3>{titolo}</h3><p>{testo}</p>{azione}</li>''' for id_, icona, titolo, testo, azione in altri)

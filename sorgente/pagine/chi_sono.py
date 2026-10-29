@@ -1,7 +1,7 @@
 """Chi sono: Luca, il suo percorso e gli attestati (si aprono a grandezza piena)."""
-from contenuti import ATT
+from contenuti import ATT, ANNI_ESPERIENZA
 from sito import (inizia, scrivi, head, testata, intro, finale, piede, foto, azienda, briciole, risorsa,
-                  attr, I)
+                  attr, anni_esperienza, I)
 
 def costruisci():
     inizia("chi")
@@ -17,7 +17,7 @@ def costruisci():
                   ("Oggi", "Titolare di L.M. Autoservizi, con officina a Frassineto Po, ritiro e consegna e officina mobile.")]
     crono = "".join(f'<li><b>{anno}</b><span>{testo}</span></li>' for anno, testo in cronologia)
     scrivi(head("Chi sono: Luca Miglietta | L.M. Autoservizi",
-                "Luca Miglietta, titolare di L.M. Autoservizi: qualifica in riparazioni elettromeccaniche, responsabile tecnico delle revisioni, oltre dieci anni multimarca.",
+                f"Luca Miglietta, titolare di L.M. Autoservizi: qualifica in riparazioni elettromeccaniche, responsabile tecnico delle revisioni, {ANNI_ESPERIENZA} anni multimarca.",
                 [azienda(), briciole()], immagine="luca") + testata()
            + intro("Chi sono", "Mi chiamo Luca Miglietta. Lavoro da solo: il mezzo che mi affidi lo segue una persona sola, dall'inizio alla fine.") + f'''
 <section class="sezione">
@@ -27,7 +27,7 @@ def costruisci():
       <dl class="tessera">
         <div><dt>Titolare</dt><dd>Luca Miglietta</dd></div>
         <div><dt>Officina</dt><dd>Frassineto Po (AL)</dd></div>
-        <div><dt>Esperienza</dt><dd>Più di dieci anni, multimarca</dd></div>
+        <div><dt>Esperienza</dt><dd>{anni_esperienza()} anni, multimarca</dd></div>
         <div><dt>Abilitazione</dt><dd>Responsabile tecnico delle revisioni</dd></div>
       </dl>
       <h2>Il mio percorso</h2>
