@@ -10,5 +10,5 @@ materiali/foto/*
 # PDF del cliente (biglietto da visita e servizi): restano in locale
 materiali/*.pdf
 # documenti di lavoro con il cliente (bozze legali, messaggi): restano in locale, il repository è pubblico
-materiali/messaggio-per-luca.md
+materiali/messaggio-per-luca*.md
 materiali/testi-legali/

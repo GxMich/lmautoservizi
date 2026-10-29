@@ -6,8 +6,8 @@ LM_URL dà l'indirizzo pubblico (predefinito: GitHub Pages); LM_PRODUZIONE=1 att
 Solo in produzione scrive anche llms.txt (riassunto per gli assistenti di ricerca), _redirects (vecchi indirizzi
 WordPress) e _headers (intestazioni di sicurezza e cache): li leggono Netlify e Cloudflare Pages, GitHub Pages li ignora.
 In anteprima questi tre file vengono cancellati da docs/, se ci sono.
-Solo in anteprima copia anche il questionario per Luca (sorgente/domande/index.html -> docs/domande/): pagina a sé,
-fuori da menu, sitemap e controlli; in produzione viene tolta."""
+Il questionario per Luca (sorgente/domande/index.html) non si pubblica più: Luca ha risposto il 29/10/2026.
+Se docs/domande/ c'è ancora, viene cancellata."""
 import html, importlib, json, os, pkgutil, re, shutil, sys
 from urllib.parse import urlsplit
 sys.stdout.reconfigure(encoding="utf-8")
@@ -32,17 +32,11 @@ mancanti = [p for p in PAGINE if p not in sito.SCRITTE]
 if mancanti:
     sys.exit("pagine registrate ma non generate: " + ", ".join(mancanti))
 
-# questionario per Luca: solo in anteprima, la produzione non lo pubblica
-DOMANDE, DOMANDE_DOCS = os.path.join(RADICE, "sorgente", "domande", "index.html"), os.path.join(DOCS, "domande", "index.html")
-if PRODUZIONE:
-    if os.path.isdir(os.path.dirname(DOMANDE_DOCS)):
-        shutil.rmtree(os.path.dirname(DOMANDE_DOCS))
-        print("cancellato domande/ (serve solo in anteprima)")
-elif os.path.isfile(DOMANDE):
-    os.makedirs(os.path.dirname(DOMANDE_DOCS), exist_ok=True)
-    shutil.copyfile(DOMANDE, DOMANDE_DOCS)
-    sito.FILE_SCRITTI.add(os.path.normpath(DOMANDE_DOCS))
-    print("copiato domande/index.html (questionario per Luca)")
+# questionario per Luca: ha risposto il 29/10/2026, la pagina non serve più nemmeno in anteprima
+DOMANDE_DOCS = os.path.join(DOCS, "domande")
+if os.path.isdir(DOMANDE_DOCS):
+    shutil.rmtree(DOMANDE_DOCS)
+    print("cancellato domande/ (questionario già compilato)")
 
 # pagine rimaste da un registro precedente: si segnalano, non si cancellano
 for cartella, sotto, file in os.walk(DOCS):
