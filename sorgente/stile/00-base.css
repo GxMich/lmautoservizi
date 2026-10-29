@@ -557,7 +557,6 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
   .tessera { grid-template-columns: 1fr; }
   .tessera div:nth-child(odd) { border-right: 0; }
   .tessera div:nth-last-child(2) { border-bottom: 1px solid var(--linea); }
-  .piede-griglia { grid-template-columns: 1fr; }
   .piede-basso { flex-direction: column; }
   .azioni .btn { flex: 1 1 100%; }
   .numerone { font-size: min(13vw, 3.4rem); }
