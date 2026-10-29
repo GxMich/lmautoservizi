@@ -249,7 +249,7 @@ SERVIZI_PAGINE = {
             ("Mi hanno detto che va programmata la centralina: lo fai?",
              "Programmo le centraline con software aggiornato ogni giorno. Scrivimi marca, modello e anno del mezzo e ti dico se posso farlo e quanto costa."),
             ("La diagnosi si può fare anche fuori dall'officina?",
-             "Di solito la faccio in officina. Nei casi semplici leggo le spie anche sul posto, con l'officina mobile, a Casale Monferrato e nei paesi vicini."),
+             "Di solito la faccio in officina. Nei casi semplici leggo le spie anche sul posto, con l'officina mobile, entro 20 km da Frassineto Po."),
         ],
         "nota_mezzo": "Es. spia del motore accesa, revisione in scadenza a marzo. Se puoi, fai una foto della spia.",
         "correlati": ["elettrauto", "meccanica"],
@@ -328,15 +328,16 @@ HOME = {
         ("Preventivo gratuito prima di iniziare",
          "Ti dico cosa serve e quanto costa. Si parte solo quando ti va bene."),
     ],
-    # Sezione più leggera: comodità in più, mai la promessa principale.
-    "extra_titolo": "Qualche comodità in più.",
-    "extra_testo": "Il lavoro lo faccio in officina. A Casale Monferrato e nei paesi vicini posso anche ritirare il mezzo o intervenire sul posto, nei casi semplici.",
-    "extra_voci": [
-        ("Ritiro e consegna",
-         "Passo a prendere il mezzo a casa o al lavoro e te lo riporto riparato."),
-        ("Officina mobile",
-         "Forature, cambio delle ruote già montate, diagnosi e avviamento nei casi semplici: arrivo io."),
-        ("Consulenza alle imprese",
-         "Per chi lavora nel settore automobilistico. Ne parliamo e capiamo insieme di cosa hai bisogno."),
+    # Subito dopo la griglia dei servizi: officina, ritiro e domicilio sullo stesso piano (Luca, 29/10/2026).
+    # Ogni voce: (titolo, etichetta breve, testo).
+    "modi_titolo": "In officina, con il ritiro o a domicilio.",
+    "modi_testo": "Scegli come ti è più comodo. Dall'altra parte trovi sempre me, e il preventivo è sempre gratuito.",
+    "modi_voci": [
+        ("In officina", "Lun–ven 7:30–19:30",
+         "Porti il mezzo in Via Ticineto 15, a Frassineto Po. Lavoro con il ponte e le attrezzature giuste, e se la riparazione è lunga ti lascio la vettura di cortesia."),
+        ("Ritiro e consegna", "Gratis entro 20 km",
+         "Passo a prendere il mezzo a casa o al lavoro, lo riparo in officina e te lo riporto dove vuoi."),
+        ("A domicilio", "Interventi veloci",
+         "Cambio della batteria, diagnosi con il computer, riparazione della gomma bucata: arrivo io, dove sei."),
     ],
 }

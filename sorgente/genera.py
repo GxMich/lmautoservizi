@@ -102,13 +102,14 @@ if PRODUZIONE:
     officina = sito.indirizzo_officina()
     llms = ["# L.M. Autoservizi", "",
             "> Officina multimarca di Luca Miglietta a Frassineto Po (AL), vicino a Casale Monferrato: meccanica, elettrauto, gommista, "
-            "carrozzeria, diagnosi e pre-revisione. Vettura di cortesia gratuita, ritiro e consegna dell'auto, officina mobile.", "",
+            "carrozzeria, diagnosi e pre-revisione. Ritiro e consegna gratis entro 20 km, assistenza a domicilio per gli interventi veloci, "
+            "vettura di cortesia gratuita.", "",
             f"L.M. Autoservizi di Miglietta Luca, ditta individuale, P.IVA {contenuti.PIVA}. Sito in italiano.", "",
             f"- Telefono e WhatsApp: +39 {contenuti.TEL_TXT}",
             f"- Email: {contenuti.EMAIL}",
             "- Orari: dal lunedì al venerdì 7:30–19:30, orario continuato; sabato e domenica chiuso",
             f"- Officina: {officina}; mappa: {contenuti.MAPS}",
-            f"- Zona servita: {', '.join(sito.ZONA)} e paesi vicini",
+            f"- Zona servita: entro {contenuti.RAGGIO_KM} km dall'officina, cioè {', '.join(sito.ZONA)} e paesi vicini",
             "- Pagamenti: contanti, carta o bancomat, alla riconsegna", "",
             "## Pagine", ""] + [voce_llms(p) for p in principali]
     llms += ["", "## Optional", ""] + [voce_llms(p) for p in legali]

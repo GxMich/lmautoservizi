@@ -1,10 +1,10 @@
-"""Home: "Riparti sereno.", le caselle dei servizi con la tendina WhatsApp, l'officina a Frassineto Po (il centro),
-Luca, recensioni, le comodità in più (ritiro, officina mobile, imprese), dove e quando. Testi nuovi in testi_pagine.HOME."""
+"""Home: "Riparti sereno.", le caselle dei servizi con la tendina WhatsApp, i tre modi alla pari (officina, ritiro
+e consegna, domicilio), l'officina a Frassineto Po, Luca, recensioni, dove e quando. Testi nuovi in testi_pagine.HOME."""
 from contenuti import RECENSIONI, RECENSIONI_GOOGLE, RECENSIONI_CON_PERMESSO, GEAR_PIENO
 from testi_pagine import HOME
 from pagine.officina import ICO
 from sito import (inizia, scrivi, head, testata, piede, orari, griglia_servizi, foto, img, foto_info, nota_foto, azienda,
-                  href, I, VANTAGGI_ICO, TEL, EMAIL, MAPS, tel_txt, wa, nota_recensioni)
+                  href, I, VANTAGGI_ICO, TEL, EMAIL, MAPS, tel_txt, wa, nota_recensioni, indirizzo_officina)
 
 
 def costruisci():
@@ -12,11 +12,12 @@ def costruisci():
     # L'officina: tre punti con le icone che si disegnano (gancio .vantaggi-lista di 00-base.js).
     punti = "".join(f'<li>{ICO[ico]}<h3>{titolo}</h3><p>{testo}</p></li>'
                     for ico, (titolo, testo) in zip(("orario", "cortesia", "preventivo"), HOME["officina_punti"]))
-    # Le comodità in più: righe leggere, ognuna porta alla sua pagina.
-    extra = "".join(f'<li><a class="extra-voce" href="{link}"><span class="extra-ico" aria-hidden="true">{ico}</span>'
-                    f'<div><h3>{titolo}</h3><p>{testo}</p></div>{I["freccia"]}</a></li>'
-                    for (ico, link), (titolo, testo) in zip(((VANTAGGI_ICO["rotta"], href("ritiro")), (VANTAGGI_ICO["mobile"], href("mobile")),
-                                                            (VANTAGGI_ICO["aziende"], href("servizi", frammento="aziende"))), HOME["extra_voci"]))
+    # I tre modi, alla pari: stesse carte, stesso peso, ognuna porta alla sua pagina.
+    modi = "".join(f'<li>{ico}<p class="modi-etichetta">{etichetta}</p><h3>{titolo}</h3><p>{testo}</p>'
+                   f'<a class="link" href="{link}">{azione} {I["freccia"]}</a></li>'
+                   for (ico, link, azione), (titolo, etichetta, testo) in zip(
+                       ((ICO["officina"], href("officina"), "Scopri l'officina"), (VANTAGGI_ICO["rotta"], href("ritiro"), "Come funziona"),
+                        (VANTAGGI_ICO["mobile"], href("mobile"), "Cosa faccio sul posto")), HOME["modi_voci"]))
     # Il titolo dà per scontato il risultato (il mezzo riparte) e fa sentire lo stato d'animo: niente negazioni.
     riga_a, riga_b = "Riparti", "sereno"
     caratteri = max(len(riga_a), len(riga_b) + 1)
@@ -65,6 +66,16 @@ def costruisci():
   </div>
 </section>
 
+<section class="modi" aria-labelledby="modi-t">
+  <div class="wrap">
+    <div class="modi-testa">
+      <h2 id="modi-t">{HOME["modi_titolo"]}</h2>
+      <p class="lead">{HOME["modi_testo"]}</p>
+    </div>
+    <ul class="vantaggi-lista modi-lista">{modi}</ul>
+  </div>
+</section>
+
 <section class="officina-home" aria-labelledby="officina-t">
   <div class="wrap">
     <div class="officina-home-griglia">
@@ -109,21 +120,11 @@ def costruisci():
   </div>
 </section>
 
-<section class="extra" aria-labelledby="extra-t">
-  <div class="wrap extra-griglia">
-    <div class="extra-testa">
-      <h2 id="extra-t">{HOME["extra_titolo"]}</h2>
-      <p>{HOME["extra_testo"]}</p>
-    </div>
-    <ul class="extra-lista">{extra}</ul>
-  </div>
-</section>
-
 <section class="contatti-home" id="contatti" aria-labelledby="contatti-t">
   <div class="wrap contatti-home-griglia">
     <div>
       <h2 id="contatti-t">Dove e quando</h2>
-      <p class="contatti-luogo">Officina a Frassineto Po (AL)</p>
+      <p class="contatti-luogo">Officina: {indirizzo_officina()}</p>
       {orari()}
       <p class="stato" data-stato></p>
       <div class="contatti-home-link">

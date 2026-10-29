@@ -1,5 +1,5 @@
-"""Comodità in più, per chi non può portare il mezzo in officina: ritiro e consegna con vettura di cortesia, officina mobile.
-La riparazione vera si fa nell'officina di Frassineto Po: entrambe le pagine lo dicono e rimandano a href("officina")."""
+"""Ritiro e consegna (gratis entro 20 km) e officina mobile (gli interventi veloci a domicilio): dal 29/10/2026 stanno
+alla pari con l'officina. I lavori lunghi si fanno nell'officina di Frassineto Po: entrambe le pagine rimandano a href("officina")."""
 from contenuti import FAQ_R
 from sito import (inizia, scrivi, head, testata, intro, finale, piede, foto, spunte, azienda, briciole,
                   href, I, TEL, tel_txt, apri, apri_servizio)
@@ -12,7 +12,7 @@ def costruisci():
 def pagina_ritiro():
     inizia("ritiro")
     tappe_dati = [("Mi chiami o mi scrivi", "Mi dici dov'è il mezzo e cosa non va. Nessun giro di telefonate."),
-                  ("Passo a ritirarlo", "Vengo a casa o al lavoro e ti lascio una vettura di cortesia gratuita."),
+                  ("Passo a ritirarlo", "Vengo a casa o al lavoro, gratis entro 20 km. Se ti serve, ti lascio la vettura di cortesia gratuita."),
                   ("Diagnosi e preventivo", "Controllo il mezzo in officina e ti dico cosa serve e quanto costa, prima di iniziare."),
                   ("Lo riparo", "Nella mia officina a Frassineto Po, con il ponte e le attrezzature giuste."),
                   ("Te lo riporto", "Riparato, pulito e igienizzato, dove vuoi. Paghi alla riconsegna.")]
@@ -21,10 +21,10 @@ def pagina_ritiro():
     faq = "".join(f'<details><summary>{d}</summary><div class="faq-risposta"><p>{r}</p></div></details>' for d, r in domande)
     faq_schema = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
         {"@type": "Question", "name": d, "acceptedAnswer": {"@type": "Answer", "text": r}} for d, r in domande]}
-    scrivi(head("Ritiro e consegna con vettura di cortesia | L.M. Autoservizi",
-                "Ritiro il mezzo a casa o al lavoro, lo riparo nella mia officina a Frassineto Po e te lo riporto. Vettura di cortesia gratuita per tutta la riparazione.",
+    scrivi(head("Ritiro e consegna gratis entro 20 km | L.M. Autoservizi",
+                "Ritiro gratis il mezzo a casa o al lavoro, entro 20 km da Frassineto Po, lo riparo nella mia officina e te lo riporto. Vettura di cortesia gratuita.",
                 [azienda(), faq_schema, briciole("Ritiro e consegna")], immagine="ritiro") + testata()
-           + intro("Ritiro e consegna", "Se non puoi portarmi il mezzo, passo io a prenderlo a casa o al lavoro e te lo riporto riparato. La riparazione la faccio nella mia officina a Frassineto Po, e intanto hai una vettura di cortesia gratuita.") + f'''
+           + intro("Ritiro e consegna", "Se non puoi portarmi il mezzo, passo io a prenderlo a casa o al lavoro e te lo riporto riparato. È gratis entro 20 km da Frassineto Po. La riparazione la faccio nella mia officina e, se ti serve, intanto hai la vettura di cortesia gratuita.") + f'''
 <section class="sezione">
   <div class="wrap ritiro-griglia">
     <div>
@@ -54,9 +54,9 @@ def pagina_ritiro():
 def pagina_mobile():
     inizia("mobile")
     scrivi(head("Officina mobile a domicilio | L.M. Autoservizi",
-                "Forature, cambio delle ruote montate, diagnosi e avviamento direttamente dove si trova il mezzo, a Casale Monferrato e nei paesi vicini.",
+                "Cambio della batteria, diagnosi con il computer e gomma bucata riparata dove si trova il mezzo, entro 20 km da Frassineto Po: Casale, Valenza e dintorni.",
                 [azienda(), briciole()], immagine="officina-mobile") + testata()
-           + intro("Officina mobile", "Se non puoi portarmi il mezzo e il lavoro si può fare sul posto, arrivo io con il furgone attrezzato. Tutto il resto lo riparo nella mia officina a Frassineto Po.") + f'''
+           + intro("Officina mobile", "Per gli interventi veloci arrivo io con il furgone attrezzato, dove si trova il mezzo: cambio la batteria, faccio la diagnosi con il computer, riparo la gomma bucata. Il resto lo riparo nella mia officina a Frassineto Po.") + f'''
 <section class="sezione">
   <div class="wrap mobile-griglia">
     <div class="mobile-presentazione">
@@ -66,13 +66,12 @@ def pagina_mobile():
     </div>
     <div class="mobile-dettagli">
       <h2>Cosa faccio sul posto</h2>
-      {spunte(["Riparazione delle forature", "Cambio delle ruote già montate sui cerchi",
-               "Diagnosi elettronica e lettura delle spie", "Problemi elettrici e di avviamento, nei casi semplici"])}
+      {spunte(["Cambio della batteria", "Diagnosi con il computer e lettura delle spie", "Riparazione della gomma bucata"])}
       <h2>E quando serve l'officina</h2>
-      <p>Se il lavoro richiede il ponte o tempi lunghi, ritiro il mezzo e ti lascio una vettura di cortesia gratuita. Il preventivo è sempre gratuito e arriva prima di iniziare.</p>
+      <p>Se il lavoro richiede il ponte o tempi lunghi, ritiro il mezzo gratis e, se ti serve, ti lascio la vettura di cortesia. Il preventivo è sempre gratuito e arriva prima di iniziare.</p>
       <a class="link" href="{href("officina")}">Scopri l'officina {I["freccia"]}</a>
       <div class="azioni">{apri_servizio("soccorso", "Chiedi assistenza a domicilio")}<a class="btn btn--vuoto" href="tel:{TEL}">{I["tel"]}Chiama {tel_txt()}</a></div>
-      <p class="piccolo">Lavoro a Casale Monferrato e nei paesi vicini. Chiama per sapere se arrivo anche da te.</p>
+      <p class="piccolo">Arrivo entro 20 km da Frassineto Po: Casale Monferrato, Valenza, Occimiano, Mede e i paesi vicini. Se non sei sicuro, chiama.</p>
     </div>
   </div>
 </section>''' + finale() + piede())

@@ -20,6 +20,8 @@ ICO = {
     "preventivo": svg('<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M8.8 14.3l2.2 2.2 4.4-4.6"/>'),
     "pagamenti": svg('<rect x="2.5" y="5.5" width="19" height="13" rx="2.2"/><path d="M2.5 10h19M6 14.8h4.5"/>'),
     "attrezzi": ICONE["meccanica"],
+    # il capannone con la serranda: l'officina nella home, accanto a ritiro e domicilio
+    "officina": svg('<path d="M2.5 20.5V9.2L12 3.8l9.5 5.4v11.3"/><path d="M6.5 20.5v-8.8h11v8.8M6.5 14.6h11M6.5 17.5h11"/>'),
 }
 # Icona e rimando (pagina, frammento, testo) di ognuna delle quattro sezioni di OFFICINA_PAGINA["sezioni"], nello stesso ordine.
 SEZIONI_EXTRA = [("attrezzi", ("servizi", "", "Tutti i servizi")),

@@ -3,7 +3,7 @@ La diagnosi ha anche il calcolo della scadenza della revisione (script/20-revisi
 from contenuti import TEL_TXT
 from testi_pagine import SERVIZI_PAGINE, SERVIZI_HUB
 from sito import (inizia, scrivi, head, testata, intro, finale, piede, foto, azienda, briciole, griglia_servizi, svg,
-                  href, url, nome, I, ICONE, VANTAGGI_ICO, SERVIZI, TEL, tel_txt, dati_servizio, apri)
+                  href, url, nome, zona_servita, I, ICONE, VANTAGGI_ICO, SERVIZI, TEL, tel_txt, dati_servizio, apri)
 
 CINQUE = ["meccanica", "elettrauto", "gommista", "carrozzeria", "diagnosi"]
 CALENDARIO = svg('<rect x="3.5" y="5" width="17" height="15.5" rx="2.2"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path class="pieno" d="M7.5 13h3v3h-3z"/>')
@@ -59,9 +59,9 @@ def pagina_servizi():
     # (id per i link già esistenti, icona, nome, testo, link o bottone)
     altri = [("ricambi", ICONE["ricambi"], nome("gomme"), "Ricambi e pneumatici: chiedimi disponibilità e prezzo.",
               f'<a class="link" href="{href("gomme")}">Cerca per misura {I["freccia"]}</a>'),
-             ("ritiro", VANTAGGI_ICO["rotta"], nome("ritiro"), "Passo a casa o al lavoro, riparo il mezzo in officina e te lo riporto dove vuoi.",
+             ("ritiro", VANTAGGI_ICO["rotta"], nome("ritiro"), "Passo a casa o al lavoro, riparo il mezzo in officina e te lo riporto dove vuoi. Gratis entro 20 km.",
               f'<a class="link" href="{href("ritiro")}">Come funziona {I["freccia"]}</a>'),
-             ("soccorso", VANTAGGI_ICO["mobile"], nome("mobile"), "Forature, cambio ruote, diagnosi e avviamento: quando si può, intervengo sul posto.",
+             ("soccorso", VANTAGGI_ICO["mobile"], nome("mobile"), "Cambio della batteria, diagnosi con il computer, gomma bucata: per gli interventi veloci arrivo io.",
               f'<a class="link" href="{href("mobile")}">Cosa faccio sul posto {I["freccia"]}</a>'),
              ("aziende", ICONE["aziende"], "Consulenza alle imprese",
               "Consulenza per le imprese che lavorano nel settore automobilistico, da un tecnico con più di dieci anni di esperienza multimarca. Ne parliamo e capiamo insieme di cosa hai bisogno.",
@@ -101,7 +101,7 @@ def pagina_servizio(chi):
     p = SERVIZI_PAGINE[chi]
     schema_servizio = {"@context": "https://schema.org", "@type": "Service", "serviceType": p["nome"], "name": p["h1"], "description": p["description"],
                        "provider": {"@id": azienda()["@id"]}, "url": url(),
-                       "areaServed": [{"@type": "City", "name": "Frassineto Po"}, {"@type": "City", "name": "Casale Monferrato"}]}
+                       "areaServed": zona_servita()}
     comprende = "".join(f'<li>{I["check"]}<div><h3>{titolo}</h3><p>{testo}</p></div></li>' for titolo, testo in p["comprende"])
     perche = "".join(f'<li><span class="perche-n" aria-hidden="true">{i + 1:02d}</span><h3>{titolo}</h3><p>{testo}</p></li>' for i, (titolo, testo) in enumerate(p["perche"]))
     aggiunta = {"gommista": stagioni, "diagnosi": revisione}.get(chi, lambda: "")()

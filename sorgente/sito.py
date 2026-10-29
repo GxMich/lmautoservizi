@@ -24,7 +24,7 @@ API per i moduli delle pagine
 - Pezzi: head(titolo, descrizione, schema=(), immagine="officina", noindex=False), testata(), intro(titolo, testo),
   orari(), spunte(voci), casella(s), griglia_servizi(con_foto=True), finale(titolo=None, testo=None), piede(extra="").
 - Dati strutturati: azienda(), briciole(nome=None); sito_web() (WebSite) head() lo aggiunge da sé alla home.
-  ZONA: comuni serviti; SERVIZI_PAGINE: le cinque pagine dei servizi (catalogo nei dati strutturati, Servizi evidenziato nel menu).
+  ZONA e zona_servita(): comuni serviti e areaServed; SERVIZI_PAGINE: le cinque pagine dei servizi (catalogo nei dati strutturati, Servizi evidenziato nel menu).
 - Testi legali: senza_commenti(html) toglie le note interne <!-- ... --> dei testi di testi_legali.py;
   nota_recensioni() è la nota da mettere sotto le recensioni; slug(testo) dà un id per i titoli.
 - Statistiche: STATISTICHE è il codice GoatCounter (variabile LM_GOATCOUNTER) o None; con None il sito non ha statistiche.
@@ -33,7 +33,7 @@ API per i moduli delle pagine
 import hashlib, json, math, os, posixpath, re, unicodedata
 from html import escape
 from contenuti import (TEL, TEL_TXT, WA, EMAIL, PEC, PIVA, MAPS, SEDE_LEGALE, GEAR_PIENO, FOTO_SLOT, STOCK,
-                       INDIRIZZO_OFFICINA, CAP_OFFICINA, COMUNE_OFFICINA, PROVINCIA, GEO, REA, FACEBOOK, INSTAGRAM, PREZZI)
+                       INDIRIZZO_OFFICINA, CAP_OFFICINA, COMUNE_OFFICINA, PROVINCIA, GEO, RAGGIO_KM, REA, FACEBOOK, INSTAGRAM, PREZZI)
 import testi_legali
 
 QUI = os.path.dirname(os.path.abspath(__file__))
@@ -287,7 +287,7 @@ SERVIZI = [
      "Spie accese, centraline, controllo gratuito prima della revisione",
      "Es. spia del motore accesa, revisione in scadenza a marzo.", ""),
     ("soccorso", "Assistenza a domicilio",
-     "Interventi possibili direttamente a casa tua",
+     "Batteria, diagnosi e gomma bucata: arrivo io, dove sei",
      "Dimmi dove si trova il mezzo e di che intervento hai bisogno.", ""),
     ("ricambi", "Vendita ricambi e gomme",
      "Ricambi e pneumatici: chiedimi disponibilità e prezzo",
@@ -299,7 +299,7 @@ PAGINA_SERVIZIO = {"meccanica": "meccanica", "elettrauto": "elettrauto", "gommis
 # Richieste che non sono caselle: (nome, suggerimento, opzioni, titolo della tendina)
 EXTRA = {
     "ritiro": ("Ritiro e consegna",
-               "Dove si trova il mezzo e cosa non va. Ti dico subito se e quanto costa il ritiro.", "", None),
+               "Dove si trova il mezzo e cosa non va. Entro 20 km da Frassineto Po il ritiro è gratis.", "", None),
     "aziende": ("Consulenza alle imprese",
                 "Che attività hai e di cosa avresti bisogno.", "senza-mezzo", None),
     "altro": ("Non so quale sia il problema",
@@ -366,6 +366,15 @@ def ci_sono_foto_stock():
 
 
 # ---------------------------------------------------------------- dati strutturati
+def zona_servita():
+    """areaServed: i comuni di ZONA e, con le coordinate, il cerchio di RAGGIO_KM attorno all'officina."""
+    zona = [{"@type": "City", "name": comune} for comune in ZONA]
+    if GEO:
+        zona.append({"@type": "GeoCircle", "geoMidpoint": {"@type": "GeoCoordinates", "latitude": GEO[0], "longitude": GEO[1]},
+                     "geoRadius": RAGGIO_KM * 1000})
+    return zona
+
+
 def azienda():
     """AutoRepair per Google e per gli assistenti di ricerca. Niente Review né AggregateRating: le recensioni
     pubblicate dall'officina stessa non danno stelle e Google le considera autoreferenziali."""
@@ -378,7 +387,7 @@ def azienda():
     dati = {"@context": "https://schema.org", "@type": "AutoRepair", "@id": URL + "#azienda",
             "name": "L.M. Autoservizi di Miglietta Luca",
             "alternateName": "L.M. Autoservizi",
-            "description": "Officina multimarca a Frassineto Po: meccanica, elettrauto, gommista, carrozzeria, diagnosi centraline e pre-revisione. Vettura di cortesia gratuita, ritiro e consegna, officina mobile.",
+            "description": "Officina multimarca a Frassineto Po: meccanica, elettrauto, gommista, carrozzeria, diagnosi centraline e pre-revisione. Ritiro e consegna gratis entro 20 km, assistenza a domicilio, vettura di cortesia gratuita.",
             "url": url("home"), "telephone": TEL, "email": EMAIL, "vatID": "IT" + PIVA,
             "image": URL + foto_info("officina")[0] + ".webp", "logo": URL + "assets/img/favicon-192.png",
             "founder": {"@type": "Person", "name": "Luca Miglietta"},
@@ -387,7 +396,7 @@ def azienda():
             "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "07:30", "closes": "19:30"}],
             "paymentAccepted": "Contanti, carta di credito, bancomat",
             "currenciesAccepted": "EUR",
-            "areaServed": [{"@type": "City", "name": comune} for comune in ZONA],
+            "areaServed": zona_servita(),
             "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Servizi dell'officina", "itemListElement": catalogo}}
     if GEO:
         dati["geo"] = {"@type": "GeoCoordinates", "latitude": GEO[0], "longitude": GEO[1]}
@@ -593,7 +602,7 @@ def piede(extra=""):
   <div class="wrap piede-griglia">
     <div class="piede-marchio">
       <img src="{risorsa("assets/img/logo-arancio-84.png")}" width="52" height="52" alt="" loading="lazy">
-      <p><strong>L.M. Autoservizi di Miglietta Luca</strong><br>Officina multimarca a Frassineto Po. Ritiro e consegna, vettura di cortesia gratuita e officina mobile.</p>
+      <p><strong>L.M. Autoservizi di Miglietta Luca</strong><br>Officina multimarca a Frassineto Po. Ritiro e consegna gratis entro 20 km, assistenza a domicilio e vettura di cortesia gratuita.</p>
     </div>
     <div><h2>Pagine</h2><ul>{voci}</ul></div>
     <div><h2>Contatti</h2><ul>
