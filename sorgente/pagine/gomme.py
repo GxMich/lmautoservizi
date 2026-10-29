@@ -93,7 +93,7 @@ def costruisci():
       {spunte(["Montaggio ed equilibratura in officina", "Convergenza e campanatura", "Deposito delle gomme che non usi, fino al prossimo cambio", "Riparazione delle forature, anche da te"])}
     </div>
     <figure class="gomma">
-      <div class="gomma-foto"><img src="{risorsa("assets/img/3d/pneumatico-realista-v1.webp")}" width="1254" height="1254" alt="Render illustrativo di un pneumatico con cerchio in lega" loading="lazy" decoding="async"></div>
+      <div class="gomma-foto"><img src="{risorsa("assets/img/3d/pneumatico-realista-v1.webp")}" srcset="{risorsa("assets/img/3d/pneumatico-realista-v1-640.webp")} 640w, {risorsa("assets/img/3d/pneumatico-realista-v1.webp")} 1254w" sizes="(max-width: 899px) 90vw, 520px" width="1254" height="1254" alt="Render illustrativo di un pneumatico con cerchio in lega" loading="lazy" decoding="async"></div>
       <figcaption class="gomma-dati"><div><span data-misura-etichetta>Esempio di misura</span><strong data-misura-testo>205/55 R16</strong></div><p>Immagine illustrativa</p></figcaption>
     </figure>
   </div>

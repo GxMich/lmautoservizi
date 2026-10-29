@@ -6,7 +6,7 @@ Ogni file prende il nome dello spazio in cui finirà (gli spazi sono in `FOTO_SL
 
 | File | Spazio | Formato |
 |---|---|---|
-| `eroe.jpg` | Apertura della home, dentro l'ingranaggio | verticale 2:3, soggetto al centro |
+| `eroe.jpg` | Apertura della home, dentro il cerchio dell'ingranaggio | quadrata 1:1, soggetto al centro |
 | `luca.jpg` | Ritratto di Luca (home e Chi sono) | verticale 4:5 |
 | `officina.jpg` | Interno dell'officina (pagina L'officina, fascia della pagina Servizi, anteprima social) | orizzontale 3:2 |
 | `ingresso.jpg` | Ingresso dell'officina (Contatti) | orizzontale 3:2 |

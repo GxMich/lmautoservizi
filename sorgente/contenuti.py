@@ -73,7 +73,7 @@ FAQ_R = [("Quanto costa il ritiro?", "Niente: ritiro e riconsegna sono sempre gr
 # sorgente/foto.py ritaglia gli scatti su questi rapporti; appena esiste docs/assets/img/foto/<spazio>.webp
 # il generatore usa quella al posto della stock.
 FOTO_SLOT = {
-    "eroe": ((2, 3), "eroe", "", ""),
+    "eroe": ((1, 1), "eroe", "", ""),   # si vede in un cerchio: quadrata, così non si scaricano pixel che non si vedono
     "luca": ((4, 5), "mani", "Foto di esempio: mani di un meccanico al lavoro sul motore", "Luca Miglietta al lavoro nella sua officina"),
     "officina": ((3, 2), "officina", "Foto di esempio: auto e attrezzature in un'officina", "L'interno dell'officina di L.M. Autoservizi a Frassineto Po"),
     "ingresso": ((3, 2), "officina", "Foto di esempio: ambiente di un'officina con auto e ponte sollevatore", "L'ingresso dell'officina di L.M. Autoservizi"),
@@ -91,7 +91,7 @@ FOTO_SLOT = {
     **{f"allestimento-{n}": ((3, 2), "mobile", "", "Un allestimento camping e fuoristrada realizzato da Luca") for n in range(1, 7)},
 }
 # Dimensioni delle foto stock in docs/assets/img/campione/ (ognuna ha anche la versione -800).
-STOCK = {"eroe": (1600, 2400), "officina": (1600, 1067), "mani": (1600, 2400), "meccanica": (1600, 1067),
+STOCK = {"eroe": (1200, 1200), "officina": (1600, 1067), "mani": (1600, 2400), "meccanica": (1600, 1067),
          "diagnosi": (1600, 1067), "gomme": (1600, 1067), "ritiro": (1600, 1067), "riconsegna": (1600, 2001), "mobile": (1600, 1067)}
 
 ATT = [("qualifica-professionale", "Operatore di riparazioni elettromeccaniche per l'autoveicolo", "Qualifica professionale, 400 ore, 2010"),

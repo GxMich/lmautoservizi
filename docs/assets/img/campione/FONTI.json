@@ -8,15 +8,16 @@
       "nome": "eroe",
       "file": "eroe.webp",
       "dimensioni": [
-        1600,
-        2400
+        1200,
+        1200
       ],
       "id_pexels": 4489714,
       "autore": "cottonbro studio",
       "pagina": "https://www.pexels.com/photo/4489714/",
       "url_scaricato": "https://images.pexels.com/photos/4489714/pexels-photo-4489714.jpeg?auto=compress&cs=tinysrgb&w=1600",
       "uso": "Fotografia stock di esempio, non documenta L.M. Autoservizi",
-      "licenza": "https://www.pexels.com/license/"
+      "licenza": "https://www.pexels.com/license/",
+      "nota": "Ritagliata quadrata il 29/10/2026 (stessa inquadratura di prima, object-position 50% 55%): nel sito si vede in un cerchio."
     },
     {
       "nome": "officina",
