@@ -24,6 +24,9 @@ COMUNE_OFFICINA = "Frassineto Po"
 PROVINCIA = "AL"
 GEO = (45.1284713, 8.5431679)      # il punto della scheda Google (link MAPS), in gradi decimali
 RAGGIO_KM = 20                     # ritiro, consegna e domicilio: raggio dall'officina, ritiro sempre gratis
+# Frasi uniche, riusate in tutte le pagine: se cambiano, cambiano ovunque.
+ZONA_TESTO = "entro 20 km dall'officina: Casale Monferrato, Valenza, Occimiano, San Salvatore Monferrato, Mede e i paesi vicini"
+CORTESIA_TESTO = "Ho una sola vettura di cortesia, gratuita: se è libera, la tieni finché il tuo mezzo è pronto. Chiedila quando prenoti."
 ANNO_INIZIO = 2006                 # inizio dell'esperienza di Luca: 20 anni nel 2026 (lo ha detto lui il 29/10/2026)
 ANNI_ESPERIENZA = datetime.date.today().year - ANNO_INIZIO   # alla generazione; nella pagina lo ricalcola anche 00-base.js
 REA = "AL-271409"
@@ -78,9 +81,9 @@ DETT = [
 ]
 
 FAQ_R = [("Quanto costa il ritiro?", "Niente: ritiro e riconsegna sono sempre gratis, entro 20 km dall'officina."),
-         ("Fino a dove arrivi?", "In un raggio di 20 km da Frassineto Po: Casale Monferrato, Valenza, Occimiano, San Salvatore, Mede e la Lomellina vicina. Chiama se non sei sicuro."),
-         ("Quanto costa la vettura di cortesia?", "Niente: è gratuita. Ne ho una, quindi dimmelo quando prenoti. Te la lascio con il pieno, pulita e igienizzata."),
-         ("E se la riparazione richiede più giorni?", "La vettura di cortesia resta con te per tutto il tempo della riparazione. Ti aggiorno io sull'avanzamento."),
+         ("Fino a dove arrivi?", f"{ZONA_TESTO[0].upper()}{ZONA_TESTO[1:]}. Se non sei sicuro, chiamami."),
+         ("Quanto costa la vettura di cortesia?", CORTESIA_TESTO),
+         ("E se la riparazione richiede più giorni?", "Se la vettura di cortesia è libera, resta con te finché il tuo mezzo è pronto. Ti aggiorno io su come va il lavoro."),
          ("Come pago?", "In contanti, con carta o con bancomat, alla riconsegna.")]
 
 # Spazi per le foto: rapporto (larghezza, altezza), foto stock di riserva, alt della foto stock e alt della foto vera.
@@ -91,7 +94,7 @@ FOTO_SLOT = {
     "luca": ((4, 5), "mani", "Foto di esempio: mani di un meccanico al lavoro sul motore", "Luca Miglietta al lavoro nella sua officina"),
     "officina": ((3, 2), "officina", "Foto di esempio: auto e attrezzature in un'officina", "L'interno dell'officina di L.M. Autoservizi a Frassineto Po"),
     "ingresso": ((3, 2), "officina", "Foto di esempio: ambiente di un'officina con auto e ponte sollevatore", "L'ingresso dell'officina di L.M. Autoservizi"),
-    "officina-mobile": ((3, 2), "mobile", "Foto di esempio: un intervento sul motore all'aperto", "Il furgone dell'officina mobile di L.M. Autoservizi"),
+    "officina-mobile": ((3, 2), "mobile", "Foto di esempio: un intervento sul motore all'aperto", "Luca al lavoro sul mezzo di un cliente, fuori dall'officina"),
     "ritiro": ((3, 2), "ritiro", "Foto di esempio: la consegna delle chiavi di un'auto", "Luca consegna le chiavi della vettura di cortesia"),
     "servizio-meccanica": ((3, 2), "meccanica", "", ""),
     "servizio-elettrauto": ((3, 2), "diagnosi", "", ""),

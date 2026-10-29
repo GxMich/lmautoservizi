@@ -239,20 +239,8 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
   .servizi .servizio:not(.servizio--largo) { aspect-ratio: auto; }
   .servizi .servizio-ico .ico { width: clamp(44px, 8svh, 84px); height: clamp(44px, 8svh, 84px); }
 }
-/* Dieci caselle (undici con il noleggio a lungo termine): da 900px quattro colonne, come nella pagina Servizi;
-   da 1200px due righe sole, cinque colonne o sei con il noleggio. Le ultime caselle si allargano per non lasciare buchi. */
-@media (min-width: 900px) {
-  .servizi .servizi-griglia { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-}
-@media (min-width: 900px) and (max-width: 1199px) {
-  :is(.servizi, .scelta) .servizi-griglia:has(> li:nth-child(10):last-child) > li:nth-last-child(-n+2),
-  :is(.servizi, .scelta) .servizi-griglia:has(> li:nth-child(11):last-child) > li:last-child { grid-column: span 2; }
-}
-@media (min-width: 1200px) {
-  :is(.servizi, .scelta) .servizi-griglia:has(> li:nth-child(10)) { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-  :is(.servizi, .scelta) .servizi-griglia:has(> li:nth-child(11)) { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-  :is(.servizi, .scelta) .servizi-griglia:has(> li:nth-child(11):last-child) > li:last-child { grid-column: span 2; }
-}
+/* Colonne della griglia dei servizi (home, Servizi, Contatti): le regole per telefono, tablet e computer
+   stanno in 40-base-extra.css, dopo quelle delle singole pagine. */
 
 /* ---------- Luca (home) ---------- */
 .luca { padding-block: clamp(80px, 11vw, 150px); }
@@ -464,7 +452,7 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 
 /* ---------- piede ---------- */
 .piede { padding-top: 64px; border-top: 1px solid var(--linea); background: var(--asfalto); }
-.piede-griglia { display: grid; grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr)); gap: 32px; }
+.piede-griglia { display: grid; grid-template-columns: 1.3fr repeat(4, minmax(0, 1fr)); gap: 32px; }
 .piede-marchio img { margin-bottom: 14px; }
 .piede-marchio p { color: var(--testo-2); font-size: .95rem; max-width: 36ch; }
 .piede-marchio strong { color: var(--testo); }

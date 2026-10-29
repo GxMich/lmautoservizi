@@ -38,16 +38,25 @@ def schema_faq(domande):
         {"@type": "Question", "name": d, "acceptedAnswer": {"@type": "Answer", "text": r}} for d, r in domande]}
 
 
+# Le pagine che non sono "servizi/qualcosa" ma stanno nell'elenco: (id per i vecchi link servizi/#..., icona, descrizione)
+ALTRE_PAGINE = {"ritiro": ("ritiro", VANTAGGI_ICO["rotta"], "Passo a prendere il mezzo, lo riparo in officina e te lo riporto. Gratis entro 20 km"),
+                "mobile": ("soccorso", ICONE["soccorso"], "Batteria, diagnosi e gomma bucata: per gli interventi veloci arrivo io"),
+                "gomme": ("ricambi", ICONE["ricambi"], "Ricambi, gomme, lubrificanti, accessori e batterie, da ritirare in officina")}
+DETTAGLIO = ["meccanica", "elettrauto", "gommista", "carrozzeria", "diagnosi", "ritiro", "mobile", "gomme", "allestimenti"]
+
+
 def elenco(voci, con_id=False):
     """Righe che portano alle pagine dei servizi: icona, nome, una riga di descrizione.
     Nell'indice ogni riga ha l'id del servizio, così restano validi i vecchi link servizi/#meccanica e simili."""
-    righe = "".join(f'''
-      <li{f' id="{chi}"' if con_id else ""}><a class="dettaglio" href="{href(chi)}">
-        <span class="dettaglio-ico" aria-hidden="true">{ICONE[chi]}</span>
-        <div class="dettaglio-testo"><h3>{SERVIZI_PAGINE[chi]["nome"]}</h3><p>{servizio(chi)[2]}</p></div>
+    def riga(chi):
+        id_, icona, desc = ALTRE_PAGINE.get(chi) or (chi, ICONE[chi], servizio(chi)[2])
+        return f'''
+      <li{f' id="{id_}"' if con_id else ""}><a class="dettaglio" href="{href(chi)}">
+        <span class="dettaglio-ico" aria-hidden="true">{icona}</span>
+        <div class="dettaglio-testo"><h3>{nome(chi)}</h3><p>{desc}</p></div>
         <span class="dettaglio-vai"><span>Scopri</span>{I["freccia"]}</span>
-      </a></li>''' for chi in voci)
-    return f'<ul class="dettagli">{righe}\n    </ul>'
+      </a></li>'''
+    return f'<ul class="dettagli">{"".join(riga(chi) for chi in voci)}\n    </ul>'
 
 
 def costruisci():
@@ -60,15 +69,9 @@ def costruisci():
 def pagina_servizi():
     inizia("servizi")
     # (id per i link già esistenti, icona, nome, testo, link o bottone)
-    altri = [("ricambi", ICONE["ricambi"], nome("gomme"), "Ricambi, gomme, lubrificanti, additivi, accessori e batterie: chiedimi disponibilità e prezzo, poi ritiri in officina.",
-              f'<a class="link" href="{href("gomme")}">Guarda il catalogo {I["freccia"]}</a>'),
-             ("acquisto", ICONE["acquisto"], "Consulenza acquisto auto",
+    altri = [("acquisto", ICONE["acquisto"], "Consulenza acquisto auto",
               "Prima di comprare un'auto usata, te la controllo da cima a fondo e ti dico cosa va sistemato. Se sei indeciso, ti aiuto a scegliere quella giusta per te.",
               apri_servizio("acquisto", "Chiedimi un controllo", "link link--bottone")),
-             ("ritiro", VANTAGGI_ICO["rotta"], nome("ritiro"), "Passo a casa o al lavoro, riparo il mezzo in officina e te lo riporto dove vuoi. Gratis entro 20 km.",
-              f'<a class="link" href="{href("ritiro")}">Come funziona {I["freccia"]}</a>'),
-             ("soccorso", VANTAGGI_ICO["mobile"], nome("mobile"), "Cambio della batteria, diagnosi con il computer, gomma bucata: per gli interventi veloci arrivo io.",
-              f'<a class="link" href="{href("mobile")}">Cosa faccio sul posto {I["freccia"]}</a>'),
              ("aziende", ICONE["aziende"], "Consulenza alle imprese",
               f"Consulenza per le imprese che lavorano nel settore automobilistico, da un tecnico con {anni_esperienza()} anni di esperienza multimarca. Ne parliamo e capiamo insieme di cosa hai bisogno.",
               apri("aziende", "Parliamone", "link link--bottone"))]
@@ -94,7 +97,7 @@ def pagina_servizi():
 <section class="sezione sezione--asfalto" aria-labelledby="dettaglio-t">
   <div class="wrap">
     <h2 id="dettaglio-t">I servizi nel dettaglio</h2>
-    {elenco(PRINCIPALI, con_id=True)}
+    {elenco(DETTAGLIO, con_id=True)}
   </div>
 </section>
 <div class="wrap fascia">{foto("officina", "(max-width: 1280px) 100vw, 1280px", "foto foto--fascia")}</div>

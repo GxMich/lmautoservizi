@@ -58,3 +58,39 @@
 /* ---------- con il menu o una finestra aperti la pagina sotto non scorre; lo spazio della barra di scorrimento resta, niente salti ---------- */
 html { scrollbar-gutter: stable; }
 body.menu-aperto, html:has(dialog[open]) { overflow: hidden; }
+
+/* ---------- griglia dei servizi: dieci caselle, undici con il noleggio a lungo termine (non vale per il catalogo delle gomme) ----------
+   Telefono: una casella per riga, icona a sinistra, così si leggono tutte e si tocca senza sbagliare.
+   Tablet: tre colonne. Computer: quattro, da 1200px cinque (sei con il noleggio), due righe sole.
+   Le ultime caselle si allargano per non lasciare buchi in fondo. */
+@media (max-width: 599px) {
+  .servizi-griglia:not(.catalogo) { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .servizi-griglia:not(.catalogo) .servizio { aspect-ratio: auto; display: grid; grid-template-columns: 40px minmax(0, 1fr); grid-template-areas: "ico nome" "ico desc"; align-items: center; justify-items: start; column-gap: 14px; row-gap: 2px; padding: 12px 16px; min-height: 64px; text-align: left; border-radius: 18px; }
+  .servizi-griglia:not(.catalogo) .servizio-ico { grid-area: ico; }
+  .servizi-griglia:not(.catalogo) .servizio-ico .ico { width: 36px; height: 36px; }
+  .servizi-griglia:not(.catalogo) .servizio-nome { grid-area: nome; font-size: 1.05rem; }
+  .servizi-griglia:not(.catalogo) .servizio:not(.servizio--largo) .servizio-desc { grid-area: desc; display: block; font-size: .84rem; max-width: none; }
+  .servizi-griglia:not(.catalogo) .servizio:focus-visible { border-radius: 18px; }
+}
+@media (min-width: 600px) and (max-width: 899px) {
+  .servizi-griglia:not(.catalogo) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .servizi-griglia:not(.catalogo):has(> li:nth-child(10):last-child) > li:last-child { grid-column: span 3; }
+  .servizi-griglia:not(.catalogo):has(> li:nth-child(11):last-child) > li:last-child { grid-column: span 2; }
+  .servizi-griglia:not(.catalogo) > li:last-child:nth-child(3n+1) .servizio, .servizi-griglia:not(.catalogo) > li:last-child:nth-child(3n+2) .servizio { aspect-ratio: auto; }
+}
+@media (min-width: 900px) {
+  .servizi-griglia:not(.catalogo) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (min-width: 900px) and (max-width: 1199px) {
+  .servizi-griglia:not(.catalogo):has(> li:nth-child(10):last-child) > li:nth-last-child(-n+2),
+  .servizi-griglia:not(.catalogo):has(> li:nth-child(11):last-child) > li:last-child { grid-column: span 2; }
+  .servizi-griglia:not(.catalogo):has(> li:nth-child(10):last-child) > li:nth-last-child(-n+2) .servizio,
+  .servizi-griglia:not(.catalogo):has(> li:nth-child(11):last-child) > li:last-child .servizio { aspect-ratio: auto; }
+}
+@media (min-width: 1200px) {
+  .servizi-griglia:not(.catalogo):has(> li:nth-child(10)) { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .servizi-griglia:not(.catalogo):has(> li:nth-child(11)) { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .servizi-griglia:not(.catalogo):has(> li:nth-child(11):last-child) > li:last-child { grid-column: span 2; }
+}
+/* il testo non si taglia mai, nemmeno con lo zoom forte o la spaziatura del testo aumentata */
+.servizio { min-height: min-content; }

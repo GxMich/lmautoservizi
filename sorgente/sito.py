@@ -58,7 +58,7 @@ PAGINE = {
     "allestimenti": ("servizi/allestimenti-camping-fuoristrada/", "Allestimenti camping e fuoristrada"),
     "officina": ("officina/", "L'officina"),
     "ritiro": ("ritiro-e-consegna/", "Ritiro e consegna"),
-    "mobile": ("officina-mobile/", "Officina mobile"),
+    "mobile": ("assistenza-a-domicilio/", "Assistenza a domicilio"),
     "gomme": ("gomme-e-ricambi/", "Gomme e ricambi"),
     "chi": ("chi-sono/", "Chi sono"),
     "contatti": ("contatti/", "Contatti"),
@@ -66,8 +66,12 @@ PAGINE = {
     "condizioni": ("garanzia-e-condizioni/", "Garanzia e condizioni"),
     "404": ("404.html", "Pagina non trovata"),
 }
-NAV = ["servizi", "officina", "gomme", "chi", "contatti"]
-PIEDE_PAGINE = ["servizi", "officina", "ritiro", "mobile", "gomme", "allestimenti", "chi", "contatti", "condizioni", "privacy"]
+# Menu: officina, ritiro e domicilio alla pari (Luca, 29/10/2026). NAV_NOMI accorcia le voci lunghe; il menu del telefono ha anche Home e Chi sono.
+NAV = ["servizi", "officina", "ritiro", "mobile", "gomme", "contatti"]
+NAV_NOMI = {"ritiro": "Ritiro gratis", "mobile": "A domicilio"}
+MENU = ["home"] + NAV + ["chi"]
+# Piede: una colonna con le pagine dei servizi, una con il resto (le pagine legali stanno nella riga in fondo).
+PIEDE_OFFICINA = ["officina", "ritiro", "mobile", "gomme", "chi", "contatti"]
 ASSOLUTE = {"404"}          # servite a indirizzi qualsiasi: link e risorse assoluti
 NON_INDICIZZATE = {"404"}   # fuori dalla sitemap, sempre noindex
 # Le pagine dei servizi principali (sotto servizi/): catalogo nei dati strutturati
@@ -303,9 +307,9 @@ SERVIZI = [
      "Spie accese, centraline, controllo gratuito prima della revisione",
      "Es. spia del motore accesa, revisione in scadenza a marzo.", ""),
     ("soccorso", "Assistenza a domicilio",
-     "Batteria, diagnosi e gomma bucata: arrivo io, dove sei",
+     "Auto ferma? Batteria, diagnosi e gomma bucata: arrivo io",
      "Dimmi dove si trova il mezzo e di che intervento hai bisogno.", ""),
-    ("ricambi", "Vendita ricambi e gomme",
+    ("ricambi", "Gomme e ricambi",
      "Ricambi, gomme, lubrificanti e accessori: chiedimi disponibilità e prezzo",
      "Scrivimi marca, modello e anno del mezzo; per le gomme, anche la misura.", "vendita"),
     ("allestimenti", "Allestimenti camping e fuoristrada",
@@ -332,11 +336,9 @@ EXTRA = {
 
 def dati_servizio(nome, nota, opzioni="", titolo=None):
     """Attributi della tendina: nome del servizio, suggerimento per le note, opzioni e titolo se diverso dal nome."""
-    a = f'data-servizio="{attr(nome)}" data-nota="{attr(nota)}"'
+    a = f'aria-haspopup="dialog" data-servizio="{attr(nome)}" data-nota="{attr(nota)}"'
     if titolo:
         a += f' data-titolo="{attr(titolo)}"'
-    if "urgente" in opzioni:
-        a += " data-urgente"
     if "senza-mezzo" in opzioni:
         a += " data-senza-mezzo"
     if "vendita" in opzioni:
@@ -523,14 +525,13 @@ def corrente(pagina):
 
 
 def testata():
-    def voci(con_home=False):
-        lista = (["home"] if con_home else []) + NAV
-        return "".join(f'<li><a href="{href(p)}"{corrente(p)}>{nome(p)}</a></li>' for p in lista)
+    def voci(lista):
+        return "".join(f'<li><a href="{href(p)}"{corrente(p)}>{NAV_NOMI.get(p, nome(p))}</a></li>' for p in lista)
     etichetta_tema = "Passa al tema chiaro"
     return f'''<header class="testata">
   <div class="wrap testata-riga">
     <a class="marchio" href="{href("home")}"><img src="{risorsa("assets/img/logo-arancio-84.png")}" width="40" height="40" alt=""><span>L.M. Autoservizi<small>Officina a Frassineto Po</small></span></a>
-    <nav class="nav" aria-label="Principale"><ul>{voci()}</ul></nav>
+    <nav class="nav" aria-label="Principale"><ul>{voci(NAV)}</ul></nav>
     <div class="testata-azioni">
       <button class="tema-bottone" type="button" data-tema-bottone aria-label="{etichetta_tema}">{I["sole"]}{I["luna"]}</button>
       <a class="btn btn--arancio btn--piccolo testata-chiama" href="tel:{TEL}" aria-label="Chiama Luca al {tel_txt()}">{I["tel"]}<span>Chiama</span></a>
@@ -539,7 +540,7 @@ def testata():
   </div>
 </header>
 <div class="menu" id="menu" hidden>
-  <nav aria-label="Menu"><ul>{voci(True)}</ul></nav>
+  <nav aria-label="Menu"><ul>{voci(MENU)}</ul></nav>
   <div class="menu-piede" role="region" aria-label="Contatti">
     <p class="stato" data-stato></p>
     <div class="azioni">
@@ -612,7 +613,8 @@ def orari():
 
 
 def piede(extra=""):
-    voci = "".join(f'<li><a href="{href(p)}">{nome(p)}</a></li>' for p in PIEDE_PAGINE)
+    servizi = "".join(f'<li><a href="{href(p)}">{nome(p)}</a></li>' for p in SERVIZI_PAGINE)
+    pagine_officina = "".join(f'<li><a href="{href(p)}">{nome(p)}</a></li>' for p in PIEDE_OFFICINA)
     nota = f'<span>Le fotografie sono di esempio: verranno sostituite con quelle dell’officina.</span>' if ci_sono_foto_stock() else ""
     social = "".join(f'\n      <li><a href="{p}" target="_blank" rel="noopener">{n}</a></li>' for p, n in ((FACEBOOK, "Facebook"), (INSTAGRAM, "Instagram")) if p)
     officina = f'\n      <li><a href="{MAPS}" target="_blank" rel="noopener">Officina: {indirizzo_officina()}</a></li>' if INDIRIZZO_OFFICINA else ""
@@ -629,7 +631,8 @@ def piede(extra=""):
       <img src="{risorsa("assets/img/logo-arancio-84.png")}" width="52" height="52" alt="" loading="lazy">
       <p><strong>L.M. Autoservizi di Miglietta Luca</strong><br>Officina multimarca a Frassineto Po. Ritiro e consegna gratis entro 20 km, assistenza a domicilio e vettura di cortesia gratuita.</p>
     </div>
-    <div><h2>Pagine</h2><ul>{voci}</ul></div>
+    <div><h2>Servizi</h2><ul>{servizi}</ul></div>
+    <div><h2>L'officina</h2><ul>{pagine_officina}</ul></div>
     <div><h2>Contatti</h2><ul>
       <li><a href="tel:{TEL}">{tel_txt()}</a></li>
       <li><a href="{wa()}" target="_blank" rel="noopener">WhatsApp</a></li>
@@ -648,7 +651,7 @@ def piede(extra=""):
 </footer>
 <nav class="barra" aria-label="Azioni rapide">
   <a href="tel:{TEL}">{I["tel"]}Chiama</a>
-  <a href="{href("home", frammento="servizi")}">{ICONE["meccanica"]}Servizi</a>
+  <a href="{href("home", frammento="servizi")}">{ICONE["meccanica"]}Cosa ti serve</a>
   <a href="{wa()}" target="_blank" rel="noopener">{I["chat"]}WhatsApp</a>
 </nav>
 {scheda()}{extra}<script src="{risorsa("assets/js/vendor/gsap.min.js")}" defer></script>
@@ -672,7 +675,7 @@ def casella(s, con_foto=True):
     chi, nome_servizio, desc, nota, opzioni = s
     # la foto che si apre al passaggio del mouse, solo per i servizi che hanno il loro spazio in FOTO_SLOT
     foto_html = f'<span class="servizio-foto" aria-hidden="true">{img("servizio-" + chi, "", piccola=True, alt="")}</span>' if con_foto and "servizio-" + chi in FOTO_SLOT else ""
-    return f'''<li><button type="button" class="servizio servizio--{chi}{" servizio--urgente" if "urgente" in opzioni else ""}" {dati_servizio(nome_servizio, nota, opzioni)}>
+    return f'''<li><button type="button" class="servizio servizio--{chi}" {dati_servizio(nome_servizio, nota, opzioni)}>
   {foto_html}<span class="servizio-ico" aria-hidden="true">{ICONE[chi]}</span>
   <span class="servizio-nome">{nome_servizio}</span><span class="servizio-desc">{desc}</span>
 </button></li>'''
@@ -689,7 +692,10 @@ def griglia_servizi(con_foto=True):
   <span class="servizio-ico" aria-hidden="true">{ICONE["noleggio"]}</span>
   <span class="servizio-nome">Noleggio a lungo termine</span><span class="servizio-desc">Auto e furgoni con un canone mensile: guarda le offerte {I["esterno"]}</span>
 </a></li>''' if NOLEGGIO_LINK else ""
-    return f'<ul class="servizi-griglia">{"".join(casella(s, con_foto) for s in SERVIZI)}{noleggio}{altro}</ul>'
+    # Prima le due caselle per chi è in difficoltà: non sa cos'ha, o ha il mezzo fermo. Poi i servizi dell'officina.
+    domicilio = next(s for s in SERVIZI if s[0] == "soccorso")
+    resto = "".join(casella(s, con_foto) for s in SERVIZI if s is not domicilio)
+    return f'<ul class="servizi-griglia">{altro}{casella(domicilio, con_foto)}{resto}{noleggio}</ul>'
 
 
 def finale(titolo=None, testo=None):

@@ -90,3 +90,8 @@
   .officina-orari .orari th, .contatti-home .orari th { white-space: nowrap; padding-right: 16px; }
 }
 
+
+/* ---------- ritiro: i comuni dove arrivo ---------- */
+.comuni { list-style: none; margin: 22px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.comuni li { padding: 8px 14px; border: 1px solid var(--linea-forte); border-radius: 999px; font-size: .92rem; font-weight: 600; }
+.rimando-officina .azioni { gap: 8px 24px; }

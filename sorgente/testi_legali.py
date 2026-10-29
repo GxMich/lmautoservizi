@@ -50,7 +50,7 @@ DA VERIFICARE: se uno script di statistica senza cookie richieda comunque il con
 <!-- DA VERIFICARE sul sito finale: che il modulo non salvi bozze e non mandi dati a servizi esterni. -->
 <ul>
 <li><strong>Che dati ricevo:</strong> il tuo numero, il nome e la foto del profilo WhatsApp, quello che scrivi (per esempio nome, targa, modello, problema, dove si trova l'auto) e le foto o la posizione, se me le mandi.</li>
-<li><strong>Perché:</strong> per risponderti, farti un preventivo e organizzare il lavoro, il ritiro dell'auto o l'intervento con l'officina mobile.</li>
+<li><strong>Perché:</strong> per risponderti, farti un preventivo e organizzare il lavoro, il ritiro dell'auto o l'intervento a domicilio.</li>
 <li><strong>Base giuridica:</strong> la tua richiesta, cioè misure precontrattuali e contratto (art. 6.1.b GDPR). Non serve un consenso.</li>
 <li><strong>Sei obbligato?</strong> No, ma senza questi dati non posso risponderti. La targa è facoltativa: mi aiuta a riconoscere il modello e a trovare i ricambi giusti.</li>
 </ul>
@@ -87,8 +87,8 @@ DA VERIFICARE: se uno script di statistica senza cookie richieda comunque il con
 <p><strong>Per smettere scrivi STOP</strong> quando vuoi, oppure dimmelo a voce, per telefono o per email. Smetto subito. La revoca non rende illegittimi i messaggi mandati prima (art. 7.3 GDPR). Tengo questi dati finché non scrivi STOP e comunque non oltre 24 mesi dal tuo ultimo intervento in officina. Non creo profili.</p>
 <!-- DA VERIFICARE: durata di 24 mesi, per analogia con il provvedimento del Garante sulle carte fedeltà del 24 febbraio 2005. -->
 
-<h2>Lavori in officina, ritiro e consegna, officina mobile</h2>
-<p>Tratto nome e contatti; l'indirizzo dove ritiro o riconsegno l'auto, o dove intervengo con l'officina mobile, e la posizione se me la mandi; i dati dell'auto (targa, telaio, chilometri, scadenze); il problema e i risultati della diagnosi; preventivo, ordine di lavoro e foto del lavoro; i dati per la fattura. Se l'auto me la porta o la ritira un'altra persona, anche il suo nome. La targa è un dato personale, perché collega l'auto a una persona.</p>
+<h2>Lavori in officina, ritiro e consegna, assistenza a domicilio</h2>
+<p>Tratto nome e contatti; l'indirizzo dove ritiro o riconsegno l'auto, o dove intervengo a domicilio, e la posizione se me la mandi; i dati dell'auto (targa, telaio, chilometri, scadenze); il problema e i risultati della diagnosi; preventivo, ordine di lavoro e foto del lavoro; i dati per la fattura. Se l'auto me la porta o la ritira un'altra persona, anche il suo nome. La targa è un dato personale, perché collega l'auto a una persona.</p>
 <ul>
 <li>Per fare il lavoro che mi chiedi: contratto (art. 6.1.b GDPR).</li>
 <li>Per fatture e contabilità: obbligo di legge (art. 6.1.c GDPR).</li>

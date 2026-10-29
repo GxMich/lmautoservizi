@@ -84,7 +84,7 @@ def costruisci():
     <div class="officina-dove-testo">
       <h2 id="dove-t">Dove siamo e orari</h2>
       <p class="officina-indirizzo">{indirizzo_officina()}<span>A pochi chilometri da Casale Monferrato</span></p>
-      <p>Prima di passare chiamami: concordiamo l'intervento e ti do le indicazioni per arrivare.</p>
+      <p>Prima di passare chiamami, così ti dico quando portare il mezzo.</p>
       <div class="azioni">
         <a class="btn btn--arancio" href="tel:{TEL}">{I["tel"]}Chiama {tel_txt()}</a>
         <a class="btn btn--vuoto" href="{wa()}" target="_blank" rel="noopener">{I["chat"]}Scrivi su WhatsApp</a>

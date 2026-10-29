@@ -9,7 +9,7 @@ def costruisci():
     cronologia = [("2009", "Diploma di liceo scientifico tecnologico a Casale Monferrato."),
                   ("2010", "Qualifica di operatore di riparazioni elettromeccaniche per l'autoveicolo."),
                   ("2012", "Formazione per il recupero dei gas fluorurati degli impianti di climatizzazione."),
-                  ("Oggi", "Titolare di L.M. Autoservizi, con officina a Frassineto Po, ritiro e consegna e officina mobile.")]
+                  ("Oggi", "Titolare di L.M. Autoservizi, con officina a Frassineto Po, ritiro e consegna e assistenza a domicilio.")]
     crono = "".join(f'<li><b>{anno}</b><span>{testo}</span></li>' for anno, testo in cronologia)
     scrivi(head("Chi sono: Luca Miglietta | L.M. Autoservizi",
                 f"Luca Miglietta, titolare di L.M. Autoservizi: qualifica in riparazioni elettromeccaniche, responsabile tecnico delle revisioni, {ANNI_ESPERIENZA} anni multimarca.",

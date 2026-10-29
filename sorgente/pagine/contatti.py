@@ -24,8 +24,7 @@ def costruisci():
         <div><dt>Telefono</dt><dd><a href="tel:{TEL}">{tel_txt()}</a></dd></div>
         <div><dt>Email</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd></div>
         <div><dt>PEC</dt><dd><a href="mailto:{PEC}">{PEC}</a></dd></div>
-        <div><dt>Officina</dt><dd>{indirizzo_officina()}</dd></div>
-        <div><dt>Sede legale</dt><dd>{SEDE_LEGALE}</dd></div>
+        <div><dt>{"Sede legale e officina" if indirizzo_officina() == SEDE_LEGALE else "Officina"}</dt><dd><a href="{MAPS}" target="_blank" rel="noopener">{indirizzo_officina()}</a></dd></div>{"" if indirizzo_officina() == SEDE_LEGALE else f'<div><dt>Sede legale</dt><dd>{SEDE_LEGALE}</dd></div>'}
         <div><dt>Partita IVA</dt><dd>{PIVA}</dd></div>{rea}
       </dl>
     </div>
@@ -35,7 +34,7 @@ def costruisci():
       <p class="stato" data-stato></p>
       <a class="link" href="{MAPS}" target="_blank" rel="noopener">Apri in Google Maps {I["esterno"]}</a>
       {foto("ingresso", "(max-width: 899px) 100vw, 45vw", "foto contatti-foto")}
-      <p class="piccolo">Prima di passare chiamami: concordiamo l'intervento e ti do le indicazioni per arrivare.</p>
+      <p class="piccolo">Prima di passare chiamami, così ti dico quando portare il mezzo.</p>
     </div>
   </div>
 </section>

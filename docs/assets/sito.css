@@ -239,20 +239,8 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
   .servizi .servizio:not(.servizio--largo) { aspect-ratio: auto; }
   .servizi .servizio-ico .ico { width: clamp(44px, 8svh, 84px); height: clamp(44px, 8svh, 84px); }
 }
-/* Dieci caselle (undici con il noleggio a lungo termine): da 900px quattro colonne, come nella pagina Servizi;
-   da 1200px due righe sole, cinque colonne o sei con il noleggio. Le ultime caselle si allargano per non lasciare buchi. */
-@media (min-width: 900px) {
-  .servizi .servizi-griglia { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-}
-@media (min-width: 900px) and (max-width: 1199px) {
-  :is(.servizi, .scelta) .servizi-griglia:has(> li:nth-child(10):last-child) > li:nth-last-child(-n+2),
-  :is(.servizi, .scelta) .servizi-griglia:has(> li:nth-child(11):last-child) > li:last-child { grid-column: span 2; }
-}
-@media (min-width: 1200px) {
-  :is(.servizi, .scelta) .servizi-griglia:has(> li:nth-child(10)) { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-  :is(.servizi, .scelta) .servizi-griglia:has(> li:nth-child(11)) { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-  :is(.servizi, .scelta) .servizi-griglia:has(> li:nth-child(11):last-child) > li:last-child { grid-column: span 2; }
-}
+/* Colonne della griglia dei servizi (home, Servizi, Contatti): le regole per telefono, tablet e computer
+   stanno in 40-base-extra.css, dopo quelle delle singole pagine. */
 
 /* ---------- Luca (home) ---------- */
 .luca { padding-block: clamp(80px, 11vw, 150px); }
@@ -464,7 +452,7 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 
 /* ---------- piede ---------- */
 .piede { padding-top: 64px; border-top: 1px solid var(--linea); background: var(--asfalto); }
-.piede-griglia { display: grid; grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr)); gap: 32px; }
+.piede-griglia { display: grid; grid-template-columns: 1.3fr repeat(4, minmax(0, 1fr)); gap: 32px; }
 .piede-marchio img { margin-bottom: 14px; }
 .piede-marchio p { color: var(--testo-2); font-size: .95rem; max-width: 36ch; }
 .piede-marchio strong { color: var(--testo); }
@@ -898,6 +886,11 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 }
 
 
+/* ---------- ritiro: i comuni dove arrivo ---------- */
+.comuni { list-style: none; margin: 22px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.comuni li { padding: 8px 14px; border: 1px solid var(--linea-forte); border-radius: 999px; font-size: .92rem; font-weight: 600; }
+.rimando-officina .azioni { gap: 8px 24px; }
+
 /* Gomme e ricambi: il catalogo per macro aree e "come funziona l'ordine".
    Le caselle sono le .servizio--largo di 00-base.css (stessa tendina WhatsApp); qui solo la griglia e il riquadro. */
 
@@ -994,3 +987,39 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 /* ---------- con il menu o una finestra aperti la pagina sotto non scorre; lo spazio della barra di scorrimento resta, niente salti ---------- */
 html { scrollbar-gutter: stable; }
 body.menu-aperto, html:has(dialog[open]) { overflow: hidden; }
+
+/* ---------- griglia dei servizi: dieci caselle, undici con il noleggio a lungo termine (non vale per il catalogo delle gomme) ----------
+   Telefono: una casella per riga, icona a sinistra, così si leggono tutte e si tocca senza sbagliare.
+   Tablet: tre colonne. Computer: quattro, da 1200px cinque (sei con il noleggio), due righe sole.
+   Le ultime caselle si allargano per non lasciare buchi in fondo. */
+@media (max-width: 599px) {
+  .servizi-griglia:not(.catalogo) { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .servizi-griglia:not(.catalogo) .servizio { aspect-ratio: auto; display: grid; grid-template-columns: 40px minmax(0, 1fr); grid-template-areas: "ico nome" "ico desc"; align-items: center; justify-items: start; column-gap: 14px; row-gap: 2px; padding: 12px 16px; min-height: 64px; text-align: left; border-radius: 18px; }
+  .servizi-griglia:not(.catalogo) .servizio-ico { grid-area: ico; }
+  .servizi-griglia:not(.catalogo) .servizio-ico .ico { width: 36px; height: 36px; }
+  .servizi-griglia:not(.catalogo) .servizio-nome { grid-area: nome; font-size: 1.05rem; }
+  .servizi-griglia:not(.catalogo) .servizio:not(.servizio--largo) .servizio-desc { grid-area: desc; display: block; font-size: .84rem; max-width: none; }
+  .servizi-griglia:not(.catalogo) .servizio:focus-visible { border-radius: 18px; }
+}
+@media (min-width: 600px) and (max-width: 899px) {
+  .servizi-griglia:not(.catalogo) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .servizi-griglia:not(.catalogo):has(> li:nth-child(10):last-child) > li:last-child { grid-column: span 3; }
+  .servizi-griglia:not(.catalogo):has(> li:nth-child(11):last-child) > li:last-child { grid-column: span 2; }
+  .servizi-griglia:not(.catalogo) > li:last-child:nth-child(3n+1) .servizio, .servizi-griglia:not(.catalogo) > li:last-child:nth-child(3n+2) .servizio { aspect-ratio: auto; }
+}
+@media (min-width: 900px) {
+  .servizi-griglia:not(.catalogo) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (min-width: 900px) and (max-width: 1199px) {
+  .servizi-griglia:not(.catalogo):has(> li:nth-child(10):last-child) > li:nth-last-child(-n+2),
+  .servizi-griglia:not(.catalogo):has(> li:nth-child(11):last-child) > li:last-child { grid-column: span 2; }
+  .servizi-griglia:not(.catalogo):has(> li:nth-child(10):last-child) > li:nth-last-child(-n+2) .servizio,
+  .servizi-griglia:not(.catalogo):has(> li:nth-child(11):last-child) > li:last-child .servizio { aspect-ratio: auto; }
+}
+@media (min-width: 1200px) {
+  .servizi-griglia:not(.catalogo):has(> li:nth-child(10)) { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .servizi-griglia:not(.catalogo):has(> li:nth-child(11)) { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .servizi-griglia:not(.catalogo):has(> li:nth-child(11):last-child) > li:last-child { grid-column: span 2; }
+}
+/* il testo non si taglia mai, nemmeno con lo zoom forte o la spaziatura del testo aumentata */
+.servizio { min-height: min-content; }

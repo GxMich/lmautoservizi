@@ -105,7 +105,7 @@ SERVIZI_PAGINE = {
              "Sì: auto, fuoristrada, furgoni e camper, di tutte le marche. Per i mezzi più grandi scrivimi prima, così ti dico quando portarli."),
         ],
         "nota_mezzo": "Es. fatica a partire, la batteria si scarica, il clima raffredda poco. Scrivi anche quando succede.",
-        "correlati": ["diagnosi", "meccanica"],
+        "correlati": ["mobile", "diagnosi", "meccanica"],
     },
 
     # ------------------------------------------------------------------ GOMMISTA
@@ -161,7 +161,7 @@ SERVIZI_PAGINE = {
              "Sì, in officina ho le attrezzature per montaggio, equilibratura e convergenza. Se la convergenza serve, te lo dico prima di farla."),
         ],
         "nota_mezzo": "Es. cambio stagionale, foratura, gomme nuove. Scrivi la misura: la trovi sul fianco della gomma.",
-        "correlati": ["meccanica", "diagnosi"],
+        "correlati": ["gomme", "mobile", "meccanica"],
     },
 
     # ------------------------------------------------------------------ CARROZZERIA
@@ -256,10 +256,10 @@ SERVIZI_PAGINE = {
             ("Mi hanno detto che va programmata la centralina: lo fai?",
              "Programmo le centraline con software aggiornato ogni giorno. Scrivimi marca, modello e anno del mezzo e ti dico se posso farlo e quanto costa."),
             ("La diagnosi si può fare anche fuori dall'officina?",
-             "Di solito la faccio in officina. Nei casi semplici leggo le spie anche sul posto, con l'officina mobile, entro 20 km da Frassineto Po."),
+             "Di solito la faccio in officina. Nei casi semplici leggo le spie anche sul posto, con l'assistenza a domicilio, entro 20 km da Frassineto Po."),
         ],
         "nota_mezzo": "Es. spia del motore accesa, revisione in scadenza a marzo. Se puoi, fai una foto della spia.",
-        "correlati": ["elettrauto", "meccanica"],
+        "correlati": ["mobile", "elettrauto", "meccanica"],
     },
     # ------------------------------------------------------------------ ALLESTIMENTI (richiesta di Luca, 29/10/2026)
     # Fatti certi: il Ford Ranger attrezzato per il campeggio, progettato e costruito da Luca da zero; lavora su auto,
