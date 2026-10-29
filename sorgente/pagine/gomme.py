@@ -61,7 +61,7 @@ def costruisci():
     <div class="ordine" aria-labelledby="ordine-t">
       <h3 id="ordine-t">Come funziona l'ordine</h3>
       <ol class="ordine-passi">{ordine}</ol>
-      <p class="ordine-nota"><strong>Niente spedizioni:</strong> gomme e ricambi si ritirano solo in officina, e ordino il pezzo dopo il pagamento.</p>
+      <p class="ordine-nota"><strong>Non faccio spedizioni:</strong> quando il pezzo arriva ti avviso, e lo ritiri qui in officina.</p>
     </div>
   </div>
 </section>
