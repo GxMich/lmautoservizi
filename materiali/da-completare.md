@@ -30,3 +30,10 @@ Gli scatti vanno in `materiali/foto/` con i nomi di `materiali/foto/LEGGIMI.md`,
 - `servizio-diagnosi`
 - `servizio-soccorso`
 - `servizio-ricambi`
+- `servizio-allestimenti`
+- `allestimento-1`
+- `allestimento-2`
+- `allestimento-3`
+- `allestimento-4`
+- `allestimento-5`
+- `allestimento-6`

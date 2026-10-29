@@ -22,9 +22,9 @@ API per i moduli delle pagine
 - Tendina WhatsApp: SERVIZI, EXTRA, dati_servizio(), apri(chiave, testo), apri_servizio(id, testo); scheda() è già nel piede.
 - Foto: foto_info(spazio), img(spazio, sizes, ...), foto(spazio, sizes, classe), nota_foto(spazio).
 - Pezzi: head(titolo, descrizione, schema=(), immagine="officina", noindex=False), testata(), intro(titolo, testo),
-  orari(), spunte(voci), casella(s), griglia_servizi(con_foto=True), finale(titolo=None, testo=None), piede(extra="").
+  orari(), spunte(voci), casella(s), griglia_servizi(con_foto=True), finale(titolo=None, testo=None), piede(extra=""), lightbox() da passare a piede().
 - Dati strutturati: azienda(), briciole(nome=None); sito_web() (WebSite) head() lo aggiunge da sé alla home.
-  ZONA e zona_servita(): comuni serviti e areaServed; SERVIZI_PAGINE: le cinque pagine dei servizi (catalogo nei dati strutturati, Servizi evidenziato nel menu).
+  ZONA e zona_servita(): comuni serviti e areaServed; SERVIZI_PAGINE: le pagine dei servizi (catalogo nei dati strutturati, Servizi evidenziato nel menu).
 - Testi legali: senza_commenti(html) toglie le note interne <!-- ... --> dei testi di testi_legali.py;
   nota_recensioni() è la nota da mettere sotto le recensioni; slug(testo) dà un id per i titoli.
 - Statistiche: STATISTICHE è il codice GoatCounter (variabile LM_GOATCOUNTER) o None; con None il sito non ha statistiche.
@@ -55,6 +55,7 @@ PAGINE = {
     "gommista": ("servizi/gommista/", "Gommista"),
     "carrozzeria": ("servizi/carrozzeria/", "Carrozzeria"),
     "diagnosi": ("servizi/diagnosi-e-pre-revisione/", "Diagnosi e pre-revisione"),
+    "allestimenti": ("servizi/allestimenti-camping-fuoristrada/", "Allestimenti camping e fuoristrada"),
     "officina": ("officina/", "L'officina"),
     "ritiro": ("ritiro-e-consegna/", "Ritiro e consegna"),
     "mobile": ("officina-mobile/", "Officina mobile"),
@@ -66,11 +67,11 @@ PAGINE = {
     "404": ("404.html", "Pagina non trovata"),
 }
 NAV = ["servizi", "officina", "gomme", "chi", "contatti"]
-PIEDE_PAGINE = ["servizi", "officina", "ritiro", "mobile", "gomme", "chi", "contatti", "condizioni", "privacy"]
+PIEDE_PAGINE = ["servizi", "officina", "ritiro", "mobile", "gomme", "allestimenti", "chi", "contatti", "condizioni", "privacy"]
 ASSOLUTE = {"404"}          # servite a indirizzi qualsiasi: link e risorse assoluti
 NON_INDICIZZATE = {"404"}   # fuori dalla sitemap, sempre noindex
-# Le cinque pagine dei servizi principali (sotto servizi/): catalogo nei dati strutturati
-SERVIZI_PAGINE = ["meccanica", "elettrauto", "gommista", "carrozzeria", "diagnosi"]
+# Le pagine dei servizi principali (sotto servizi/): catalogo nei dati strutturati
+SERVIZI_PAGINE = ["meccanica", "elettrauto", "gommista", "carrozzeria", "diagnosi", "allestimenti"]
 # Comuni serviti (dati strutturati e llms.txt): i principali entro RAGGIO_KM in linea d'aria dall'officina (calcolati il 29/10/2026)
 ZONA = ["Frassineto Po", "Casale Monferrato", "Valenza", "Ticineto", "Borgo San Martino", "Valmacca", "Occimiano", "Giarole",
         "Villanova Monferrato", "Mirabello Monferrato", "San Salvatore Monferrato", "Pomaro Monferrato", "Bozzole", "Terruggia",
@@ -219,6 +220,9 @@ ICONE = {
     "soccorso": svg('<path d="m2.5 10 9.5-7.5 9.5 7.5M5.5 8v12h13V8M9 20v-6h6v6"/>', "ico-domicilio"),
     "aziende": svg('<rect x="3" y="7.5" width="18" height="12.5" rx="2"/><path d="M8.5 7.5V5.8c0-1 .8-1.8 1.8-1.8h3.4c1 0 1.8.8 1.8 1.8v1.7M3 12.5h18"/>'
                    '<path class="pieno" d="M10.8 11.3h2.4v2.4h-2.4z"/>', "ico-aziende"),
+    "allestimenti": svg('<path d="M2.6 19.4v-3.1c0-.8.6-1.5 1.4-1.6l2.9-.4 2.3-3.4c.3-.4.8-.7 1.3-.7h3.1v4.1h6.9c.8 0 1.5.7 1.5 1.5v3.6"/>'
+                        '<path d="M2.6 19.4h1.8M9.1 19.4h6.2M19.7 19.4h1.8"/><circle cx="6.8" cy="19.6" r="2.3"/><circle cx="17.5" cy="19.6" r="2.3"/>'
+                        '<path d="M14.3 14.3V8.9l3.3-4.4 3.9 4.4v5.4"/><path class="pieno tenda" d="M17.6 9.6l1.6 1.9v2.8h-3.2v-2.8z"/>', "ico-allestimenti"),
     "acquisto": svg('<circle cx="10.5" cy="10.5" r="6.8"/><path d="m15.4 15.4 5.3 5.3"/><path class="spunta" d="m7.6 10.7 2 2 3.8-3.9"/>', "ico-acquisto"),
     "noleggio": svg('<circle cx="8" cy="15.6" r="4.6"/><path d="m11.3 12.3 8.4-8.4M16.6 6.9l2.6 2.6M14.3 9.2l2 2"/><circle class="pieno" cx="8" cy="15.6" r="1.4"/>', "ico-noleggio"),
     "altro": svg('<circle cx="12" cy="12" r="9.5"/><path d="M9.3 9.3a2.8 2.8 0 1 1 3.9 2.6c-.7.3-1.2 1-1.2 1.8v.6"/><circle class="pieno" cx="12" cy="17.2" r="1"/>', "ico-altro"),
@@ -304,13 +308,16 @@ SERVIZI = [
     ("ricambi", "Vendita ricambi e gomme",
      "Ricambi, gomme, lubrificanti e accessori: chiedimi disponibilità e prezzo",
      "Scrivimi marca, modello e anno del mezzo; per le gomme, anche la misura.", "vendita"),
+    ("allestimenti", "Allestimenti camping e fuoristrada",
+     "Progettati e costruiti da me, su misura per il tuo mezzo",
+     "Dimmi che mezzo hai e cosa vorresti realizzare.", ""),
     ("acquisto", "Consulenza acquisto auto",
      "Controllo dell'usato prima di comprarlo e consigli sulla scelta",
      "Mandami il link dell'annuncio, oppure marca, modello, anno e chilometri.", ""),
 ]
 # Pagina di approfondimento di ogni servizio (id del registro PAGINE)
 PAGINA_SERVIZIO = {"meccanica": "meccanica", "elettrauto": "elettrauto", "gommista": "gommista", "carrozzeria": "carrozzeria",
-                   "diagnosi": "diagnosi", "soccorso": "mobile", "ricambi": "gomme", "acquisto": "servizi"}
+                   "diagnosi": "diagnosi", "soccorso": "mobile", "ricambi": "gomme", "allestimenti": "allestimenti", "acquisto": "servizi"}
 # Richieste che non sono caselle: (nome, suggerimento, opzioni, titolo della tendina)
 EXTRA = {
     "ritiro": ("Ritiro e consegna",
@@ -699,6 +706,15 @@ def finale(titolo=None, testo=None):
     </div>
   </div>
 </section>
+'''
+
+
+def lightbox():
+    """La finestra che mostra le foto a grandezza piena: si passa a piede(extra) nelle pagine con i pulsanti data-lightbox."""
+    return f'''<dialog class="lightbox" id="lightbox" aria-labelledby="lightbox-t" data-lenis-prevent>
+  <figure><figcaption id="lightbox-t"></figcaption></figure>
+  <button class="lightbox-chiudi" type="button" aria-label="Chiudi" data-chiudi>{I["chiudi"]}</button>
+</dialog>
 '''
 
 

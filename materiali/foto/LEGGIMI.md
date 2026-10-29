@@ -19,6 +19,8 @@ Ogni file prende il nome dello spazio in cui finirà (gli spazi sono in `FOTO_SL
 | `servizio-diagnosi.jpg` | Casella Diagnosi e pre-revisione e la sua pagina | orizzontale 3:2 |
 | `servizio-soccorso.jpg` | Casella Assistenza a domicilio | orizzontale 3:2 |
 | `servizio-ricambi.jpg` | Casella Vendita ricambi e gomme | orizzontale 3:2 |
+| `servizio-allestimenti.jpg` | Casella e pagina Allestimenti camping e fuoristrada (il Ford Ranger di Luca) | orizzontale 3:2 |
+| `allestimento-1.jpg` … `allestimento-6.jpg` | Galleria "I miei lavori" della pagina Allestimenti: compare solo con almeno una foto vera | orizzontale 3:2 |
 
 Poi, dalla radice del progetto:
 

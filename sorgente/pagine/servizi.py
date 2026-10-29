@@ -1,12 +1,14 @@
-"""Servizi: la pagina indice (servizi/) e le pagine dei cinque servizi principali, con i testi di testi_pagine.py.
-La diagnosi ha anche il calcolo della scadenza della revisione (script/20-revisione.js), il gommista le date delle gomme invernali."""
+"""Servizi: la pagina indice (servizi/) e le pagine dei servizi principali, con i testi di testi_pagine.py.
+La diagnosi ha anche il calcolo della scadenza della revisione (script/20-revisione.js), il gommista le date delle gomme invernali,
+gli allestimenti la galleria dei lavori di Luca (solo con le foto vere)."""
 import os
-from contenuti import TEL_TXT, NOLEGGIO_LINK, NOLEGGIO_QR
+from contenuti import TEL_TXT, NOLEGGIO_LINK, NOLEGGIO_QR, FOTO_SLOT
 from testi_pagine import SERVIZI_PAGINE, SERVIZI_HUB
 from sito import (inizia, scrivi, head, testata, intro, finale, piede, foto, azienda, briciole, griglia_servizi, svg, anni_esperienza,
-                  href, url, nome, zona_servita, I, ICONE, VANTAGGI_ICO, SERVIZI, TEL, tel_txt, dati_servizio, apri, apri_servizio, risorsa, DOCS)
+                  href, url, nome, zona_servita, I, ICONE, VANTAGGI_ICO, SERVIZI, TEL, tel_txt, dati_servizio, apri, apri_servizio, risorsa, DOCS,
+                  foto_info, img, attr, lightbox)
 
-CINQUE = ["meccanica", "elettrauto", "gommista", "carrozzeria", "diagnosi"]
+PRINCIPALI = ["meccanica", "elettrauto", "gommista", "carrozzeria", "diagnosi", "allestimenti"]
 CALENDARIO = svg('<rect x="3.5" y="5" width="17" height="15.5" rx="2.2"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path class="pieno" d="M7.5 13h3v3h-3z"/>')
 MESI = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
         "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"]
@@ -50,7 +52,7 @@ def elenco(voci, con_id=False):
 
 def costruisci():
     pagina_servizi()
-    for chi in CINQUE:
+    for chi in PRINCIPALI:
         pagina_servizio(chi)
 
 
@@ -92,7 +94,7 @@ def pagina_servizi():
 <section class="sezione sezione--asfalto" aria-labelledby="dettaglio-t">
   <div class="wrap">
     <h2 id="dettaglio-t">I servizi nel dettaglio</h2>
-    {elenco(CINQUE, con_id=True)}
+    {elenco(PRINCIPALI, con_id=True)}
   </div>
 </section>
 <div class="wrap fascia">{foto("officina", "(max-width: 1280px) 100vw, 1280px", "foto foto--fascia")}</div>
@@ -114,7 +116,7 @@ def pagina_servizio(chi):
                        "areaServed": zona_servita()}
     comprende = "".join(f'<li>{I["check"]}<div><h3>{titolo}</h3><p>{testo}</p></div></li>' for titolo, testo in p["comprende"])
     perche = "".join(f'<li><span class="perche-n" aria-hidden="true">{i + 1:02d}</span><h3>{titolo}</h3><p>{testo}</p></li>' for i, (titolo, testo) in enumerate(p["perche"]))
-    aggiunta = {"gommista": stagioni, "diagnosi": revisione}.get(chi, lambda: "")()
+    aggiunta = {"gommista": stagioni, "diagnosi": revisione, "allestimenti": lavori}.get(chi, lambda: "")()
     scrivi(head(p["title"], p["description"], [azienda(), schema_servizio, schema_faq(p["faq"]), briciole()], immagine="servizio-" + chi) + testata()
            + intro(p["h1"], p["risposta"]) + f'''
 <div class="servizio-cta">
@@ -156,7 +158,25 @@ def pagina_servizio(chi):
     {elenco(p["correlati"])}
     <a class="link collegati-tutti" href="{href("servizi")}">Tutti i servizi {I["freccia"]}</a>
   </div>
-</section>''' + finale() + piede())
+</section>''' + finale() + piede(lightbox() if "data-lightbox" in aggiunta else ""))
+
+
+# ---------------------------------------------------------------- allestimenti: i lavori di Luca
+def lavori():
+    """Galleria delle foto vere allestimento-1 ... allestimento-6 (foto.py): senza foto vere la sezione non c'è."""
+    vere = [s for s in FOTO_SLOT if s.startswith("allestimento-") and not foto_info(s)[4]]
+    if not vere:
+        return ""
+    voci = "".join(f'<li><button type="button" data-lightbox="{risorsa(foto_info(s)[0] + ".webp")}" data-titolo="{attr(foto_info(s)[3])}">'
+                   f'{img(s, "", piccola=True)}</button></li>' for s in vere)
+    return f'''
+<section class="sezione sezione--stretta" id="lavori" aria-labelledby="lavori-t">
+  <div class="wrap">
+    <h2 id="lavori-t">I miei lavori</h2>
+    <p class="piccolo">Tocca una foto per vederla a grandezza piena.</p>
+    <ul class="lavori">{voci}</ul>
+  </div>
+</section>'''
 
 
 # ---------------------------------------------------------------- gommista: le date delle gomme invernali

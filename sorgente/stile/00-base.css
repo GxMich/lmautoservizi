@@ -237,9 +237,19 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
   .servizi .servizio:not(.servizio--largo) { aspect-ratio: auto; }
   .servizi .servizio-ico .ico { width: clamp(44px, 8svh, 84px); height: clamp(44px, 8svh, 84px); }
 }
-/* Otto caselle: da 900px quattro colonne, due righe, come nella pagina Servizi. */
+/* Dieci caselle (undici con il noleggio a lungo termine): da 900px quattro colonne, come nella pagina Servizi;
+   da 1200px due righe sole, cinque colonne o sei con il noleggio. Le ultime caselle si allargano per non lasciare buchi. */
 @media (min-width: 900px) {
   .servizi .servizi-griglia { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (min-width: 900px) and (max-width: 1199px) {
+  :is(.servizi, .scelta) .servizi-griglia:has(> li:nth-child(10):last-child) > li:nth-last-child(-n+2),
+  :is(.servizi, .scelta) .servizi-griglia:has(> li:nth-child(11):last-child) > li:last-child { grid-column: span 2; }
+}
+@media (min-width: 1200px) {
+  :is(.servizi, .scelta) .servizi-griglia:has(> li:nth-child(10)) { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  :is(.servizi, .scelta) .servizi-griglia:has(> li:nth-child(11)) { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  :is(.servizi, .scelta) .servizi-griglia:has(> li:nth-child(11):last-child) > li:last-child { grid-column: span 2; }
 }
 
 /* ---------- Luca (home) ---------- */

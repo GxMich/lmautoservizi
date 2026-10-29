@@ -121,6 +121,12 @@
 .altri h3 { margin-bottom: 10px; transition: color .3s var(--ease); }
 .altri p { flex: 1; margin: 0 0 8px; color: var(--testo-2); font-size: .98rem; }
 .altri li:target { border-top-color: var(--arancio-vivo); }
+/* allestimenti: la galleria dei lavori, le foto si aprono nel lightbox */
+.lavori { list-style: none; margin: 24px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+.lavori button { all: unset; display: block; width: 100%; cursor: pointer; border-radius: 16px; overflow: hidden; }
+.lavori button:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+.lavori img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; transition: transform .5s var(--ease); }
+.lavori button:hover img { transform: scale(1.04); }
 .altri-qr { width: 120px; height: 120px; margin: 4px 0 14px; border-radius: 10px; background: #fff; padding: 6px; }
 .altri li:target h3 { color: var(--evidenza); }
 .link--bottone { padding: 0; border: 0; background: none; font: inherit; font-weight: 700; cursor: pointer; }

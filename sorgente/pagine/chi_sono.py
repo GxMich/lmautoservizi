@@ -1,16 +1,11 @@
 """Chi sono: Luca, il suo percorso e gli attestati (si aprono a grandezza piena)."""
 from contenuti import ATT, ANNI_ESPERIENZA
 from sito import (inizia, scrivi, head, testata, intro, finale, piede, foto, azienda, briciole, risorsa,
-                  attr, anni_esperienza, abilitazioni, I)
+                  attr, anni_esperienza, abilitazioni, lightbox, I)
 
 def costruisci():
     inizia("chi")
     attestati = "".join(f'''<li><button type="button" data-lightbox="{risorsa(f"assets/img/attestati/{f}.webp")}" data-titolo="{attr(titolo)}"><img src="{risorsa(f"assets/img/attestati/{f}-thumb.webp")}" alt="" loading="lazy" decoding="async" width="340" height="480"><span>{titolo}<small>{sotto}</small></span></button></li>''' for f, titolo, sotto in ATT)
-    lightbox = f'''<dialog class="lightbox" id="lightbox" aria-labelledby="lightbox-t" data-lenis-prevent>
-  <figure><figcaption id="lightbox-t"></figcaption></figure>
-  <button class="lightbox-chiudi" type="button" aria-label="Chiudi" data-chiudi>{I["chiudi"]}</button>
-</dialog>
-'''
     cronologia = [("2009", "Diploma di liceo scientifico tecnologico a Casale Monferrato."),
                   ("2010", "Qualifica di operatore di riparazioni elettromeccaniche per l'autoveicolo."),
                   ("2012", "Formazione per il recupero dei gas fluorurati degli impianti di climatizzazione."),
@@ -43,4 +38,4 @@ def costruisci():
     <p class="piccolo">Tocca un attestato per vederlo a grandezza piena.</p>
     <ul class="attestati">{attestati}</ul>
   </div>
-</section>''' + finale() + piede(lightbox))
+</section>''' + finale() + piede(lightbox()))

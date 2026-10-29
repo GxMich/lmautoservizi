@@ -97,6 +97,9 @@ FOTO_SLOT = {
     "servizio-diagnosi": ((3, 2), "officina", "", ""),
     "servizio-soccorso": ((3, 2), "mobile", "", ""),
     "servizio-ricambi": ((3, 2), "gomme", "", ""),
+    "servizio-allestimenti": ((3, 2), "mobile", "Foto di esempio: un intervento su un mezzo all'aperto", "Il Ford Ranger attrezzato per il campeggio da Luca"),
+    # Galleria della pagina Allestimenti: compaiono solo le foto vere (la stock non si mostra mai qui).
+    **{f"allestimento-{n}": ((3, 2), "mobile", "", "Un allestimento camping e fuoristrada realizzato da Luca") for n in range(1, 7)},
 }
 # Dimensioni delle foto stock in docs/assets/img/campione/ (ognuna ha anche la versione -800).
 STOCK = {"eroe": (1600, 2400), "officina": (1600, 1067), "mani": (1600, 2400), "meccanica": (1600, 1067),

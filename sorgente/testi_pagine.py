@@ -261,6 +261,47 @@ SERVIZI_PAGINE = {
         "nota_mezzo": "Es. spia del motore accesa, revisione in scadenza a marzo. Se puoi, fai una foto della spia.",
         "correlati": ["elettrauto", "meccanica"],
     },
+    # ------------------------------------------------------------------ ALLESTIMENTI (richiesta di Luca, 29/10/2026)
+    # Fatti certi: il Ford Ranger attrezzato per il campeggio, progettato e costruito da Luca da zero; lavora su auto,
+    # fuoristrada, furgoni e camper. Niente elenchi di prodotti o modifiche specifiche finché Luca non li conferma.
+    "allestimenti": {
+        "nome": "Allestimenti camping e fuoristrada",
+        "title": "Allestimenti camping e 4x4 a Frassineto Po | L.M. Autoservizi",
+        "description": "Allestimenti su misura per il campeggio e il fuoristrada, progettati e costruiti in officina a Frassineto Po. Raccontami il tuo mezzo e cosa vorresti fare.",
+        "h1": "Allestimenti camping e fuoristrada",
+        "risposta": ("Sono Luca Miglietta e nella mia officina a Frassineto Po progetto e costruisco allestimenti per il campeggio e il fuoristrada. "
+                     "Il mio Ford Ranger attrezzato per il campeggio l'ho progettato e costruito da zero. "
+                     "Lo stesso lavoro lo posso fare sul tuo pick-up, fuoristrada, furgone o camper: partiamo da come lo usi e da cosa vorresti fare. "
+                     "Il preventivo è gratuito e arriva prima di iniziare."),
+        "comprende": [
+            ("Allestimenti per il campeggio",
+             "Soluzioni per dormire e campeggiare con il tuo mezzo, pensate sul tuo modo di viaggiare."),
+            ("Allestimenti per il fuoristrada",
+             "Modifiche e accessori per usare il mezzo fuori strada, con la stessa cura che metto in officina."),
+            ("Progetto su misura",
+             "Ascolto cosa ti serve, ti propongo una soluzione e ti dico quanto costa prima di iniziare."),
+            ("Costruito in officina",
+             "Il lavoro lo faccio io, nella mia officina a Frassineto Po, dall'inizio alla fine."),
+        ],
+        "perche": [
+            ("L'ho fatto prima sul mio mezzo",
+             "Il mio Ford Ranger l'ho allestito da zero: so cosa vuol dire usarlo davvero, in campeggio e fuori strada."),
+            (f"{ANNI_ESPERIENZA} anni di meccanica",
+             "Conosco il mezzo che sta sotto l'allestimento: lavoro su auto, fuoristrada, furgoni e camper di tutte le marche."),
+            ("Vicino a casa",
+             "Non serve andare lontano: lo progetto e lo costruisco a Frassineto Po, vicino a Casale Monferrato."),
+        ],
+        "faq": [
+            ("Su che mezzi lavori?",
+             "Pick-up, fuoristrada, furgoni e camper. Scrivimi marca, modello e anno, e cosa vorresti realizzare: ti dico se si può fare."),
+            ("Quanto costa un allestimento?",
+             "Dipende da cosa vuoi realizzare e dal mezzo. Dopo che ne abbiamo parlato ti preparo un preventivo gratuito, prima di iniziare."),
+            ("Posso vedere un lavoro che hai fatto?",
+             "Sì: le foto del mio Ford Ranger sono anche sul mio profilo Google, e se passi in officina te lo faccio vedere."),
+        ],
+        "nota_mezzo": "Dimmi che mezzo hai e cosa vorresti realizzare: per dormire, per il fuoristrada o tutti e due.",
+        "correlati": ["meccanica", "carrozzeria"],
+    },
 }
 
 SERVIZI_HUB = {
