@@ -104,3 +104,8 @@ body.menu-aperto, html:has(dialog[open]) { overflow: hidden; }
 
 /* ---------- tema chiaro: il titolo dell'apertura passa sopra la foto scura; un contorno chiaro dietro le lettere lo stacca ---------- */
 :root[data-tema="chiaro"] #eroe-t .riga > span { -webkit-text-stroke: .06em var(--notte); paint-order: stroke fill; }
+
+/* ---------- tendina sul telefono: con tre mezzi (allestimenti) tre colonne, invece di due più uno da solo ---------- */
+@media (max-width: 599px) {
+  .mezzi > div:not(:has(> label:not([hidden]) ~ label:not([hidden]) ~ label:not([hidden]) ~ label:not([hidden]))) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}

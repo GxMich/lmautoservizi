@@ -4,9 +4,9 @@ gli allestimenti la galleria dei lavori di Luca (solo con le foto vere)."""
 import os
 from contenuti import TEL_TXT, NOLEGGIO_LINK, NOLEGGIO_QR, FOTO_SLOT
 from testi_pagine import SERVIZI_PAGINE, SERVIZI_HUB
-from sito import (inizia, scrivi, head, testata, intro, finale, piede, foto, azienda, briciole, griglia_servizi, svg, anni_esperienza,
+from sito import (inizia, scrivi, head, testata, intro, finale, piede, foto, azienda, briciole, sezione_servizi, svg, anni_esperienza,
                   href, url, nome, zona_servita, I, ICONE, VANTAGGI_ICO, SERVIZI, TEL, tel_txt, dati_servizio, apri, apri_servizio, risorsa, DOCS,
-                  foto_info, img, attr, lightbox)
+                  foto_info, img, attr, lightbox, MEZZI_SERVIZIO)
 
 PRINCIPALI = ["meccanica", "elettrauto", "gommista", "carrozzeria", "diagnosi", "allestimenti"]
 CALENDARIO = svg('<rect x="3.5" y="5" width="17" height="15.5" rx="2.2"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path class="pieno" d="M7.5 13h3v3h-3z"/>')
@@ -22,7 +22,7 @@ def chiedi(chi, testo, classe="btn btn--arancio", extra=""):
     """Bottone della tendina WhatsApp per il servizio, con il suggerimento per le note scritto per la sua pagina."""
     s = servizio(chi)
     nota = SERVIZI_PAGINE[chi]["nota_mezzo"] if chi in SERVIZI_PAGINE else s[3]
-    return f'<button type="button" class="{classe}" {dati_servizio(s[1], nota, s[4])}{extra}>{testo} {I["freccia"]}</button>'
+    return f'<button type="button" class="{classe}" {dati_servizio(s[1], nota, s[4], mezzi=MEZZI_SERVIZIO.get(chi))}{extra}>{testo} {I["freccia"]}</button>'
 
 
 def chiama(classe="btn btn--vuoto"):
@@ -85,16 +85,8 @@ def pagina_servizi():
       <li id="{id_}">{icona}<h3>{titolo}</h3><p>{testo}</p>{azione}</li>''' for id_, icona, titolo, testo, azione in altri)
     scrivi(head(SERVIZI_HUB["title"], SERVIZI_HUB["description"], [azienda(), briciole()]) + testata()
            + intro(SERVIZI_HUB["h1"], SERVIZI_HUB["intro"]) + f'''
-<section class="sezione scelta" id="scegli" aria-labelledby="scegli-t">
-  <div class="wrap">
-    <div class="scelta-testa">
-      <h2 id="scegli-t">Cosa ti serve?</h2>
-      <p class="lead">Tocca il servizio, scegli il mezzo e scrivimi due righe. Ti rispondo io, di persona.</p>
-    </div>
-    {griglia_servizi()}
-  </div>
-</section>
-<section class="sezione sezione--asfalto" aria-labelledby="dettaglio-t">
+{sezione_servizi("scegli", f'<a class="link" href="#dettaglio">I servizi nel dettaglio {I["freccia"]}</a>')}
+<section class="sezione sezione--asfalto" id="dettaglio" aria-labelledby="dettaglio-t">
   <div class="wrap">
     <h2 id="dettaglio-t">I servizi nel dettaglio</h2>
     {elenco(DETTAGLIO, con_id=True)}

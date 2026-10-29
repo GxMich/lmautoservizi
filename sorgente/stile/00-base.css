@@ -455,7 +455,8 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 .mezzi[hidden] { display: none; }
 .mezzi legend, .scheda .campo > label { display: block; padding: 0; margin-bottom: 10px; font-weight: 700; font-size: .95rem; }
 /* sei caselle uguali, tre per riga: la sagoma grande dice già che mezzo è */
-.mezzi > div { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.mezzi > div { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 10px; }
+.mezzi label[hidden] { display: none; }
 .mezzi label { position: relative; cursor: pointer; }
 .mezzi input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .mezzi span { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; height: 100%; min-height: 112px; padding: 14px 6px 12px; border: 1.5px solid var(--linea-forte); border-radius: 18px; background: var(--notte); color: var(--testo-2); text-align: center; transition: border-color .25s var(--ease), background-color .25s var(--ease), color .25s var(--ease), box-shadow .25s var(--ease), transform .15s var(--ease); }
@@ -572,7 +573,7 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
   .scheda-maniglia { display: block; width: 40px; height: 4px; margin: 10px auto 0; border-radius: 4px; background: var(--grigio-scuro); }
   .scheda-testa { padding: 10px 20px 14px; }
   .scheda-corpo { padding: 18px 20px calc(22px + env(safe-area-inset-bottom)); }
-  .mezzi > div { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .mezzi > div { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   .mezzi span { min-height: 96px; gap: 6px; padding: 12px 4px 10px; border-radius: 16px; }
   .mezzi b { font-size: .92rem; }
   .veicolo { width: 70px; height: 39px; }

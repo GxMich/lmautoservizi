@@ -455,7 +455,8 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 .mezzi[hidden] { display: none; }
 .mezzi legend, .scheda .campo > label { display: block; padding: 0; margin-bottom: 10px; font-weight: 700; font-size: .95rem; }
 /* sei caselle uguali, tre per riga: la sagoma grande dice già che mezzo è */
-.mezzi > div { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.mezzi > div { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 10px; }
+.mezzi label[hidden] { display: none; }
 .mezzi label { position: relative; cursor: pointer; }
 .mezzi input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .mezzi span { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; height: 100%; min-height: 112px; padding: 14px 6px 12px; border: 1.5px solid var(--linea-forte); border-radius: 18px; background: var(--notte); color: var(--testo-2); text-align: center; transition: border-color .25s var(--ease), background-color .25s var(--ease), color .25s var(--ease), box-shadow .25s var(--ease), transform .15s var(--ease); }
@@ -572,7 +573,7 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
   .scheda-maniglia { display: block; width: 40px; height: 4px; margin: 10px auto 0; border-radius: 4px; background: var(--grigio-scuro); }
   .scheda-testa { padding: 10px 20px 14px; }
   .scheda-corpo { padding: 18px 20px calc(22px + env(safe-area-inset-bottom)); }
-  .mezzi > div { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .mezzi > div { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   .mezzi span { min-height: 96px; gap: 6px; padding: 12px 4px 10px; border-radius: 16px; }
   .mezzi b { font-size: .92rem; }
   .veicolo { width: 70px; height: 39px; }
@@ -698,15 +699,6 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 }
 .collegati-tutti { margin-top: 18px; }
 
-/* ---------- indice: la scelta rapida ---------- */
-.scelta { padding-top: clamp(40px, 6vw, 80px); }
-.scelta-testa { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px 48px; flex-wrap: wrap; margin-bottom: clamp(24px, 3vw, 40px); }
-.scelta-testa h2 { margin: 0; }
-.scelta-testa .lead { margin: 0; max-width: 40ch; }
-@media (min-width: 900px) {
-  .scelta .servizi-griglia { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .scelta .servizio { aspect-ratio: auto; min-height: clamp(220px, 19vw, 270px); }
-}
 
 /* ---------- indice: altri servizi ---------- */
 .altri { list-style: none; margin: clamp(12px, 2vw, 24px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px 32px; }
@@ -734,7 +726,6 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
   .comprende-foto { position: relative; top: auto; }
   .revisione, .servizio-faq { grid-template-columns: minmax(0, 1fr); }
   .perche { grid-template-columns: minmax(0, 1fr); gap: 28px; }
-  .scelta .servizio:not(.servizio--largo) { aspect-ratio: 4 / 3; }
   .stagioni-date { grid-template-columns: minmax(0, 1fr); gap: 10px; }
 }
 
@@ -750,8 +741,6 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
   .dettaglio p { font-size: .95rem; }
   .dettaglio-vai span { display: none; }
   .altri { grid-template-columns: minmax(0, 1fr); gap: 28px; }
-  .scelta-testa .lead { font-size: 1rem; }
-  .scelta .servizio:not(.servizio--largo) { aspect-ratio: 1 / .86; }
 }
 
 /* L'officina: la sezione della home con i tre modi alla pari, quella dell'officina, la pagina L'officina
@@ -992,3 +981,8 @@ body.menu-aperto, html:has(dialog[open]) { overflow: hidden; }
 
 /* ---------- tema chiaro: il titolo dell'apertura passa sopra la foto scura; un contorno chiaro dietro le lettere lo stacca ---------- */
 :root[data-tema="chiaro"] #eroe-t .riga > span { -webkit-text-stroke: .06em var(--notte); paint-order: stroke fill; }
+
+/* ---------- tendina sul telefono: con tre mezzi (allestimenti) tre colonne, invece di due più uno da solo ---------- */
+@media (max-width: 599px) {
+  .mezzi > div:not(:has(> label:not([hidden]) ~ label:not([hidden]) ~ label:not([hidden]) ~ label:not([hidden]))) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}

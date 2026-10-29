@@ -271,7 +271,7 @@ SERVIZI_PAGINE = {
         "h1": "Allestimenti camping e fuoristrada",
         "risposta": ("Sono Luca Miglietta e nella mia officina a Frassineto Po progetto e costruisco allestimenti per il campeggio e il fuoristrada. "
                      "Il mio Ford Ranger attrezzato per il campeggio l'ho progettato e costruito da zero. "
-                     "Lo stesso lavoro lo posso fare sul tuo pick-up, fuoristrada, furgone o camper: partiamo da come lo usi e da cosa vorresti fare. "
+                     "Lo stesso lavoro lo posso fare sul tuo furgone, pick-up o camper: partiamo da come lo usi e da cosa vorresti fare. "
                      "Il preventivo è gratuito e te lo do prima di iniziare."),
         "comprende": [
             ("Allestimenti per il campeggio",
@@ -293,7 +293,7 @@ SERVIZI_PAGINE = {
         ],
         "faq": [
             ("Su che mezzi lavori?",
-             "Pick-up, fuoristrada, furgoni e camper. Scrivimi marca, modello e anno, e cosa vorresti realizzare: ti dico se si può fare."),
+             "Furgoni, pick-up e camper. Scrivimi marca, modello e anno, e cosa vorresti realizzare: ti dico se si può fare."),
             ("Quanto costa un allestimento?",
              "Dipende da cosa vuoi realizzare e dal mezzo. Dopo che ne abbiamo parlato ti preparo un preventivo gratuito, prima di iniziare."),
             ("Posso vedere un lavoro che hai fatto?",

@@ -3,7 +3,7 @@ e consegna, domicilio), l'officina a Frassineto Po, Luca, recensioni, dove e qua
 from contenuti import RECENSIONI, RECENSIONI_GOOGLE, RECENSIONI_CON_PERMESSO, GEAR_PIENO
 from testi_pagine import HOME
 from pagine.officina import ICO
-from sito import (inizia, scrivi, head, testata, piede, orari, griglia_servizi, foto, img, foto_info, nota_foto, azienda,
+from sito import (inizia, scrivi, head, testata, piede, orari, sezione_servizi, foto, img, foto_info, nota_foto, azienda,
                   href, I, VANTAGGI_ICO, TEL, EMAIL, MAPS, tel_txt, wa, nota_recensioni, indirizzo_officina, anni_esperienza, abilitazioni)
 
 
@@ -54,18 +54,7 @@ def costruisci():
   </div>
 </section>
 
-<section class="servizi" id="servizi" aria-labelledby="servizi-t">
-  <div class="wrap">
-    <div class="servizi-testa">
-      <h2 id="servizi-t">Cosa ti serve?</h2>
-      <div class="servizi-testa-lato">
-        <p class="lead">Tocca il servizio, scegli il mezzo e scrivimi due righe. Ti rispondo io, di persona.</p>
-        <a class="link" href="{href("servizi")}">Tutti i servizi nel dettaglio {I["freccia"]}</a>
-      </div>
-    </div>
-    {griglia_servizi()}
-  </div>
-</section>
+{sezione_servizi("servizi", f'<a class="link" href="{href("servizi")}">Tutti i servizi nel dettaglio {I["freccia"]}</a>')}
 
 <section class="modi" aria-labelledby="modi-t">
   <div class="wrap">

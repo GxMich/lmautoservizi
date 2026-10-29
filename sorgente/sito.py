@@ -22,7 +22,7 @@ API per i moduli delle pagine
 - Tendina WhatsApp: SERVIZI, EXTRA, dati_servizio(), apri(chiave, testo), apri_servizio(id, testo); scheda() è già nel piede.
 - Foto: foto_info(spazio), img(spazio, sizes, ...), foto(spazio, sizes, classe), nota_foto(spazio).
 - Pezzi: head(titolo, descrizione, schema=(), immagine="officina", noindex=False), testata(), intro(titolo, testo),
-  orari(), spunte(voci), casella(s), griglia_servizi(con_foto=True), finale(titolo=None, testo=None, pulsante=None), piede(extra=""), lightbox() da passare a piede().
+  orari(), spunte(voci), casella(s), griglia_servizi(con_foto=True), sezione_servizi(id, link), finale(titolo=None, testo=None, pulsante=None), piede(extra=""), lightbox() da passare a piede().
 - Dati strutturati: azienda(), briciole(nome=None); sito_web() (WebSite) head() lo aggiunge da sé alla home.
   ZONA e zona_servita(): comuni serviti e areaServed; SERVIZI_PAGINE: le pagine dei servizi (catalogo nei dati strutturati, Servizi evidenziato nel menu).
 - Testi legali: senza_commenti(html) toglie le note interne <!-- ... --> dei testi di testi_legali.py;
@@ -257,6 +257,10 @@ VEICOLI = {
                     '<path d="M5.5 26.7h4.2M22.3 26.7h18.4M53.3 26.7h3.7M12 4.4h21M14.5 4.4v2.7M30.5 4.4v2.7"/>'
                     '<path d="M11 10.6h8.5a1 1 0 0 1 1 1v2.7a1 1 0 0 1-1 1H11a1 1 0 0 1-1-1v-2.7a1 1 0 0 1 1-1zM23.5 10.6h11.2c.5 0 .9.2 1.2.6l3.3 4.1H23.5z"/>'
                     + ruota(16, 5.3, 26.7) + ruota(47, 5.3, 26.7)),
+    "pickup": ('<path d="M5 26.7V16.5h25V10c0-1.1.9-2 2-2h9.6c.7 0 1.4.4 1.7 1l4.2 7.5 8.3 1.3c1.9.3 3.2 1.9 3.2 3.8v5.1"/>'
+               '<path d="M5 26.7h5.5M21.1 26.7h21.2M53 26.7h4M5 19.6h25"/>'
+               '<path d="M33.6 10.8h6.6c.4 0 .8.2 1 .6l3 5.1H33.6z"/>'
+               + ruota(15.8, 5.1, 26.7) + ruota(47.6, 5.1, 26.7)),
     "furgone": ('<path d="M5 27.4V9.4C5 8 6.1 6.9 7.5 6.9h29.7c1.1 0 2.1.5 2.7 1.4l5.9 8.6 7.6 1.7c1.8.4 3.1 2 3.1 3.9v4.9"/>'
                 '<path d="M5 27.4h4.9M21.1 27.4h20.8M53.1 27.4h3.4M24 9.4v15"/>'
                 '<path d="M38.8 10.6h.4c.5 0 .9.2 1.2.6l3.6 5.7h-5.2z"/>'
@@ -280,9 +284,14 @@ MEZZI = [("auto", "Auto", "Auto",
           "Marca e modello aiutano, per esempio Suzuki Jimny 2019."),
          ("furgone", "Furgone", "Furgone",
           "Marca e modello aiutano, per esempio Fiat Ducato 2017."),
+         ("pickup", "Pick-up", "Pick-up",
+          "Marca e modello aiutano, per esempio Ford Ranger 2020."),
          ("camper", "Camper", "Camper",
           "Marca e modello aiutano, per esempio mansardato su Ducato, 2016."),
          ]
+# Mezzi che la tendina propone: quelli di base, o quelli del servizio (allestimenti: furgoni, pick-up e camper, come dice Luca).
+MEZZI_BASE = "auto,fuoristrada,furgone,camper"
+MEZZI_SERVIZIO = {"allestimenti": "furgone,pickup,camper"}
 
 
 def veicolo(chi):
@@ -314,7 +323,7 @@ SERVIZI = [
      "Ricambi, gomme, lubrificanti e accessori: chiedimi disponibilità e prezzo",
      "Scrivimi marca, modello e anno del mezzo; per le gomme, anche la misura.", "vendita"),
     ("allestimenti", "Allestimenti camping e fuoristrada",
-     "Progettati e costruiti da me, su misura per il tuo mezzo",
+     "Furgoni, pick-up e camper: progettati e costruiti da me",
      "Dimmi che mezzo hai e cosa vorresti realizzare.", ""),
     ("acquisto", "Consulenza acquisto auto",
      "Controllo dell'usato prima di comprarlo e consigli sulla scelta",
@@ -335,11 +344,13 @@ EXTRA = {
 }
 
 
-def dati_servizio(nome, nota, opzioni="", titolo=None):
+def dati_servizio(nome, nota, opzioni="", titolo=None, mezzi=None):
     """Attributi della tendina: nome del servizio, suggerimento per le note, opzioni e titolo se diverso dal nome."""
     a = f'aria-haspopup="dialog" data-servizio="{attr(nome)}" data-nota="{attr(nota)}"'
     if titolo:
         a += f' data-titolo="{attr(titolo)}"'
+    if mezzi:
+        a += f' data-mezzi="{mezzi}"'
     if "senza-mezzo" in opzioni:
         a += " data-senza-mezzo"
     if "vendita" in opzioni:
@@ -354,7 +365,7 @@ def apri(chiave, testo, classe="btn btn--arancio", icona="freccia"):
 
 def apri_servizio(chi, testo, classe="btn btn--arancio"):
     s = next(x for x in SERVIZI if x[0] == chi)
-    return f'<button type="button" class="{classe}" {dati_servizio(s[1], s[3], s[4])}>{testo} {I["freccia"]}</button>'
+    return f'<button type="button" class="{classe}" {dati_servizio(s[1], s[3], s[4], mezzi=MEZZI_SERVIZIO.get(chi))}>{testo} {I["freccia"]}</button>'
 
 
 # ---------------------------------------------------------------- foto
@@ -568,7 +579,8 @@ def scheda():
     scelte = []
     for i, (chi, nome_mezzo, valore, aiuto) in enumerate(MEZZI):
         dati = f'value="{attr(valore)}" data-consiglio="{attr(aiuto)}"'
-        scelte.append(f'<label><input type="radio" name="mezzo" {dati}{" checked" if i == 0 else ""}><span>{veicolo(chi)}<b>{nome_mezzo}</b></span></label>')
+        nascosto = "" if chi in MEZZI_BASE.split(",") else " hidden"
+        scelte.append(f'<label data-mezzo="{chi}"{nascosto}><input type="radio" name="mezzo" {dati}{" checked" if i == 0 else ""}><span>{veicolo(chi)}<b>{nome_mezzo}</b></span></label>')
     return f'''<dialog class="scheda" id="scheda" aria-labelledby="scheda-t">
   <form class="scheda-form" novalidate>
     <div class="scheda-maniglia" aria-hidden="true"></div>
@@ -577,7 +589,7 @@ def scheda():
       <button type="button" class="scheda-chiudi" data-chiudi aria-label="Chiudi">{I["chiudi"]}</button>
     </header>
     <div class="scheda-corpo">
-      <fieldset class="mezzi" data-mezzi>
+      <fieldset class="mezzi" data-mezzi="{MEZZI_BASE}">
         <legend>Che mezzo è?</legend>
         <div>{"".join(scelte)}</div>
       </fieldset>
@@ -688,7 +700,7 @@ def casella(s, con_foto=True):
     chi, nome_servizio, desc, nota, opzioni = s
     # la foto che si apre al passaggio del mouse, solo per i servizi che hanno il loro spazio in FOTO_SLOT
     foto_html = f'<span class="servizio-foto" aria-hidden="true">{img("servizio-" + chi, "", piccola=True, alt="")}</span>' if con_foto and "servizio-" + chi in FOTO_SLOT else ""
-    return f'''<li><button type="button" class="servizio servizio--{chi}" {dati_servizio(nome_servizio, nota, opzioni)}>
+    return f'''<li><button type="button" class="servizio servizio--{chi}" {dati_servizio(nome_servizio, nota, opzioni, mezzi=MEZZI_SERVIZIO.get(chi))}>
   {foto_html}<span class="servizio-ico" aria-hidden="true">{ICONE[chi]}</span>
   <span class="servizio-nome">{nome_servizio}</span><span class="servizio-desc">{desc}</span>
 </button></li>'''
@@ -709,6 +721,24 @@ def griglia_servizi(con_foto=True):
     domicilio = next(s for s in SERVIZI if s[0] == "soccorso")
     resto = "".join(casella(s, con_foto) for s in SERVIZI if s is not domicilio)
     return f'<ul class="servizi-griglia">{altro}{casella(domicilio, con_foto)}{resto}{noleggio}</ul>'
+
+
+def sezione_servizi(id_sezione, link):
+    """La sezione "Cosa ti serve?" con la griglia dei servizi: la stessa in home e nella pagina Servizi
+    (sugli schermi abbastanza alti sta in una schermata). link: il collegamento accanto al testo."""
+    return f'''
+<section class="servizi" id="{id_sezione}" aria-labelledby="{id_sezione}-t">
+  <div class="wrap">
+    <div class="servizi-testa">
+      <h2 id="{id_sezione}-t">Cosa ti serve?</h2>
+      <div class="servizi-testa-lato">
+        <p class="lead">Tocca il servizio, scegli il mezzo e scrivimi due righe. Ti rispondo io, di persona.</p>
+        {link}
+      </div>
+    </div>
+    {griglia_servizi()}
+  </div>
+</section>'''
 
 
 def finale(titolo=None, testo=None, pulsante=None):

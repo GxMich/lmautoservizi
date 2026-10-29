@@ -219,6 +219,10 @@
       }
       titolo.textContent = b.getAttribute("data-titolo") || servizio;
       mezzi.hidden = senzaMezzo || vendita;
+      // i mezzi proposti dipendono dal servizio (gli allestimenti: furgone, pick-up, camper); se quello scelto sparisce, si sceglie il primo
+      var elenco = (b.getAttribute("data-mezzi") || mezzi.getAttribute("data-mezzi")).split(",");
+      $$("[data-mezzo]", mezzi).forEach(function (l) { l.hidden = elenco.indexOf(l.getAttribute("data-mezzo")) === -1; });
+      if (mezzoScelto().closest("label").hidden) $("[data-mezzo]:not([hidden]) input", mezzi).checked = true;
       esito.textContent = testoEsito;
       aggiorna();
       origine = b;
