@@ -33,7 +33,7 @@ API per i moduli delle pagine
 import hashlib, json, math, os, posixpath, re, unicodedata
 from html import escape
 from contenuti import (TEL, TEL_TXT, WA, EMAIL, PEC, PIVA, MAPS, SEDE_LEGALE, GEAR_PIENO, FOTO_SLOT, STOCK, ANNO_INIZIO, ANNI_ESPERIENZA, ABILITAZIONI,
-                       INDIRIZZO_OFFICINA, CAP_OFFICINA, COMUNE_OFFICINA, PROVINCIA, GEO, RAGGIO_KM, REA, FACEBOOK, INSTAGRAM, PREZZI)
+                       INDIRIZZO_OFFICINA, CAP_OFFICINA, COMUNE_OFFICINA, PROVINCIA, GEO, RAGGIO_KM, REA, FACEBOOK, INSTAGRAM, PREZZI, NOLEGGIO_LINK)
 import testi_legali
 
 QUI = os.path.dirname(os.path.abspath(__file__))
@@ -219,6 +219,8 @@ ICONE = {
     "soccorso": svg('<path d="m2.5 10 9.5-7.5 9.5 7.5M5.5 8v12h13V8M9 20v-6h6v6"/>', "ico-domicilio"),
     "aziende": svg('<rect x="3" y="7.5" width="18" height="12.5" rx="2"/><path d="M8.5 7.5V5.8c0-1 .8-1.8 1.8-1.8h3.4c1 0 1.8.8 1.8 1.8v1.7M3 12.5h18"/>'
                    '<path class="pieno" d="M10.8 11.3h2.4v2.4h-2.4z"/>', "ico-aziende"),
+    "acquisto": svg('<circle cx="10.5" cy="10.5" r="6.8"/><path d="m15.4 15.4 5.3 5.3"/><path class="spunta" d="m7.6 10.7 2 2 3.8-3.9"/>', "ico-acquisto"),
+    "noleggio": svg('<circle cx="8" cy="15.6" r="4.6"/><path d="m11.3 12.3 8.4-8.4M16.6 6.9l2.6 2.6M14.3 9.2l2 2"/><circle class="pieno" cx="8" cy="15.6" r="1.4"/>', "ico-noleggio"),
     "altro": svg('<circle cx="12" cy="12" r="9.5"/><path d="M9.3 9.3a2.8 2.8 0 1 1 3.9 2.6c-.7.3-1.2 1-1.2 1.8v.6"/><circle class="pieno" cx="12" cy="17.2" r="1"/>', "ico-altro"),
 }
 # Vantaggi (si disegnano a tratto entrando nello schermo)
@@ -302,10 +304,13 @@ SERVIZI = [
     ("ricambi", "Vendita ricambi e gomme",
      "Ricambi, gomme, lubrificanti e accessori: chiedimi disponibilità e prezzo",
      "Scrivimi marca, modello e anno del mezzo; per le gomme, anche la misura.", "vendita"),
+    ("acquisto", "Consulenza acquisto auto",
+     "Controllo dell'usato prima di comprarlo e consigli sulla scelta",
+     "Mandami il link dell'annuncio, oppure marca, modello, anno e chilometri.", ""),
 ]
 # Pagina di approfondimento di ogni servizio (id del registro PAGINE)
 PAGINA_SERVIZIO = {"meccanica": "meccanica", "elettrauto": "elettrauto", "gommista": "gommista", "carrozzeria": "carrozzeria",
-                   "diagnosi": "diagnosi", "soccorso": "mobile", "ricambi": "gomme"}
+                   "diagnosi": "diagnosi", "soccorso": "mobile", "ricambi": "gomme", "acquisto": "servizi"}
 # Richieste che non sono caselle: (nome, suggerimento, opzioni, titolo della tendina)
 EXTRA = {
     "ritiro": ("Ritiro e consegna",
@@ -659,7 +664,8 @@ def intro(titolo, testo):
 
 def casella(s, con_foto=True):
     chi, nome_servizio, desc, nota, opzioni = s
-    foto_html = f'<span class="servizio-foto" aria-hidden="true">{img("servizio-" + chi, "", piccola=True, alt="")}</span>' if con_foto else ""
+    # la foto che si apre al passaggio del mouse, solo per i servizi che hanno il loro spazio in FOTO_SLOT
+    foto_html = f'<span class="servizio-foto" aria-hidden="true">{img("servizio-" + chi, "", piccola=True, alt="")}</span>' if con_foto and "servizio-" + chi in FOTO_SLOT else ""
     return f'''<li><button type="button" class="servizio servizio--{chi}{" servizio--urgente" if "urgente" in opzioni else ""}" {dati_servizio(nome_servizio, nota, opzioni)}>
   {foto_html}<span class="servizio-ico" aria-hidden="true">{ICONE[chi]}</span>
   <span class="servizio-nome">{nome_servizio}</span><span class="servizio-desc">{desc}</span>
@@ -672,7 +678,12 @@ def griglia_servizi(con_foto=True):
   <span class="servizio-ico" aria-hidden="true">{ICONE["altro"]}</span>
   <span class="servizio-nome">Non so cos'ha</span><span class="servizio-desc">Descrivimi il problema e lo capiamo insieme</span>
 </button></li>'''
-    return f'<ul class="servizi-griglia">{"".join(casella(s, con_foto) for s in SERVIZI)}{altro}</ul>'
+    # Il noleggio a lungo termine non apre la tendina: porta al sito dell'offerta, in una nuova scheda.
+    noleggio = f'''<li><a class="servizio servizio--link" href="{NOLEGGIO_LINK}" target="_blank" rel="noopener">
+  <span class="servizio-ico" aria-hidden="true">{ICONE["noleggio"]}</span>
+  <span class="servizio-nome">Noleggio a lungo termine</span><span class="servizio-desc">Auto e furgoni con un canone mensile: guarda le offerte {I["esterno"]}</span>
+</a></li>''' if NOLEGGIO_LINK else ""
+    return f'<ul class="servizi-griglia">{"".join(casella(s, con_foto) for s in SERVIZI)}{noleggio}{altro}</ul>'
 
 
 def finale(titolo=None, testo=None):

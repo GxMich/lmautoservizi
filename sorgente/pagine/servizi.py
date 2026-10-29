@@ -1,9 +1,10 @@
 """Servizi: la pagina indice (servizi/) e le pagine dei cinque servizi principali, con i testi di testi_pagine.py.
 La diagnosi ha anche il calcolo della scadenza della revisione (script/20-revisione.js), il gommista le date delle gomme invernali."""
-from contenuti import TEL_TXT
+import os
+from contenuti import TEL_TXT, NOLEGGIO_LINK, NOLEGGIO_QR
 from testi_pagine import SERVIZI_PAGINE, SERVIZI_HUB
 from sito import (inizia, scrivi, head, testata, intro, finale, piede, foto, azienda, briciole, griglia_servizi, svg, anni_esperienza,
-                  href, url, nome, zona_servita, I, ICONE, VANTAGGI_ICO, SERVIZI, TEL, tel_txt, dati_servizio, apri)
+                  href, url, nome, zona_servita, I, ICONE, VANTAGGI_ICO, SERVIZI, TEL, tel_txt, dati_servizio, apri, apri_servizio, risorsa, DOCS)
 
 CINQUE = ["meccanica", "elettrauto", "gommista", "carrozzeria", "diagnosi"]
 CALENDARIO = svg('<rect x="3.5" y="5" width="17" height="15.5" rx="2.2"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path class="pieno" d="M7.5 13h3v3h-3z"/>')
@@ -57,8 +58,11 @@ def costruisci():
 def pagina_servizi():
     inizia("servizi")
     # (id per i link già esistenti, icona, nome, testo, link o bottone)
-    altri = [("ricambi", ICONE["ricambi"], nome("gomme"), "Ricambi e pneumatici: chiedimi disponibilità e prezzo.",
-              f'<a class="link" href="{href("gomme")}">Cerca per misura {I["freccia"]}</a>'),
+    altri = [("ricambi", ICONE["ricambi"], nome("gomme"), "Ricambi, gomme, lubrificanti, additivi, accessori e batterie: chiedimi disponibilità e prezzo, poi ritiri in officina.",
+              f'<a class="link" href="{href("gomme")}">Guarda il catalogo {I["freccia"]}</a>'),
+             ("acquisto", ICONE["acquisto"], "Consulenza acquisto auto",
+              "Prima di comprare un'auto usata, te la controllo da cima a fondo e ti dico cosa va sistemato. Se sei indeciso, ti aiuto a scegliere quella giusta per te.",
+              apri_servizio("acquisto", "Chiedimi un controllo", "link link--bottone")),
              ("ritiro", VANTAGGI_ICO["rotta"], nome("ritiro"), "Passo a casa o al lavoro, riparo il mezzo in officina e te lo riporto dove vuoi. Gratis entro 20 km.",
               f'<a class="link" href="{href("ritiro")}">Come funziona {I["freccia"]}</a>'),
              ("soccorso", VANTAGGI_ICO["mobile"], nome("mobile"), "Cambio della batteria, diagnosi con il computer, gomma bucata: per gli interventi veloci arrivo io.",
@@ -66,6 +70,12 @@ def pagina_servizi():
              ("aziende", ICONE["aziende"], "Consulenza alle imprese",
               f"Consulenza per le imprese che lavorano nel settore automobilistico, da un tecnico con {anni_esperienza()} anni di esperienza multimarca. Ne parliamo e capiamo insieme di cosa hai bisogno.",
               apri("aziende", "Parliamone", "link link--bottone"))]
+    if NOLEGGIO_LINK:  # con il QR del PDF di Luca, chi guarda dal computer apre l'offerta dal telefono
+        qr = (f'<img class="altri-qr" src="{risorsa(NOLEGGIO_QR)}" width="120" height="120" alt="Codice QR delle offerte di noleggio a lungo termine" loading="lazy">'
+              if os.path.exists(os.path.join(DOCS, *NOLEGGIO_QR.split("/"))) else "")
+        altri.append(("noleggio", ICONE["noleggio"], "Noleggio a lungo termine",
+                      "Auto e furgoni con un canone mensile. Guarda le offerte e, se hai dubbi, chiedimi.",
+                      f'{qr}<a class="link" href="{NOLEGGIO_LINK}" target="_blank" rel="noopener">Guarda le offerte {I["esterno"]}</a>'))
     voci_altri = "".join(f'''
       <li id="{id_}">{icona}<h3>{titolo}</h3><p>{testo}</p>{azione}</li>''' for id_, icona, titolo, testo, azione in altri)
     scrivi(head(SERVIZI_HUB["title"], SERVIZI_HUB["description"], [azienda(), briciole()]) + testata()

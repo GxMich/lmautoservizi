@@ -121,6 +121,7 @@
 .altri h3 { margin-bottom: 10px; transition: color .3s var(--ease); }
 .altri p { flex: 1; margin: 0 0 8px; color: var(--testo-2); font-size: .98rem; }
 .altri li:target { border-top-color: var(--arancio-vivo); }
+.altri-qr { width: 120px; height: 120px; margin: 4px 0 14px; border-radius: 10px; background: #fff; padding: 6px; }
 .altri li:target h3 { color: var(--evidenza); }
 .link--bottone { padding: 0; border: 0; background: none; font: inherit; font-weight: 700; cursor: pointer; }
 

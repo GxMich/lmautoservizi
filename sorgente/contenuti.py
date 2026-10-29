@@ -35,6 +35,9 @@ FACEBOOK = None
 INSTAGRAM = None
 RECENSIONI_GOOGLE = None           # link diretto "scrivi una recensione" della scheda Google
 PREZZI = None                      # Luca non pubblica prezzi, solo preventivo (29/10/2026)
+# Noleggio a lungo termine: il link dedicato del PDF «QR NOLEGGIO LUNGO TERMINE» che Luca ha mandato il 29/10/2026.
+NOLEGGIO_LINK = None
+NOLEGGIO_QR = "assets/img/noleggio-qr.png"   # il QR dello stesso PDF: compare accanto al link solo se il file c'è in docs/
 RECENSIONI_CON_PERMESSO = None     # True quando Luca conferma che le recensioni vengono da Google e chi le ha scritte è d'accordo
 
 # Spiegazione dei dati mancanti: genera.py la stampa per ogni valore rimasto None.
@@ -43,6 +46,7 @@ DA_COMPLETARE = {
     "FACEBOOK": "la pagina è di Luca ma per scelta non va sul sito: resta None (non serve completarlo).",
     "INSTAGRAM": "Luca dice di non avere Instagram: resta None finché non apre un profilo.",
     "RECENSIONI_GOOGLE": "link diretto «scrivi una recensione» dal Profilo dell'attività su Google (Chiedi recensioni): aggiunge il pulsante sotto le recensioni.",
+    "NOLEGGIO_LINK": "il link del noleggio a lungo termine, dal PDF «QR NOLEGGIO LUNGO TERMINE» di Luca (29/10/2026): con il link compaiono la casella in home e la scheda in Servizi. Il QR va salvato in docs/assets/img/noleggio-qr.png.",
     "PREZZI": "Luca preferisce solo il preventivo, senza prezzi sul sito (29/10/2026): resta None (non serve completarlo).",
     "RECENSIONI_CON_PERMESSO": "conferma che le recensioni in home vengono da Google e che gli autori sono d'accordo: con True compare la nota del Codice del Consumo (nota_recensioni).",
 }
