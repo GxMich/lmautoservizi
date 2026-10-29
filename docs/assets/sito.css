@@ -23,17 +23,15 @@
   --linea: rgba(20, 23, 27, .1); --linea-forte: rgba(20, 23, 27, .2);
   --testo: #14171b; --testo-2: #434b55; --grigio: #5b6470; --grigio-scuro: #848d98;
   --brace: #ffe4d8; --ico: #d4461d; --accento-testo: #b03c1b; --evidenza: #b03c1b; --focus: #b03c1b;
-  --verde: #1d7d4c; --ok-sfondo: #e2f4e9; --ok-testo: #145c38;
-  --errore: #b3261e; --bordo-errore: #d0473a; --segnaposto: #6b7280;
+  --verde: #176b3d; --ok-sfondo: #e2f4e9; --ok-testo: #145c38;
+  --errore: #b3261e; --bordo-errore: #d0473a; --segnaposto: #5f6873;
   --vetro: rgba(243, 244, 246, .88); --vetro-barra: rgba(255, 255, 255, .94); --ombra: rgba(20, 23, 27, .22);
   color-scheme: light;
 }
 *, *::before, *::after { box-sizing: border-box; }
 html { scrollbar-color: var(--grigio-scuro) var(--notte); scroll-padding-top: calc(var(--testata) + 16px); -webkit-text-size-adjust: 100%; }
-html.lenis, html.lenis body { height: auto; }
-.lenis.lenis-smooth { scroll-behavior: auto !important; }
-.lenis.lenis-stopped { overflow: hidden; }
-body { margin: 0; min-height: 100vh; background: var(--notte); color: var(--testo); font: 400 1.0625rem/1.6 var(--font); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; accent-color: var(--arancio-vivo); caret-color: var(--arancio-vivo); overflow-x: clip; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body { margin: 0; min-height: 100vh; background: var(--notte); color: var(--testo); font: 400 1.0625rem/1.6 var(--font); -webkit-font-smoothing: antialiased; accent-color: var(--arancio-vivo); caret-color: var(--arancio-vivo); overflow-x: clip; }
 ::selection { background: var(--arancio); color: #fff; }
 img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; text-underline-offset: 4px; text-decoration-thickness: 1px; }
@@ -79,12 +77,15 @@ main { display: block; }
 .btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: .55em; min-height: 54px; padding: .75em 1.5em; border-radius: 999px; font: 700 1rem/1.15 var(--font); text-decoration: none; text-align: center; border: 1.5px solid transparent; background: transparent; cursor: pointer; overflow: hidden; isolation: isolate; transition: color .3s var(--ease), border-color .3s var(--ease), transform .15s var(--ease); }
 .btn:active { transform: scale(.97); }
 .btn::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; transform: translateY(101%); transition: transform .45s var(--ease); }
-.btn:hover::before { transform: none; }
 .btn--arancio { background: var(--arancio-vivo); color: var(--su-arancio); }
 .btn--arancio::before { background: var(--fanale); }
 .btn--vuoto { border-color: var(--grigio-scuro); color: var(--testo); }
 .btn--vuoto::before { background: var(--testo); }
-.btn--vuoto:hover { color: var(--notte); border-color: var(--testo); }
+/* il riempimento al passaggio del mouse solo dove c'è un mouse: sul telefono resterebbe acceso dopo il tocco */
+@media (hover: hover) {
+  .btn:hover::before { transform: none; }
+  .btn--vuoto:hover { color: var(--notte); border-color: var(--testo); }
+}
 .btn--piccolo { min-height: 44px; padding: .55em 1.15em; font-size: .95rem; }
 .btn--pieno { width: 100%; }
 .azioni { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
@@ -98,13 +99,14 @@ main { display: block; }
 .stato:empty { display: none; }
 .stato::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--grigio); flex: none; }
 .stato[data-aperto="si"] { color: var(--verde); }
-.stato[data-aperto="si"]::before { background: var(--verde); animation: pulsa 2.2s ease-out infinite; }
-@keyframes pulsa { 0% { box-shadow: 0 0 0 0 rgba(60, 207, 126, .55); } 70%, 100% { box-shadow: 0 0 0 9px rgba(60, 207, 126, 0); } }
+.stato[data-aperto="si"]::before { background: var(--verde); animation: pulsa 2.2s ease-out 3; }
+@keyframes pulsa { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--verde) 55%, transparent); } 70%, 100% { box-shadow: 0 0 0 9px transparent; } }
 
 /* ---------- testata ---------- */
 .testata { position: fixed; inset: 0 0 auto; z-index: 50; height: var(--testata); border-bottom: 1px solid transparent; transition: background-color .35s var(--ease), border-color .35s var(--ease), transform .45s var(--ease); }
 .testata.is-piena { background: var(--vetro); -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4); border-bottom-color: var(--linea); }
 .testata.is-nascosta { transform: translateY(-100%); }
+.testata.is-nascosta:focus-within { transform: none; }
 .testata-riga { display: flex; align-items: center; gap: 22px; height: 100%; }
 .marchio { display: flex; align-items: center; gap: 12px; margin-right: auto; text-decoration: none; font-weight: 800; line-height: 1.1; flex: none; }
 .marchio small { display: block; font-weight: 400; color: var(--grigio); font-size: .78rem; margin-top: 2px; }
@@ -118,6 +120,8 @@ main { display: block; }
 .tema-bottone .ico { width: 20px; height: 20px; }
 .ico-luna { display: none; }
 :root[data-tema="chiaro"] .ico-sole { display: none; }
+/* la freccia delle tendine di scelta è un'immagine: nel tema chiaro serve l'arancio scuro, il vivo non arriva a 3:1 */
+:root[data-tema="chiaro"] .campo > select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b03c1b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); }
 :root[data-tema="chiaro"] .ico-luna { display: inline; }
 .menu-bottone { display: none; position: relative; width: 46px; height: 46px; flex: none; border: 1.5px solid var(--linea-forte); border-radius: 50%; background: transparent; cursor: pointer; }
 .menu-bottone span { position: absolute; left: 13px; right: 13px; height: 2px; border-radius: 2px; background: var(--testo); transition: transform .35s var(--ease); }
@@ -169,7 +173,6 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 .mo .eroe-finestra { clip-path: inset(49% 0 49% 0); }
 .mo .eroe-anello, .mo .eroe-aloni { opacity: 0; }
 .mo .eroe .riga > span { transform: translateY(115%); }
-.mo .eroe-testo, .mo .eroe-info { opacity: 0; }
 
 /* ---------- intro delle pagine interne ---------- */
 .intro { position: relative; overflow: hidden; padding: calc(var(--testata) + clamp(48px, 9vw, 120px)) 0 clamp(40px, 6vw, 80px); border-bottom: 1px solid var(--linea); }
@@ -179,7 +182,6 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 .intro-ingranaggio { position: absolute; right: -7vw; top: calc(var(--testata) + 12px); width: clamp(240px, 34vw, 500px); aspect-ratio: 1; color: var(--arancio); opacity: .13; pointer-events: none; }
 .intro-ingranaggio svg { width: 100%; height: 100%; }
 .mo .intro .riga > span { transform: translateY(110%); }
-.mo .intro-lead { opacity: 0; }
 
 /* ---------- sezioni ---------- */
 .sezione { padding-block: clamp(64px, 9vw, 128px); }
@@ -431,7 +433,7 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 .lightbox figure { margin: 0; }
 .lightbox img { width: 100%; max-height: 80dvh; object-fit: contain; border-radius: 10px; background: #fff; }
 .lightbox figcaption { margin-top: 12px; color: #f3f4f5; font-weight: 600; text-align: center; }
-.lightbox-chiudi { position: absolute; top: -56px; right: 0; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .25); background: #1b2026; color: #f3f4f5; cursor: pointer; }
+.lightbox-chiudi { position: fixed; top: max(12px, env(safe-area-inset-top)); right: 12px; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .25); background: #1b2026; color: #f3f4f5; cursor: pointer; }
 .lightbox-chiudi .ico { width: 20px; height: 20px; }
 
 /* ---------- contatti ---------- */
@@ -523,13 +525,13 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
   @view-transition { navigation: auto; }
   .testata { view-transition-name: testata; }
   .barra { view-transition-name: barra; }
-  ::view-transition-old(root) { animation: vt-esce .22s var(--ease-in) both; }
-  ::view-transition-new(root) { animation: vt-entra .5s var(--ease) both; }
+  ::view-transition-old(root) { animation: vt-esce .18s var(--ease-in) both; }
+  ::view-transition-new(root) { animation: vt-entra .22s var(--ease) both; }
   .cambio-tema::view-transition-old(root), .cambio-tema::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
   .cambio-tema::view-transition-new(root) { animation: tema-entra .6s var(--ease) both; }
 }
 @keyframes vt-esce { to { opacity: 0; } }
-@keyframes vt-entra { from { opacity: 0; transform: translateY(14px); } }
+@keyframes vt-entra { from { opacity: 0; } }
 @keyframes tema-entra { from { clip-path: circle(0% at var(--tema-x, 100%) var(--tema-y, 0%)); } to { clip-path: circle(150% at var(--tema-x, 100%) var(--tema-y, 0%)); } }
 
 /* ---------- movimento ridotto ---------- */
@@ -611,7 +613,7 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
   .numerone { font-size: min(13vw, 3.4rem); }
   .foto--fascia { aspect-ratio: 3 / 2; }
   .misura { gap: 6px; }
-  .barra { position: fixed; z-index: 40; left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom)); display: grid; grid-template-columns: repeat(3, 1fr); padding: 6px; border-radius: 18px; background: var(--vetro-barra); -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4); border: 1px solid var(--linea); box-shadow: 0 16px 40px -12px var(--ombra); transition: transform .45s var(--ease); }
+  .barra { position: fixed; z-index: 40; left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom)); display: grid; grid-template-columns: repeat(3, 1fr); padding: 6px; border-radius: 18px; background: var(--vetro-barra); border: 1px solid var(--linea); box-shadow: 0 16px 40px -12px var(--ombra); transition: transform .45s var(--ease); }
   .barra.is-nascosta { transform: translateY(calc(100% + 24px)); }
   .barra a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; min-height: 52px; border-radius: 12px; font-size: .76rem; font-weight: 700; color: var(--testo-2); text-decoration: none; }
   .barra a:first-child { background: var(--arancio-vivo); color: var(--su-arancio); }
@@ -816,7 +818,7 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 .officina-home .azioni { gap: 12px 24px; }
 .officina-home-foto { aspect-ratio: 3 / 2; }
 /* aperto / chiuso in tempo reale, appoggiato sulla foto come un cartello */
-.foto > .stato { position: absolute; top: 14px; left: 14px; padding: 8px 14px; border-radius: 999px; background: var(--vetro); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.foto > .stato { position: absolute; top: 14px; left: 14px; padding: 8px 14px; border-radius: 999px; background: var(--asfalto-2); box-shadow: 0 6px 18px -8px var(--ombra); }
 .officina-punti { margin-top: clamp(48px, 6vw, 80px); grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .officina-punti p { margin: 0; }
 /* Luca passa sul fondo asfalto: la sezione dell'officina, prima, resta sul fondo notte */
@@ -978,3 +980,17 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 @media (max-width: 599px) {
   .piede .piede-note { margin-left: 0; }
 }
+
+/* ---------- telefono: la barra rapida non copre il focus, e sparisce quando lo schermo è basso (orizzontale, zoom forte) ---------- */
+@media (max-width: 599px) {
+  html { scroll-padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
+}
+@media (max-width: 599px) and (max-height: 480px) {
+  .barra { display: none; }
+  html { scroll-padding-bottom: 0; }
+  body { padding-bottom: 0; }
+}
+
+/* ---------- con il menu o una finestra aperti la pagina sotto non scorre; lo spazio della barra di scorrimento resta, niente salti ---------- */
+html { scrollbar-gutter: stable; }
+body.menu-aperto, html:has(dialog[open]) { overflow: hidden; }

@@ -44,3 +44,17 @@
 @media (max-width: 599px) {
   .piede .piede-note { margin-left: 0; }
 }
+
+/* ---------- telefono: la barra rapida non copre il focus, e sparisce quando lo schermo è basso (orizzontale, zoom forte) ---------- */
+@media (max-width: 599px) {
+  html { scroll-padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
+}
+@media (max-width: 599px) and (max-height: 480px) {
+  .barra { display: none; }
+  html { scroll-padding-bottom: 0; }
+  body { padding-bottom: 0; }
+}
+
+/* ---------- con il menu o una finestra aperti la pagina sotto non scorre; lo spazio della barra di scorrimento resta, niente salti ---------- */
+html { scrollbar-gutter: stable; }
+body.menu-aperto, html:has(dialog[open]) { overflow: hidden; }

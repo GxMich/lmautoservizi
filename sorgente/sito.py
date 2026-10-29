@@ -502,7 +502,7 @@ def head(titolo, descrizione, schema=(), immagine="officina", noindex=False):
 <link rel="icon" type="image/png" sizes="192x192" href="{risorsa("assets/img/favicon-192.png")}">
 <link rel="apple-touch-icon" href="{risorsa("assets/img/favicon-180.png")}">
 <link rel="manifest" href="{risorsa("site.webmanifest")}">
-<script>(function(d){{d.classList.add("js");try{{if(localStorage.getItem("lm-tema")==="chiaro"){{d.setAttribute("data-tema","chiaro");document.querySelector('meta[name="theme-color"]').content="#f3f4f6"}}}}catch(e){{}}try{{if(!matchMedia("(prefers-reduced-motion: reduce)").matches)d.classList.add("mo")}}catch(e){{}}setTimeout(function(){{d.classList.remove("mo")}},4000)}})(document.documentElement);</script>
+<script>(function(d){{d.classList.add("js");try{{if(localStorage.getItem("lm-tema")==="chiaro"){{d.setAttribute("data-tema","chiaro");document.querySelector('meta[name="theme-color"]').content="#f3f4f6"}}}}catch(e){{}}try{{if(!matchMedia("(prefers-reduced-motion: reduce)").matches)d.classList.add("mo")}}catch(e){{}}setTimeout(function(){{d.classList.remove("mo")}},1500)}})(document.documentElement);</script>
 <link rel="preload" href="{risorsa("assets/fonts/archivo-latin.woff2")}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{risorsa("assets/sito.css")}?v={V_CSS}">
 {ld}</head>
@@ -538,7 +538,7 @@ def testata():
     </div>
   </div>
 </header>
-<div class="menu" id="menu" hidden data-lenis-prevent>
+<div class="menu" id="menu" hidden>
   <nav aria-label="Menu"><ul>{voci(True)}</ul></nav>
   <div class="menu-piede" role="region" aria-label="Contatti">
     <p class="stato" data-stato></p>
@@ -558,7 +558,7 @@ def scheda():
     for i, (chi, nome_mezzo, valore, aiuto) in enumerate(MEZZI):
         dati = f'value="{attr(valore)}" data-consiglio="{attr(aiuto)}"'
         scelte.append(f'<label><input type="radio" name="mezzo" {dati}{" checked" if i == 0 else ""}><span>{veicolo(chi)}<b>{nome_mezzo}</b></span></label>')
-    return f'''<dialog class="scheda" id="scheda" aria-labelledby="scheda-t" data-lenis-prevent>
+    return f'''<dialog class="scheda" id="scheda" aria-labelledby="scheda-t">
   <form class="scheda-form" novalidate>
     <div class="scheda-maniglia" aria-hidden="true"></div>
     <header class="scheda-testa">
@@ -653,7 +653,6 @@ def piede(extra=""):
 </nav>
 {scheda()}{extra}<script src="{risorsa("assets/js/vendor/gsap.min.js")}" defer></script>
 <script src="{risorsa("assets/js/vendor/ScrollTrigger.min.js")}" defer></script>
-<script src="{risorsa("assets/js/vendor/lenis.min.js")}" defer></script>
 <script src="{risorsa("assets/sito.js")}?v={V_JS}" defer></script>
 </body>
 </html>
@@ -711,7 +710,7 @@ def finale(titolo=None, testo=None):
 
 def lightbox():
     """La finestra che mostra le foto a grandezza piena: si passa a piede(extra) nelle pagine con i pulsanti data-lightbox."""
-    return f'''<dialog class="lightbox" id="lightbox" aria-labelledby="lightbox-t" data-lenis-prevent>
+    return f'''<dialog class="lightbox" id="lightbox" aria-labelledby="lightbox-t">
   <figure><figcaption id="lightbox-t"></figcaption></figure>
   <button class="lightbox-chiudi" type="button" aria-label="Chiudi" data-chiudi>{I["chiudi"]}</button>
 </dialog>

@@ -11,7 +11,7 @@
 .officina-home .azioni { gap: 12px 24px; }
 .officina-home-foto { aspect-ratio: 3 / 2; }
 /* aperto / chiuso in tempo reale, appoggiato sulla foto come un cartello */
-.foto > .stato { position: absolute; top: 14px; left: 14px; padding: 8px 14px; border-radius: 999px; background: var(--vetro); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.foto > .stato { position: absolute; top: 14px; left: 14px; padding: 8px 14px; border-radius: 999px; background: var(--asfalto-2); box-shadow: 0 6px 18px -8px var(--ombra); }
 .officina-punti { margin-top: clamp(48px, 6vw, 80px); grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .officina-punti p { margin: 0; }
 /* Luca passa sul fondo asfalto: la sezione dell'officina, prima, resta sul fondo notte */

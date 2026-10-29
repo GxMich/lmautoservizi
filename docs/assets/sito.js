@@ -1,5 +1,6 @@
 /* L.M. Autoservizi, versione semplice.
-   Librerie locali: GSAP + ScrollTrigger per le animazioni legate allo scorrimento, Lenis per lo scroll morbido.
+   Librerie locali: GSAP + ScrollTrigger per le animazioni legate allo scorrimento. Lo scorrimento è quello nativo
+   del browser (Lenis tolto il 29/10/2026: sul telefono non serviva e su desktop toglieva il focus a ancore e skip link).
    La tendina e le finestre usano le Web Animations: GSAP sposta nel DOM gli elementi fixed per misurarli
    e un <dialog> aperto perderebbe lo stato modale.
    Tutti i messaggi si preparano in locale: l'invio lo conferma il cliente in WhatsApp. */
@@ -12,11 +13,10 @@
   var ESCE = "cubic-bezier(.16, 1, .3, 1)";
   var RIDOTTO = matchMedia("(prefers-reduced-motion: reduce)").matches;
   var MOTO = !!(window.gsap && window.ScrollTrigger) && !RIDOTTO;
-  // Gli stati iniziali esistono solo sotto .mo; se il paracadute di 4 secondi l'ha già tolta, niente entrate.
+  // Gli stati iniziali esistono solo sotto .mo; se il paracadute di 1,5 secondi (script in head) l'ha già tolta, niente entrate.
   var ENTRATA = MOTO && H.classList.contains("mo");
   var WAAPI = !RIDOTTO && !!document.body.animate;
   var telefono = matchMedia("(max-width: 599px)");
-  var lenis = null;
 
   var T = {
     giorni: ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"],
@@ -43,27 +43,48 @@
     el.appendChild(document.createTextNode("."));
   }
 
-  /* ---------- aperto / chiuso in ora italiana ---------- */
+  /* ---------- aperto / chiuso in ora italiana, festivi nazionali compresi ---------- */
   var ORARI = { 1: [450, 1170], 2: [450, 1170], 3: [450, 1170], 4: [450, 1170], 5: [450, 1170] };
+  // Festivi fissi (mese-giorno) più Pasquetta, calcolata. Le ferie di Luca, quando le dice, vanno in CHIUSURE (anno-mese-giorno).
+  var FESTIVI = ["01-01", "01-06", "04-25", "05-01", "06-02", "08-15", "11-01", "12-08", "12-25", "12-26"];
+  var CHIUSURE = [];
   function oraItalia() {
-    var mappa = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 }, g = 0, h = 0, m = 0;
-    new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Rome", weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false })
+    var mappa = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 }, g = 0, h = 0, m = 0, a = 0, me = 0, d = 0;
+    new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Rome", weekday: "short", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false })
       .formatToParts(new Date()).forEach(function (p) {
         if (p.type === "weekday") g = mappa[p.value];
+        if (p.type === "year") a = parseInt(p.value, 10);
+        if (p.type === "month") me = parseInt(p.value, 10);
+        if (p.type === "day") d = parseInt(p.value, 10);
         if (p.type === "hour") h = parseInt(p.value, 10) % 24;
         if (p.type === "minute") m = parseInt(p.value, 10);
       });
-    return { giorno: g, minuti: h * 60 + m };
+    return { giorno: g, minuti: h * 60 + m, data: new Date(Date.UTC(a, me - 1, d)) };
+  }
+  function pasquetta(anno) {
+    // algoritmo di Gauss/Meeus per la Pasqua gregoriana, più un giorno
+    var a = anno % 19, b = Math.floor(anno / 100), c = anno % 100, d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25),
+        g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4,
+        l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451), mese = Math.floor((h + l - 7 * m + 114) / 31),
+        giorno = (h + l - 7 * m + 114) % 31 + 1;
+    return new Date(Date.UTC(anno, mese - 1, giorno + 1));
+  }
+  function chiuso(data) {
+    var iso = data.toISOString().slice(0, 10);
+    return FESTIVI.indexOf(iso.slice(5)) !== -1 || CHIUSURE.indexOf(iso) !== -1 || iso === pasquetta(data.getUTCFullYear()).toISOString().slice(0, 10);
   }
   function hhmm(min) { return Math.floor(min / 60) + ":" + String(min % 60).padStart(2, "0"); }
   function aggiornaStato() {
-    var ora = oraItalia(), oggi = ORARI[ora.giorno], s = { aperto: false, testo: T.chiuso };
+    var ora = oraItalia(), oggi = chiuso(ora.data) ? null : ORARI[ora.giorno], s = { aperto: false, testo: T.chiuso };
     if (oggi && ora.minuti >= oggi[0] && ora.minuti < oggi[1]) s = { aperto: true, testo: T.aperto + hhmm(oggi[1]) };
     else if (oggi && ora.minuti < oggi[0]) s = { aperto: false, testo: T.apre + hhmm(oggi[0]) };
     else {
-      for (var i = 1; i <= 7; i++) {
-        var g = (ora.giorno + i) % 7;
-        if (ORARI[g]) { s = { aperto: false, testo: T.riapre + (i === 1 ? T.domani : T.giorni[g]) + T.alle + hhmm(ORARI[g][0]) }; break; }
+      for (var i = 1; i <= 14; i++) {
+        var g = (ora.giorno + i) % 7, giorno = new Date(ora.data.getTime() + i * 864e5);
+        if (ORARI[g] && !chiuso(giorno)) {
+          var quando = i === 1 ? T.domani : (i < 7 ? T.giorni[g] : T.giorni[g] + " " + giorno.getUTCDate() + "/" + (giorno.getUTCMonth() + 1));
+          s = { aperto: false, testo: T.riapre + quando + T.alle + hhmm(ORARI[g][0]) }; break;
+        }
       }
     }
     $$("[data-stato]").forEach(function (el) { el.textContent = s.testo; el.setAttribute("data-aperto", s.aperto ? "si" : "no"); });
@@ -113,17 +134,19 @@
     ultimoY = y;
   }
   suScroll(window.scrollY);
-  window.addEventListener("scroll", function () { if (!lenis) suScroll(window.scrollY); }, { passive: true });
+  window.addEventListener("scroll", function () { suScroll(window.scrollY); }, { passive: true });
   function nascondiBarra(si) { if (barra) barra.classList.toggle("is-nascosta", si); }
 
   /* ---------- menu del telefono ---------- */
+  // Con il menu aperto il resto della pagina è inerte: il Tab resta tra le voci del menu e la testata.
+  var sotto = $$("main, .piede, .barra");
   function chiudiMenu(rifocus) {
     if (!menu || menu.hidden) return;
     menu.hidden = true;
     document.body.classList.remove("menu-aperto");
+    sotto.forEach(function (el) { el.inert = false; });
     bottoneMenu.setAttribute("aria-expanded", "false");
     bottoneMenu.setAttribute("aria-label", T.apriMenu);
-    if (lenis) lenis.start();
     nascondiBarra(false);
     if (rifocus) bottoneMenu.focus();
   }
@@ -132,13 +155,13 @@
       if (!menu.hidden) { chiudiMenu(false); return; }
       menu.hidden = false;
       document.body.classList.add("menu-aperto");
+      sotto.forEach(function (el) { el.inert = true; });
       testata.classList.remove("is-nascosta");
       bottoneMenu.setAttribute("aria-expanded", "true");
       bottoneMenu.setAttribute("aria-label", T.chiudiMenu);
-      if (lenis) lenis.stop();
       nascondiBarra(true);
       $$("li, .menu-piede", menu).forEach(function (el, i) {
-        anima(el, [{ opacity: 0, transform: "translateY(18px)" }, { opacity: 1, transform: "none" }], { duration: 520, delay: 40 + i * 45, easing: ESCE, fill: "backwards" });
+        anima(el, [{ opacity: 0, transform: "translateY(12px)" }, { opacity: 1, transform: "none" }], { duration: 320, delay: 20 + i * 25, easing: ESCE, fill: "backwards" });
       });
     });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !menu.hidden) chiudiMenu(true); });
@@ -196,7 +219,6 @@
       }
       titolo.textContent = b.getAttribute("data-titolo") || servizio;
       mezzi.hidden = senzaMezzo || vendita;
-      scheda.classList.toggle("is-urgente", b.hasAttribute("data-urgente"));
       esito.textContent = testoEsito;
       aggiorna();
       origine = b;
@@ -204,20 +226,11 @@
       scheda.showModal();
       // il focus parte dal titolo: chi usa la tastiera prosegue con Tab, a chi usa il mouse non compare un secondo contorno
       titolo.focus({ preventScroll: true });
-      if (lenis) lenis.stop();
       nascondiBarra(true);
       if (!WAAPI) return;
-      if (telefono.matches) {
-        anima(scheda, [{ transform: "translateY(100%)" }, { transform: "none" }], { duration: 560, easing: ESCE });
-      } else {
-        // FLIP: la tendina nasce dal pulsante toccato
-        var da = b.getBoundingClientRect(), a = scheda.getBoundingClientRect();
-        var parte = "translate(" + (da.left - a.left) + "px," + (da.top - a.top) + "px) scale(" + Math.max(.05, da.width / a.width) + "," + Math.max(.05, da.height / a.height) + ")";
-        anima(scheda, [{ transform: parte, transformOrigin: "0 0", borderRadius: "24px", opacity: .6 }, { transform: "none", transformOrigin: "0 0", borderRadius: "24px", opacity: 1 }], { duration: 620, easing: ESCE });
-      }
-      [$(".scheda-testa", scheda), $(".scheda-corpo", scheda)].forEach(function (el, i) {
-        anima(el, [{ opacity: 0, transform: "translateY(14px)" }, { opacity: 1, transform: "none" }], { duration: 460, delay: 150 + i * 60, easing: ESCE, fill: "backwards" });
-      });
+      // entrata breve: sul telefono sale dal basso, sul computer compare con un piccolo spostamento
+      if (telefono.matches) anima(scheda, [{ transform: "translateY(100%)" }, { transform: "none" }], { duration: 380, easing: ESCE });
+      else anima(scheda, [{ opacity: 0, transform: "translateY(16px)" }, { opacity: 1, transform: "none" }], { duration: 280, easing: ESCE });
     };
 
     var chiudi = function () {
@@ -239,7 +252,6 @@
     scheda.addEventListener("cancel", function (e) { e.preventDefault(); chiudi(); });
     scheda.addEventListener("click", function (e) { if (e.target === scheda) chiudi(); });
     scheda.addEventListener("close", function () {
-      if (lenis) lenis.start();
       nascondiBarra(false);
       if (origine) origine.focus({ preventScroll: true });
     });
@@ -336,7 +348,6 @@
         lbImg.alt = b.getAttribute("data-titolo");
         lbCap.textContent = b.getAttribute("data-titolo");
         lightbox.showModal();
-        if (lenis) lenis.stop();
         anima($("figure", lightbox), [{ opacity: 0, transform: "scale(.92) translateY(16px)" }, { opacity: 1, transform: "none" }], { duration: 480, easing: ESCE });
       });
     });
@@ -344,7 +355,6 @@
     lightbox.addEventListener("click", function (e) { if (e.target === lightbox) lightbox.close(); });
     lightbox.addEventListener("close", function () {
       lbImg.removeAttribute("src");
-      if (lenis) lenis.start();
       if (lbOrigine) lbOrigine.focus({ preventScroll: true });
     });
   }
@@ -358,62 +368,18 @@
     });
   });
 
-  /* ---------- pagina servizi: indice che segue la lettura, icona che si anima entrando ---------- */
-  var sezioni = $$(".sezione-servizio");
-  if (sezioni.length) {
-    var vociIndice = $$(".indice a"), attiva = null, inAttesa = false;
-    var aggiornaIndice = function () {
-      inAttesa = false;
-      var soglia = window.innerHeight * .42, corrente = null;
-      sezioni.forEach(function (s) { if (s.getBoundingClientRect().top < soglia) corrente = s; });
-      if (corrente === attiva) return;
-      attiva = corrente;
-      vociIndice.forEach(function (a) {
-        var si = !!corrente && a.getAttribute("href") === "#" + corrente.id;
-        a.classList.toggle("attivo", si);
-        if (si) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current");
-      });
-      // l'icona del servizio fa la sua piccola animazione la prima volta che lo raggiungi
-      if (corrente && !RIDOTTO && !corrente.dataset.animata) {
-        corrente.dataset.animata = "1";
-        corrente.classList.add("anima");
-        setTimeout(function () { corrente.classList.remove("anima"); }, 1400);
-      }
-    };
-    window.addEventListener("scroll", function () { if (!inAttesa) { inAttesa = true; requestAnimationFrame(aggiornaIndice); } }, { passive: true });
-    aggiornaIndice();
-  }
-
   if (!MOTO) {
     H.classList.remove("mo");
     return;
   }
 
   /* ======================================================================
-     Movimento (GSAP + ScrollTrigger + Lenis)
+     Movimento (GSAP + ScrollTrigger)
+     Le entrate restano brevi (al massimo un secondo) e non toccano mai testi e pulsanti: chi ha un guasto
+     deve poter leggere e chiamare subito.
      ====================================================================== */
   gsap.registerPlugin(ScrollTrigger);
   ScrollTrigger.config({ ignoreMobileResize: true });
-
-  if (window.Lenis) {
-    lenis = new Lenis({ lerp: 0.12, smoothWheel: true });
-    lenis.on("scroll", function (l) { ScrollTrigger.update(); suScroll(l.scroll); });
-    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
-    gsap.ticker.lagSmoothing(0);
-    // La sezione dei servizi ha già lo spazio per la testata: si allinea in cima allo schermo, così si vede tutta.
-    // La destinazione si calcola sulla posizione reale della pagina, anche se lo scorrimento è appena cambiato.
-    var destinazione = function (el) { return el.getBoundingClientRect().top + window.scrollY + (el.classList.contains("servizi") ? 0 : -88); };
-    $$('a[href^="#"]').forEach(function (a) {
-      a.addEventListener("click", function (e) {
-        var id = a.getAttribute("href"), meta = id.length > 1 && $(id);
-        if (!meta) return;
-        e.preventDefault();
-        lenis.scrollTo(destinazione(meta), { duration: 1.2 });
-        history.replaceState(null, "", id);
-      });
-    });
-    if (location.hash && $(location.hash)) setTimeout(function () { lenis.scrollTo(destinazione($(location.hash)), { immediate: true }); }, 60);
-  }
 
   var mm = gsap.matchMedia();
 
@@ -421,16 +387,14 @@
   if ($(".eroe")) {
     if (ENTRATA) {
       gsap.timeline({ defaults: { ease: "expo.out" }, onStart: function () { H.classList.remove("mo"); } })
-        .fromTo(".eroe-anello", { rotation: -110, scale: .62, opacity: .35, transformOrigin: "50% 50%" }, { rotation: 0, scale: 1, opacity: 1, duration: 1.8, ease: "power3.out" }, 0)
-        .fromTo(".eroe-aloni", { scale: .8, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.6 }, .2)
-        .fromTo(".eroe-finestra", { clipPath: "inset(49% 0% 49% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.2, clearProps: "clipPath" }, .25)
-        .fromTo(".eroe-finestra img", { scale: 1.35, yPercent: 8 }, { scale: 1, yPercent: 0, duration: 1.6, clearProps: "transform" }, .25)
-        .fromTo(".riga-a > span", { xPercent: -18, yPercent: 115, y: 0 }, { xPercent: 0, yPercent: 0, y: 0, duration: 1.2 }, .32)
-        .fromTo(".riga-b > span", { xPercent: 14, yPercent: 115, y: 0 }, { xPercent: 0, yPercent: 0, y: 0, duration: 1.2 }, .5)
-        .fromTo(".eroe-testo", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: .9 }, .75)
-        .fromTo(".eroe-info", { opacity: 0 }, { opacity: 1, duration: .9 }, 1)
-        .fromTo(".eroe-fascio", { xPercent: -180, opacity: 0 }, { xPercent: 520, opacity: 1, duration: 1.7, ease: "power1.inOut" }, .1)
-        .to(".eroe-fascio", { opacity: 0, duration: .35 }, 1.5);
+        .fromTo(".eroe-anello", { rotation: -80, scale: .7, opacity: .35, transformOrigin: "50% 50%" }, { rotation: 0, scale: 1, opacity: 1, duration: 1, ease: "power3.out" }, 0)
+        .fromTo(".eroe-aloni", { scale: .85, opacity: 0 }, { scale: 1, opacity: 1, duration: .9 }, .1)
+        .fromTo(".eroe-finestra", { clipPath: "inset(49% 0% 49% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: .75, clearProps: "clipPath" }, .1)
+        .fromTo(".eroe-finestra img", { scale: 1.25, yPercent: 6 }, { scale: 1, yPercent: 0, duration: 1, clearProps: "transform" }, .1)
+        .fromTo(".riga-a > span", { xPercent: -12, yPercent: 115, y: 0 }, { xPercent: 0, yPercent: 0, y: 0, duration: .7 }, .05)
+        .fromTo(".riga-b > span", { xPercent: 10, yPercent: 115, y: 0 }, { xPercent: 0, yPercent: 0, y: 0, duration: .7 }, .15)
+        .fromTo(".eroe-fascio", { xPercent: -180, opacity: 0 }, { xPercent: 520, opacity: 1, duration: 1, ease: "power1.inOut" }, .05)
+        .to(".eroe-fascio", { opacity: 0, duration: .25 }, .85);
     }
     gsap.to(".eroe-ingranaggio", { rotation: 40, scale: 1.18, ease: "none", scrollTrigger: { trigger: ".eroe", start: "top top", end: "bottom top", scrub: .6 } });
     mm.add("(min-width: 900px)", function () {
@@ -443,9 +407,8 @@
   if ($(".intro")) {
     if (ENTRATA) {
       gsap.timeline({ defaults: { ease: "expo.out" }, onStart: function () { H.classList.remove("mo"); } })
-        .fromTo(".intro .riga > span", { yPercent: 110, y: 0 }, { yPercent: 0, y: 0, duration: 1.15 }, .05)
-        .fromTo(".intro-lead", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .9 }, .35)
-        .fromTo(".intro-ingranaggio svg", { rotation: -70, scale: .82, opacity: 0, transformOrigin: "50% 50%" }, { rotation: 0, scale: 1, opacity: 1, duration: 1.8, ease: "power3.out" }, 0);
+        .fromTo(".intro .riga > span", { yPercent: 110, y: 0 }, { yPercent: 0, y: 0, duration: .65 }, .02)
+        .fromTo(".intro-ingranaggio svg", { rotation: -50, scale: .85, opacity: 0, transformOrigin: "50% 50%" }, { rotation: 0, scale: 1, opacity: 1, duration: 1, ease: "power3.out" }, 0);
     }
     gsap.to(".intro-ingranaggio", { rotation: 55, ease: "none", scrollTrigger: { trigger: ".intro", start: "top top", end: "bottom top", scrub: .6 } });
   }
@@ -453,22 +416,17 @@
   // Le foto principali si aprono come la finestra dell'ingranaggio.
   $$("[data-iride]").forEach(function (fig) {
     var immagine = $("img", fig);
-    gsap.timeline({ scrollTrigger: { trigger: fig, start: "top 82%", once: true } })
-      .fromTo(fig, { clipPath: "circle(14% at 50% 50%)" }, { clipPath: "circle(75% at 50% 50%)", duration: 1.4, ease: "expo.inOut", clearProps: "clipPath" })
-      .fromTo(immagine, { scale: 1.3, rotation: -4 }, { scale: 1, rotation: 0, duration: 1.6, ease: "expo.out", clearProps: "transform" }, 0);
+    gsap.timeline({ scrollTrigger: { trigger: fig, start: "top 85%", once: true } })
+      .fromTo(fig, { clipPath: "circle(30% at 50% 50%)" }, { clipPath: "circle(75% at 50% 50%)", duration: .8, ease: "expo.out", clearProps: "clipPath" })
+      .fromTo(immagine, { scale: 1.12 }, { scale: 1, duration: 1, ease: "expo.out", clearProps: "transform" }, 0);
   });
-
-  // Le caselle dei servizi arrivano una dopo l'altra.
-  $$(".servizi-griglia").forEach(function (griglia) {
-    gsap.from($$(":scope > li", griglia), { y: 40, opacity: 0, scale: .96, duration: .9, stagger: .07, ease: "expo.out", clearProps: "transform,opacity",
-      scrollTrigger: { trigger: griglia, start: "top 88%", once: true } });
-  });
+  // Le caselle dei servizi non hanno entrata: sono la cosa da toccare, devono esserci subito.
 
   // Le icone dei vantaggi si disegnano a tratto.
   $$(".vantaggi-lista > li > .ico").forEach(function (icona) {
     var tratti = $$("path, circle, rect", icona);
     tratti.forEach(function (p) { var L = p.getTotalLength ? p.getTotalLength() : 0; if (L) gsap.set(p, { strokeDasharray: L, strokeDashoffset: L }); });
-    gsap.to(tratti, { strokeDashoffset: 0, duration: 1.3, stagger: .08, ease: "power2.inOut",
+    gsap.to(tratti, { strokeDashoffset: 0, duration: .9, stagger: .06, ease: "power2.inOut",
       scrollTrigger: { trigger: icona, start: "top 90%", once: true },
       onComplete: function () { gsap.set(tratti, { clearProps: "strokeDasharray,strokeDashoffset" }); } });
   });
@@ -497,7 +455,7 @@
   if (cronologia) {
     cronologia.classList.add("in-scorrimento");
     gsap.fromTo(cronologia, { "--linea-crono": 0 }, { "--linea-crono": 1, ease: "none", scrollTrigger: { trigger: cronologia, start: "top 80%", end: "bottom 60%", scrub: .4 } });
-    gsap.from($$("li", cronologia), { opacity: 0, x: -18, duration: .9, stagger: .15, ease: "expo.out", clearProps: "opacity,transform",
+    gsap.from($$("li", cronologia), { opacity: 0, x: -14, duration: .6, stagger: .08, ease: "expo.out", clearProps: "opacity,transform",
       scrollTrigger: { trigger: cronologia, start: "top 80%", once: true } });
   }
 
