@@ -3,6 +3,7 @@
 BOZZA per revisione professionale (27 ottobre 2026). Fonte completa e
 commentata: materiali/testi-legali/ (01 informativa, 03 vettura di cortesia,
 04 garanzia, 07 recensioni). Se cambi un testo qui, cambia anche il file .md.
+Solo italiano: le versioni inglesi sono state tolte con la versione inglese del sito (29/10/2026).
 
 Ogni costante e' un frammento HTML da passare a str.format(**dati) con questi
 campi (i campi non usati da un testo vengono ignorati):
@@ -162,99 +163,6 @@ DA VERIFICARE: se uno script di statistica senza cookie richieda comunque il con
 <h2>Modifiche</h2>
 <p>Se cambio questa informativa aggiorno la data in alto. Se cambia qualcosa di importante, te lo dico prima.</p>"""
 
-# ---------------------------------------------------------------- privacy EN
-PRIVACY_EN = f"""<p><strong>Last updated:</strong> {{aggiornamento}}</p>
-<p>This page explains what personal data I process, why and for how long, as required by the EU General Data Protection Regulation (GDPR, Art. 13). In short: I use your data to reply to you, work on your car and comply with the law. The website uses no cookies and no analytics. Reminders and offers on WhatsApp only if you reply SÌ (yes). This is a translation: if in doubt, the Italian version prevails.</p>
-
-<h2>Who I am</h2>
-<p>The data controller is <strong>{{titolare}}</strong>, sole proprietorship, {{sede_legale}}, Italy, VAT no. {{piva}}. Phone and WhatsApp {{telefono}}, email <a href="mailto:{{email}}">{{email}}</a>, certified email (PEC) <a href="mailto:{{pec}}">{{pec}}</a>. I have not appointed a Data Protection Officer, as one is not required for a workshop like mine.</p>
-<!-- DA VERIFICARE: add the workshop address if different from the registered office. -->
-
-<h2>The website</h2>
-<p>The website uses no cookies and no analytics, and loads no content from other websites (maps, videos, external fonts, social buttons), so it shows no cookie banner. If you choose the light or dark theme, your browser remembers the choice in its local storage: a technical setting that stays on your device.</p>
-<p>The website is hosted by an external provider. When you open a page, its server receives technical data such as IP address, date and time, page requested and browser type, to deliver the page and protect the site from abuse. Legal basis: my legitimate interest in a secure, working website (Art. 6(1)(f) GDPR). I do not use this data to identify you. The provider keeps it for a few days or weeks under its own terms.</p>
-<!-- DA VERIFICARE: hosting provider, server location, log retention, transfers outside the EU. -->
-<!-- OPTIONAL: cookieless analytics. Make visible only if activated.
-<h3>Cookieless analytics</h3>
-<p>To see which pages are most useful I use [Cloudflare Web Analytics or GoatCounter], which counts visits in aggregate form (page, referrer, device type, country) without cookies, without storing the full IP address and without profiling. Legal basis: my legitimate interest in improving the website (Art. 6(1)(f) GDPR). The provider acts as my processor. [Cloudflare only: Cloudflare, Inc. is based in the USA; transfers rely on the EU-US Data Privacy Framework and standard contractual clauses.]</p>
--->
-<p>Some buttons open external services (WhatsApp, Google Maps, my Google reviews), whose own privacy rules apply.</p>
-
-<h2>Requests via the WhatsApp button</h2>
-<p>Some pages help you prepare a message. What you type stays in your browser: the website does not store it or send it to any server. WhatsApp then opens with the message ready, and it is sent only when you tap "Send". I receive your number, your WhatsApp profile name and photo, what you write (for example name, number plate, model, problem, where the car is) and any photos or location you send. I use them to reply, prepare a quote and organise the job, the pick-up or the mobile service. Legal basis: your request (pre-contractual measures and contract, Art. 6(1)(b) GDPR); no consent is needed. The number plate is optional.</p>
-
-<h2>Phone, email and PEC</h2>
-<p>If you call me, I see your number and note what you tell me about the job; if needed, I save your number in the workshop phone. For email I use Gmail, a Google service; for certified email my PEC provider. Legal basis: your request and the contract (Art. 6(1)(b) GDPR).</p>
-
-<h2>How I use WhatsApp</h2>
-<ul>
-<li>I am the controller of my chats with customers, which I manage with the WhatsApp Business app on the workshop phone.</li>
-<li>The service is provided by WhatsApp Ireland Limited (Meta group). For some data it processes on my behalf it acts as my processor under the WhatsApp Business Data Processing Terms; for your WhatsApp account data it acts as an independent controller.</li>
-<li>Messages are end-to-end encrypted: WhatsApp cannot read their content, but it processes other data such as numbers, message times and device information.</li>
-<li>Meta group companies also process data in the USA. Transfers rely on the EU-US Data Privacy Framework (Commission Decision 2023/1795) and standard contractual clauses (Decision 2021/914).</li>
-<li>WhatsApp's rules: <a href="https://www.whatsapp.com/legal/privacy-policy-eea" {_EST}>privacy policy</a>, <a href="https://www.whatsapp.com/legal/WhatsApp-Terms-for-WhatsApp-Business-App" {_EST}>WhatsApp Business terms</a>, <a href="https://www.whatsapp.com/legal/business-data-processing-terms" {_EST}>data processing terms</a>, <a href="https://www.whatsapp.com/legal/data-privacy-framework" {_EST}>Data Privacy Framework</a>.</li>
-<li>My phone is locked with a code and chat backups are encrypted. I never add customers to groups. Don't want to use WhatsApp? Call or email me: the service is the same. Never send me card details or passwords: I will never ask for payment data on WhatsApp.</li>
-</ul>
-
-<h2>Messages about your job</h2>
-<p>During a job I write to you about the quote, to ask your approval before extra work, to send photos of the fault and of the finished work, about pick-up and delivery times and to tell you the car is ready. These messages are needed for the service you asked for (Art. 6(1)(b) GDPR): they are not advertising and need no consent.</p>
-
-<h2>Reminders and offers: only if you say yes</h2>
-<p>I can send you two optional, separate kinds of messages: <strong>reminders</strong> when your MOT (revisione), service or seasonal tyre change is due, for which I keep your name, number, car model and plate, due dates and mileage; and <strong>offers</strong> on my services and products. Legal basis: your consent (Art. 6(1)(a) GDPR and Art. 130 of the Italian Privacy Code). I ask in person or in your job chat: reply SÌ for reminders, SÌ OFFERTE for offers. I record the date and wording. Saying no does not change the service.</p>
-<p><strong>To stop, write STOP</strong> at any time, or tell me in person, by phone or by email. I stop at once; withdrawal does not affect earlier messages. I keep this data until you write STOP, and no longer than 24 months after your last job at the workshop. No profiling.</p>
-
-<h2>Workshop jobs, pick-up and delivery, mobile service</h2>
-<p>I process your name and contact details, the address for pick-up, delivery or mobile service (and your location if you share it), car data (plate, VIN, mileage, due dates), the problem and diagnostic results, quote, job sheet, photos of the work and invoicing data, plus the name of anyone who drops off or collects the car for you. A number plate is personal data. Legal bases: the contract (Art. 6(1)(b) GDPR); legal obligations for invoices and accounts (Art. 6(1)(c)); my legitimate interest in defending myself against claims, also with before-and-after photos (Art. 6(1)(f)). During diagnostics I read only technical data from the car's control units; I do not look at or copy your contacts, paired phones or navigation addresses.</p>
-
-<h2>Courtesy car</h2>
-<p>If I lend you the courtesy car, we sign a free loan agreement (comodato). I process your name, date and place of birth, address, tax code, phone, driving licence details and the hand-over and return report (mileage, fuel, photos of the car). Legal bases: the contract (Art. 6(1)(b) GDPR); the legal obligation, as the car's owner, to tell the police who was driving within 60 days of a fine being notified (Art. 126-bis of the Italian Highway Code; Art. 6(1)(c) GDPR); the contract and my legitimate interest for accidents, damage, tolls and limited traffic zones (Art. 6(1)(b) and (f)).</p>
-
-<h2>Reviews and photos</h2>
-<ul>
-<li>Google reviews are processed by Google under its own rules. When I reply, I never mention your data, your car or the job.</li>
-<li>After a job I may send you one message asking for a review: the same for every customer, with no rewards or discounts, and critical reviews are welcome. Legal basis: my legitimate interest (Art. 6(1)(f) GDPR); you can object at any time.</li>
-<li>I republish a review on my website, with your first name and initial, and publish photos of your car, with the plate covered, only with your permission (Art. 6(1)(a) GDPR). Recognisable people only with their written permission. I remove them whenever you ask.</li>
-</ul>
-
-<h2>Who may receive your data</h2>
-<ul>
-<li>my accountant; the Italian Revenue Agency and e-invoicing system, and my invoicing software provider;</li>
-<li>insurers and loss adjusters; parts and tyre suppliers (only plate, VIN or model); other workshops or MOT centres only if I subcontract part of the job and tell you first;</li>
-<li>my bank and card terminal provider;</li>
-<li>IT and communication providers: WhatsApp Ireland Limited, Google (Gmail), my PEC provider, the website hosting provider;</li>
-<li>the web designer who manages the website, appointed as my processor (Art. 28 GDPR) if he manages hosting, maintenance or analytics;</li>
-<li>public authorities when required by law, and a lawyer if I need to enforce my rights.</li>
-</ul>
-<p>I never sell your data, and I publish nothing about you without your permission.</p>
-
-<h2>Transfers outside the EU</h2>
-<p>WhatsApp (Meta group) and Google may process data in the USA, under the EU-US Data Privacy Framework and the European Commission's standard contractual clauses (Arts. 45 and 46 GDPR). Write to me for details.</p>
-
-<h2>How long I keep data</h2>
-<ul>
-<li>Requests that don't become a job: 12 months from the last message.</li>
-<li>Chats, photos and documents of a job: 26 months from delivery of the car, the legal guarantee period.</li>
-<li>Invoices and tax records: 10 years, as required by law.</li>
-<li>Courtesy car: licence details 12 months from return; agreement and report 26 months.</li>
-<li>Reminder and offer data: until you write STOP, at most 24 months from your last job. Proof of consent and withdrawal: 5 years from withdrawal.</li>
-<li>Published reviews and photos: until you ask me to remove them.</li>
-<li>Server technical data: as set by the hosting provider.</li>
-</ul>
-<!-- DA VERIFICARE: all retention periods above except the 10 years for tax records. -->
-<p>If there is a dispute, I keep the data needed until it is settled.</p>
-
-<h2>Your rights</h2>
-<p>You can ask me at any time to access your data and get a copy, correct it, erase it, restrict its use, receive it in a machine-readable format, object to processing based on my legitimate interest (and always to promotional messages) and withdraw consent (Arts. 7 and 15–21 GDPR). Write to me on WhatsApp, by email or PEC, or tell me at the workshop. I reply free of charge within one month (up to three months for complex requests, in which case I tell you within the first month). You can also lodge a complaint with the Italian <a href="https://www.garanteprivacy.it" {_EST}>Garante per la protezione dei dati personali</a> or the supervisory authority where you live or work, or go to court.</p>
-
-<h2>No automated decisions</h2>
-<p>I make no decisions based solely on automated processing and do no profiling (Art. 22 GDPR).</p>
-
-<h2>Do you have to give me your data?</h2>
-<p>Data for quotes, jobs, invoices and the courtesy car is necessary: without it I cannot do the job or lend you the car. Some of it is required by law. Consent for reminders, offers, reviews on the website and photos is optional.</p>
-
-<h2>Changes</h2>
-<p>If I change this notice, I update the date at the top. If something important changes, I tell you first.</p>"""
-
 # ------------------------------------------------- vettura di cortesia (sito)
 VETTURA_CORTESIA_IT = """<ul>
 <li>È gratuita per tutto il tempo della riparazione: non paghi il prestito. Te la lascio con il pieno: riportala con lo stesso carburante.</li>
@@ -266,16 +174,6 @@ VETTURA_CORTESIA_IT = """<ul>
 <li>Le condizioni complete le leggi e le firmi quando ti consegno l'auto.</li>
 </ul>"""
 
-VETTURA_CORTESIA_EN = """<ul>
-<li>It is free for as long as the repair takes: you pay nothing for the loan. I give it to you with a full tank: please return it with the same fuel level.</li>
-<li>You need a valid driving licence: I check it at hand-over and note its details. Only you, or the person named in the agreement, may drive.</li>
-<li>At hand-over and return we fill in a report together, with mileage, fuel and photos of the car.</li>
-<li>The car is insured. If you cause damage, you may have to pay up to the excess stated in the conditions.</li>
-<!-- DA VERIFICARE with the insurer: cover and excess amount. -->
-<li>Fines, limited traffic zones, tolls and parking during the loan are the driver's responsibility: by law I give the driver's details to the authority issuing the fine.</li>
-<li>You read and sign the full conditions when I hand over the car.</li>
-</ul>"""
-
 # ----------------------------------------------------------- garanzia (sito)
 GARANZIA_SITO_IT = """<p>Se sei un consumatore hai sempre la <strong>garanzia di legge</strong>: per i ricambi che monto vale 2 anni dalla consegna dell'auto, come prevede il Codice del Consumo.</p>
 <p>In più ti do una <strong>garanzia mia sul lavoro</strong>: se un intervento che ho fatto non funziona come deve, lo sistemo gratis, ricambi e manodopera compresi. Vale anche per chi ha la partita IVA.</p>
@@ -283,23 +181,16 @@ GARANZIA_SITO_IT = """<p>Se sei un consumatore hai sempre la <strong>garanzia di
 <p>La durata della garanzia sul lavoro te la scrivo sul preventivo, insieme alle condizioni. Quando ritiri l'auto ti do le condizioni complete per iscritto.</p>
 <p>La mia garanzia si aggiunge a quella di legge: non la sostituisce e non la riduce.</p>"""
 
-GARANZIA_SITO_EN = """<p>If you are a consumer, you always have the <strong>legal guarantee</strong>: for the parts I fit, it lasts 2 years from delivery of the car, as set by the Italian Consumer Code.</p>
-<p>On top of that I give you <strong>my own guarantee on the work</strong>: if a repair I did doesn't work as it should, I fix it free of charge, parts and labour included. It also applies to business customers.</p>
-<p>I write the length of the work guarantee on your quote, together with its conditions, and give you the full conditions in writing when you collect the car.</p>
-<p>My guarantee is in addition to the legal one: it does not replace or reduce it.</p>"""
-
 # -------------------------------------------- nota sotto le recensioni (sito)
 RECENSIONI_NOTA_IT = """<p>Queste recensioni vengono dal mio profilo Google e le pubblico qui con il permesso di chi le ha scritte. Sono di clienti per cui ho fatto un lavoro: le confronto con i miei lavori prima di pubblicarle. Non pago e non premio nessuno per le recensioni. Le trovi tutte, anche quelle critiche, sul mio profilo Google.</p>
 <!-- DA VERIFICARE: art. 22, comma 5-bis, Codice del Consumo; che Luca controlli davvero ogni recensione con i suoi lavori. -->"""
 
-RECENSIONI_NOTA_EN = """<p>These reviews come from my Google profile and are published here with their authors' permission. They are from customers I have worked for: I check them against my jobs before publishing. I never pay or reward anyone for reviews. You can read them all, critical ones included, on my Google profile.</p>"""
-
 __all__ = [
     "CAMPI",
-    "PRIVACY_IT", "PRIVACY_EN",
-    "VETTURA_CORTESIA_IT", "VETTURA_CORTESIA_EN",
-    "GARANZIA_SITO_IT", "GARANZIA_SITO_EN",
-    "RECENSIONI_NOTA_IT", "RECENSIONI_NOTA_EN",
+    "PRIVACY_IT",
+    "VETTURA_CORTESIA_IT",
+    "GARANZIA_SITO_IT",
+    "RECENSIONI_NOTA_IT",
 ]
 
 

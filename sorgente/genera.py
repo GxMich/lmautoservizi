@@ -1,5 +1,5 @@
 """Genera il sito in docs/: python sorgente/genera.py
-Pagine: ogni modulo di sorgente/pagine/ con costruisci(), chiamato una volta per lingua (oggi solo l'italiano, in docs/).
+Pagine: ogni modulo di sorgente/pagine/ con costruisci() (il sito è solo in italiano).
 Poi scrive sitemap.xml, robots.txt, .nojekyll, site.webmanifest, i pacchetti assets/sito.css e assets/sito.js
 (tutti i file di sorgente/stile e sorgente/script, in ordine di nome) e l'elenco dei dati da completare.
 LM_URL dà l'indirizzo pubblico (predefinito: GitHub Pages); LM_PRODUZIONE=1 attiva canonical e indicizzazione.
@@ -12,7 +12,7 @@ import html, importlib, json, os, pkgutil, re, shutil, sys
 from urllib.parse import urlsplit
 sys.stdout.reconfigure(encoding="utf-8")
 import contenuti, pagine, sito
-from sito import DOCS, RADICE, PAGINE, LINGUE, NON_INDICIZZATE, URL, PRODUZIONE, url
+from sito import DOCS, RADICE, PAGINE, NON_INDICIZZATE, URL, PRODUZIONE, url
 
 
 def scrivi_file(relativo, testo):
@@ -25,12 +25,10 @@ def scrivi_file(relativo, testo):
 
 # ---------------------------------------------------------------- pagine
 MODULI = [importlib.import_module("pagine." + m.name) for m in pkgutil.iter_modules(pagine.__path__)]
-for lingua in LINGUE:
-    sito.imposta_lingua(lingua)
-    for modulo in MODULI:
-        if hasattr(modulo, "costruisci"):
-            modulo.costruisci()
-mancanti = [f"{l}:{p}" for l in LINGUE for p in PAGINE if (l, p) not in sito.SCRITTE]
+for modulo in MODULI:
+    if hasattr(modulo, "costruisci"):
+        modulo.costruisci()
+mancanti = [p for p in PAGINE if p not in sito.SCRITTE]
 if mancanti:
     sys.exit("pagine registrate ma non generate: " + ", ".join(mancanti))
 
@@ -58,7 +56,7 @@ voci = []
 for p in PAGINE:
     if p in NON_INDICIZZATE:
         continue
-    voci += [f"  <url>\n    <loc>{url(p, l)}</loc>\n  </url>\n" for l in LINGUE]
+    voci.append(f"  <url>\n    <loc>{url(p)}</loc>\n  </url>\n")
 scrivi_file("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
             + "".join(voci) + "</urlset>\n")
 # In produzione tutto aperto, con un permesso esplicito per i motori di ricerca e per i robot degli assistenti
@@ -86,17 +84,16 @@ BASE = urlsplit(URL).path or "/"        # "/" sul dominio definitivo
 SOLO_PRODUZIONE = ("llms.txt", "_redirects", "_headers")
 
 
-def descrizione(pagina, lingua):
+def descrizione(pagina):
     """Meta description della pagina appena generata: llms.txt resta allineato ai testi delle pagine."""
-    relativo = sito.percorso(pagina, lingua)
+    relativo = sito.percorso(pagina)
     with open(os.path.join(DOCS, *(relativo + "index.html").split("/")), encoding="utf-8") as f:
         trovata = re.search(r'<meta name="description" content="([^"]*)">', f.read())
     return html.unescape(trovata.group(1)) if trovata else ""
 
 
-def voce_llms(pagina, lingua):
-    nome_pagina = PAGINE[pagina][1][LINGUE.index(lingua)]
-    return f"- [{nome_pagina}]({url(pagina, lingua)}): {descrizione(pagina, lingua)}"
+def voce_llms(pagina):
+    return f"- [{PAGINE[pagina][1]}]({url(pagina)}): {descrizione(pagina)}"
 
 
 if PRODUZIONE:
@@ -113,8 +110,8 @@ if PRODUZIONE:
             f"- Officina: {officina}; mappa: {contenuti.MAPS}",
             f"- Zona servita: {', '.join(sito.ZONA)} e paesi vicini",
             "- Pagamenti: contanti, carta o bancomat, alla riconsegna", "",
-            "## Pagine", ""] + [voce_llms(p, "it") for p in principali]
-    llms += ["", "## Optional", ""] + [voce_llms(p, "it") for p in legali]
+            "## Pagine", ""] + [voce_llms(p) for p in principali]
+    llms += ["", "## Optional", ""] + [voce_llms(p) for p in legali]
     scrivi_file("llms.txt", "\n".join(llms) + "\n")
 
     # Vecchio sito WordPress (una sola pagina): gli indirizzi che motori e robot conoscono ancora, verso quelli nuovi.

@@ -6,12 +6,12 @@ from html import escape
 from contenuti import PEC, PIVA, SEDE_LEGALE
 from testi_pagine import OFFICINA_PAGINA as P
 from sito import (inizia, scrivi, head, testata, intro, finale, piede, orari, foto, foto_info, azienda, briciole, svg,
-                  t, tt, href, I, ICONE, VANTAGGI_ICO, TEL, EMAIL, MAPS, tel_txt, wa, indirizzo_officina)
+                  href, I, ICONE, VANTAGGI_ICO, TEL, EMAIL, MAPS, tel_txt, wa, indirizzo_officina)
 
 try:  # i testi legali li cura un altro modulo: se mancano, resta solo il link alla pagina delle condizioni
-    from testi_legali import VETTURA_CORTESIA_IT, VETTURA_CORTESIA_EN
+    from testi_legali import VETTURA_CORTESIA_IT
 except Exception:
-    VETTURA_CORTESIA_IT = VETTURA_CORTESIA_EN = None
+    VETTURA_CORTESIA_IT = None
 
 # Icone dell'officina, usate anche dalla home: stesso tratto dei vantaggi, si disegnano entrando nello schermo.
 ICO = {
@@ -22,10 +22,10 @@ ICO = {
     "attrezzi": ICONE["meccanica"],
 }
 # Icona e rimando (pagina, frammento, testo) di ognuna delle quattro sezioni di OFFICINA_PAGINA["sezioni"], nello stesso ordine.
-SEZIONI_EXTRA = [("attrezzi", ("servizi", "", ("Tutti i servizi", "All services"))),
+SEZIONI_EXTRA = [("attrezzi", ("servizi", "", "Tutti i servizi")),
                  ("orario", None),
-                 ("cortesia", ("officina", "cortesia", ("Come funziona", "How it works"))),
-                 ("pagamenti", ("condizioni", "", ("Garanzia e condizioni", "Warranty and terms")))]
+                 ("cortesia", ("officina", "cortesia", "Come funziona")),
+                 ("pagamenti", ("condizioni", "", "Garanzia e condizioni"))]
 
 
 class _Campi(dict):
@@ -36,9 +36,9 @@ class _Campi(dict):
 
 def condizioni_cortesia():
     """Le condizioni della vettura di cortesia in breve, da testi_legali, senza le note per la revisione."""
-    testo = t(VETTURA_CORTESIA_IT, VETTURA_CORTESIA_EN)
+    testo = VETTURA_CORTESIA_IT
     if not testo or "<li>" not in testo:
-        return f'<p>{t("Le condizioni te le spiego alla consegna.", "I explain the conditions when I hand it over.")}</p>'
+        return f'<p>Le condizioni te le spiego alla consegna.</p>'
     testo = re.sub(r"\s*<!--.*?-->", "", testo, flags=re.S)
     if "{" in testo:
         try:
@@ -53,12 +53,12 @@ def rimando(extra):
     if not extra:
         return ""
     pagina, frammento, testo = extra
-    return f'<a class="link" href="{href(pagina, frammento=frammento)}">{tt(testo)} {I["freccia"]}</a>'
+    return f'<a class="link" href="{href(pagina, frammento=frammento)}">{testo} {I["freccia"]}</a>'
 
 
 def costruisci():
     inizia("officina")
-    domande = [(tt(d), tt(r)) for d, r in P["faq"]]
+    domande = [(d, r) for d, r in P["faq"]]
     faq = "".join(f'<details><summary>{escape(d, False)}</summary><div class="faq-risposta"><p>{escape(r, False)}</p></div></details>' for d, r in domande)
     faq_schema = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
         {"@type": "Question", "name": d, "acceptedAnswer": {"@type": "Answer", "text": r}} for d, r in domande]}
@@ -70,33 +70,33 @@ def costruisci():
     else:
         fascia = f'<div class="wrap fascia">{foto("officina", "(max-width: 1280px) 100vw, 1280px", "foto foto--fascia")}</div>'
 
-    sezioni = "".join(f'<li>{ICO[ico]}<h2>{tt(titolo)}</h2><p>{tt(testo)}</p>{rimando(extra)}</li>'
+    sezioni = "".join(f'<li>{ICO[ico]}<h2>{titolo}</h2><p>{testo}</p>{rimando(extra)}</li>'
                       for (titolo, testo), (ico, extra) in zip(P["sezioni"], SEZIONI_EXTRA))
-    tappe = "".join(f'<li class="tappa"><span class="tappa-n">{i + 1}</span><div><h3>{tt(titolo)}</h3><p>{tt(testo)}</p></div></li>'
+    tappe = "".join(f'<li class="tappa"><span class="tappa-n">{i + 1}</span><div><h3>{titolo}</h3><p>{testo}</p></div></li>'
                     for i, (titolo, testo) in enumerate(P["cortesia_passi"]))
 
-    scrivi(head(tt(P["title"]), tt(P["description"]), [azienda(), briciole(), faq_schema], immagine="officina") + testata()
-           + intro(tt(P["h1"]), tt(P["intro"])) + fascia + f'''
+    scrivi(head(P["title"], P["description"], [azienda(), briciole(), faq_schema], immagine="officina") + testata()
+           + intro(P["h1"], P["intro"]) + fascia + f'''
 <section class="sezione" id="dove" aria-labelledby="dove-t">
   <div class="wrap officina-dove">
     <div class="officina-dove-testo">
-      <h2 id="dove-t">{t("Dove siamo e orari", "Location and opening hours")}</h2>
-      <p class="officina-indirizzo">{indirizzo_officina()}<span>{t("A pochi chilometri da Casale Monferrato", "A few kilometres from Casale Monferrato")}</span></p>
-      <p>{t("Prima di passare chiamami: concordiamo l'intervento e ti do le indicazioni per arrivare.", "Before coming, give me a call: we'll agree on the job and I'll give you directions.")}</p>
+      <h2 id="dove-t">Dove siamo e orari</h2>
+      <p class="officina-indirizzo">{indirizzo_officina()}<span>A pochi chilometri da Casale Monferrato</span></p>
+      <p>Prima di passare chiamami: concordiamo l\'intervento e ti do le indicazioni per arrivare.</p>
       <div class="azioni">
-        <a class="btn btn--arancio" href="tel:{TEL}">{I["tel"]}{t("Chiama", "Call")} {tel_txt()}</a>
-        <a class="btn btn--vuoto" href="{wa()}" target="_blank" rel="noopener">{I["chat"]}{t("Scrivi su WhatsApp", "Message on WhatsApp")}</a>
+        <a class="btn btn--arancio" href="tel:{TEL}">{I["tel"]}Chiama {tel_txt()}</a>
+        <a class="btn btn--vuoto" href="{wa()}" target="_blank" rel="noopener">{I["chat"]}Scrivi su WhatsApp</a>
       </div>
-      <a class="link" href="{MAPS}" target="_blank" rel="noopener">{t("Apri in Google Maps", "Open in Google Maps")} {I["esterno"]}</a>
+      <a class="link" href="{MAPS}" target="_blank" rel="noopener">Apri in Google Maps {I["esterno"]}</a>
     </div>
     <div class="officina-orari">
-      <h3>{t("Orari", "Opening hours")}</h3>
+      <h3>Orari</h3>
       <p class="stato" data-stato></p>
       {orari()}
     </div>
   </div>
 </section>
-<section class="sezione sezione--asfalto" aria-label="{t("L'officina in breve", "The workshop at a glance")}">
+<section class="sezione sezione--asfalto" aria-label="L\'officina in breve">
   <div class="wrap">
     <ul class="vantaggi-lista officina-sezioni">{sezioni}</ul>
   </div>
@@ -104,24 +104,23 @@ def costruisci():
 <section class="sezione" id="cortesia" aria-labelledby="cortesia-t">
   <div class="wrap officina-cortesia">
     <div class="officina-cortesia-passi">
-      <h2 id="cortesia-t">{t("La vettura di cortesia, passo per passo", "The courtesy car, step by step")}</h2>
+      <h2 id="cortesia-t">La vettura di cortesia, passo per passo</h2>
       <div class="percorso" data-percorso><span class="percorso-linea" aria-hidden="true"><span></span></span><ol class="percorso-tappe">{tappe}</ol></div>
     </div>
     <div class="riquadro officina-condizioni">
-      <h2>{t("Le condizioni in breve", "The terms in brief")}</h2>
+      <h2>Le condizioni in breve</h2>
       {condizioni_cortesia()}
-      <a class="link" href="{href("condizioni")}">{t("Leggi le condizioni complete", "Read the full terms")} {I["freccia"]}</a>
+      <a class="link" href="{href("condizioni")}">Leggi le condizioni complete {I["freccia"]}</a>
     </div>
   </div>
 </section>
 <section class="sezione sezione--asfalto" id="domande" aria-labelledby="domande-t">
   <div class="wrap officina-faq">
     <div class="officina-faq-testa">
-      <h2 id="domande-t">{t("Domande frequenti", "Frequently asked questions")}</h2>
-      <p class="lead">{t("Non trovi la risposta? Chiamami o scrivimi: ti rispondo io.", "Can't find the answer? Call or message me: I'll answer personally.")}</p>
+      <h2 id="domande-t">Domande frequenti</h2>
+      <p class="lead">Non trovi la risposta? Chiamami o scrivimi: ti rispondo io.</p>
     </div>
     <div class="faq">{faq}</div>
   </div>
-</section>''' + finale(t("Porta il tuo mezzo in officina.", "Bring your vehicle to the workshop."),
-                       t("Chiamami o scrivimi: ti dico quando portarlo. Se ti serve la vettura di cortesia, dimmelo subito.",
-                         "Call or message me: I'll tell you when to bring it in. If you need the courtesy car, let me know straight away.")) + piede())
+</section>''' + finale("Porta il tuo mezzo in officina.",
+                       "Chiamami o scrivimi: ti dico quando portarlo. Se ti serve la vettura di cortesia, dimmelo subito.") + piede())

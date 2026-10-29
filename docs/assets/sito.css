@@ -112,10 +112,9 @@ main { display: block; }
 .nav a { display: inline-block; padding: 8px 0; color: var(--testo-2); text-decoration: none; font-weight: 600; font-size: .95rem; white-space: nowrap; background: linear-gradient(var(--arancio-vivo), var(--arancio-vivo)) left bottom / 0 2px no-repeat; transition: background-size .4s var(--ease), color .25s; }
 .nav a:hover, .nav a[aria-current="page"] { color: var(--testo); background-size: 100% 2px; }
 .testata-azioni { display: flex; align-items: center; gap: 10px; flex: none; }
-.lingua, .tema-bottone { display: inline-grid; place-items: center; height: 44px; border-radius: 999px; border: 1.5px solid var(--linea-forte); background: transparent; color: var(--testo); transition: border-color .25s, color .25s; }
-.lingua { min-width: 44px; padding: 0 12px; font-weight: 800; font-size: .82rem; letter-spacing: .08em; text-decoration: none; }
+.tema-bottone { display: inline-grid; place-items: center; height: 44px; border-radius: 999px; border: 1.5px solid var(--linea-forte); background: transparent; color: var(--testo); transition: border-color .25s, color .25s; }
 .tema-bottone { width: 44px; cursor: pointer; }
-.lingua:hover, .tema-bottone:hover { border-color: var(--accento-testo); color: var(--accento-testo); }
+.tema-bottone:hover { border-color: var(--accento-testo); color: var(--accento-testo); }
 .tema-bottone .ico { width: 20px; height: 20px; }
 .ico-luna { display: none; }
 :root[data-tema="chiaro"] .ico-sole { display: none; }
@@ -286,8 +285,6 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 .contatti-home .stato, .contatti-orari .stato { display: flex; margin-bottom: 6px; }
 .numerone { display: inline-block; font-size: clamp(2.3rem, 5.8vw, 5rem); font-weight: 800; letter-spacing: -.035em; line-height: 1; text-decoration: none; margin-bottom: 20px; padding-bottom: 6px; font-variant-numeric: tabular-nums; white-space: nowrap; background: linear-gradient(var(--arancio-vivo), var(--arancio-vivo)) 0 100% / 0 3px no-repeat; transition: background-size .6s var(--ease), color .3s; }
 .numerone:hover { color: var(--evidenza); background-size: 100% 3px; }
-/* in inglese il numero ha il prefisso +39: qualche carattere in più */
-:lang(en) .numerone { font-size: clamp(2rem, 4.6vw, 4.2rem); }
 .contatti-diretti > p { color: var(--testo-2); max-width: 46ch; margin-bottom: 26px; }
 
 /* ---------- pagina servizi ---------- */
@@ -600,7 +597,6 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
   .piede-basso { flex-direction: column; }
   .azioni .btn { flex: 1 1 100%; }
   .numerone { font-size: min(13vw, 3.4rem); }
-  :lang(en) .numerone { font-size: min(10.2vw, 3rem); }
   .foto--fascia { aspect-ratio: 3 / 2; }
   .misura { gap: 6px; }
   .barra { position: fixed; z-index: 40; left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom)); display: grid; grid-template-columns: repeat(3, 1fr); padding: 6px; border-radius: 18px; background: var(--vetro-barra); -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4); border: 1px solid var(--linea); box-shadow: 0 16px 40px -12px var(--ombra); transition: transform .45s var(--ease); }

@@ -18,37 +18,22 @@
   var telefono = matchMedia("(max-width: 599px)");
   var lenis = null;
 
-  var TESTI = {
-    it: {
-      giorni: ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"],
-      aperto: "Aperto ora, fino alle ", apre: "Chiuso, apre alle ", riapre: "Chiuso, riapre ", domani: "domani", alle: " alle ", chiuso: "Chiuso",
-      ciao: "Ciao Luca, ti scrivo dal sito.", servizio: "Servizio: ", mezzo: "Mezzo: ",
-      pronto: "Messaggio pronto: premi Invia in WhatsApp. Se non si è aperto, ", apriQui: "aprilo da qui",
-      misura: "Misura: ", erroreMisura: "Scrivi la misura completa, per esempio 205 / 55 / 16.", errorePezzo: "Scrivi quale pezzo ti serve.",
-      esempioMisura: "Esempio di misura", tuaMisura: "La misura che cerchi",
-      apriMenu: "Apri il menu", chiudiMenu: "Chiudi il menu",
-      temaChiaro: "Passa al tema chiaro", temaScuro: "Passa al tema scuro", breveChiaro: "Tema chiaro", breveScuro: "Tema scuro"
-    },
-    en: {
-      giorni: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-      aperto: "Open now, until ", apre: "Closed, opens at ", riapre: "Closed, reopens ", domani: "tomorrow", alle: " at ", chiuso: "Closed",
-      ciao: "Hi Luca, I'm writing from your website.", servizio: "Service: ", mezzo: "Vehicle: ",
-      pronto: "Message ready: tap Send in WhatsApp. If it didn't open, ", apriQui: "open it here",
-      misura: "Size (misura): ", erroreMisura: "Enter the full size, for example 205 / 55 / 16.", errorePezzo: "Tell me which part you need.",
-      esempioMisura: "Example size", tuaMisura: "Your size",
-      apriMenu: "Open the menu", chiudiMenu: "Close the menu",
-      temaChiaro: "Switch to light theme", temaScuro: "Switch to dark theme", breveChiaro: "Light theme", breveScuro: "Dark theme"
-    }
+  var T = {
+    giorni: ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"],
+    aperto: "Aperto ora, fino alle ", apre: "Chiuso, apre alle ", riapre: "Chiuso, riapre ", domani: "domani", alle: " alle ", chiuso: "Chiuso",
+    ciao: "Ciao Luca, ti scrivo dal sito.", servizio: "Servizio: ", mezzo: "Mezzo: ",
+    pronto: "Messaggio pronto: premi Invia in WhatsApp. Se non si è aperto, ", apriQui: "aprilo da qui",
+    misura: "Misura: ", erroreMisura: "Scrivi la misura completa, per esempio 205 / 55 / 16.", errorePezzo: "Scrivi quale pezzo ti serve.",
+    esempioMisura: "Esempio di misura", tuaMisura: "La misura che cerchi",
+    apriMenu: "Apri il menu", chiudiMenu: "Chiudi il menu",
+    temaChiaro: "Passa al tema chiaro", temaScuro: "Passa al tema scuro", breveChiaro: "Tema chiaro", breveScuro: "Tema scuro"
   };
-  var T = TESTI[H.lang === "en" ? "en" : "it"];
 
   function anima(el, fotogrammi, opzioni) {
     if (!WAAPI || !el) return null;
     return el.animate(fotogrammi, opzioni);
   }
   function wa(testo) { return "https://wa.me/" + TEL_WA + "?text=" + encodeURIComponent(testo); }
-  // Nelle pagine inglesi Luca legge anche il nome italiano, tra parentesi.
-  function conItaliano(valore, italiano) { return italiano && italiano !== valore ? valore + " (" + italiano + ")" : valore; }
   function esitoPronto(el, url) {
     el.hidden = false;
     el.textContent = T.pronto;
@@ -164,22 +149,22 @@
     var form = $("form", scheda), titolo = $("#scheda-t", scheda), mezzi = $("[data-mezzi]", scheda), venditaCampi = $("[data-vendita-campi]", scheda), tipoVendita = $("[name='tipo']", scheda);
     var note = form.elements.note, aiuto = $("[data-aiuto]", scheda), esito = $("[data-esito]", scheda);
     var testoEsito = esito.textContent;
-    var servizio = "", servizioIt = "", nota = "", senzaMezzo = false, vendita = false, origine = null, chiudendo = false;
+    var servizio = "", nota = "", senzaMezzo = false, vendita = false, origine = null, chiudendo = false;
 
     var mezzoScelto = function () { return $("input[name='mezzo']:checked", scheda); };
     var messaggio = function () {
-      var righe = [T.ciao, "", T.servizio + conItaliano(servizio, servizioIt)];
+      var righe = [T.ciao, "", T.servizio + servizio];
       if (vendita) {
         if (tipoVendita.value === "gomme") {
           righe.push(T.misura + form.elements.larghezza.value + "/" + form.elements.spalla.value + " R" + form.elements.cerchio.value);
-          righe.push((H.lang === "en" ? "Season: " : "Stagione: ") + form.elements.stagione.value);
-          if (form.elements["targa-gomme"].value.trim()) righe.push((H.lang === "en" ? "Number plate: " : "Targa: ") + form.elements["targa-gomme"].value.trim());
+          righe.push("Stagione: " + form.elements.stagione.value);
+          if (form.elements["targa-gomme"].value.trim()) righe.push("Targa: " + form.elements["targa-gomme"].value.trim());
         } else {
-          if (form.elements["targa-ricambi"].value.trim()) righe.push((H.lang === "en" ? "Number plate: " : "Targa: ") + form.elements["targa-ricambi"].value.trim());
-          righe.push((H.lang === "en" ? "Part: " : "Ricambio: ") + form.elements.pezzo.value.trim());
+          if (form.elements["targa-ricambi"].value.trim()) righe.push("Targa: " + form.elements["targa-ricambi"].value.trim());
+          righe.push("Ricambio: " + form.elements.pezzo.value.trim());
           if (form.elements["mezzo-ricambi"].value.trim()) righe.push(T.mezzo + form.elements["mezzo-ricambi"].value.trim());
         }
-      } else if (!senzaMezzo) { var m = mezzoScelto(); righe.push(T.mezzo + conItaliano(m.value, m.getAttribute("data-it"))); }
+      } else if (!senzaMezzo) { righe.push(T.mezzo + mezzoScelto().value); }
       var n = note.value.trim();
       if (n) righe.push("", n);
       return righe.join("\n");
@@ -197,7 +182,6 @@
       var nuovo = b.getAttribute("data-servizio");
       if (nuovo !== servizio) note.value = "";
       servizio = nuovo;
-      servizioIt = b.getAttribute("data-servizio-it") || "";
       nota = b.getAttribute("data-nota") || "";
       senzaMezzo = b.hasAttribute("data-senza-mezzo");
       vendita = b.hasAttribute("data-vendita");
@@ -520,20 +504,8 @@
   var form = document.querySelector("[data-revisione]");
   if (!form) return;
   var $ = function (s) { return form.querySelector(s); };
-  var EN = document.documentElement.lang === "en";
-  var MESI = EN ? ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    : ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
-  var T = EN ? {
-    prima: "First test due by the end of", prossima: "Next test due by the end of", eraPrima: "The first test was due by the end of", era: "The test was due by the end of",
-    resta: " to go. Before the test I check your vehicle for free.", questoMese: "Due this month: book the free check now.",
-    chiedi: "That date has passed. After the first test it's every two years: add the month and year of your last one and I'll tell you the next deadline.",
-    scaduta: "The test is overdue: best to book it straight away. First I check your vehicle for free.",
-    erroreOrdine: "The last test can't be before the first registration: check the dates.", erroreFuturo: "That date is in the future: check month and year.",
-    anno: ["year", "years"], mese: ["month", "months"], e: " and ",
-    titolo: "Roadworthiness test (revisione) due by ", nota: "Roadworthiness test (revisione) due by ", notaScaduta: "Roadworthiness test (revisione) overdue since ",
-    descrizione: "Before the test I check your vehicle for free and book it for you. Luca, L.M. Autoservizi: ", file: "revisione-reminder-",
-    pronto: "Reminder ready: open the downloaded file to add it to your calendar."
-  } : {
+  var MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
+  var T = {
     prima: "Prima revisione entro la fine di", prossima: "Prossima revisione entro la fine di", eraPrima: "La prima revisione era entro la fine di", era: "La revisione era entro la fine di",
     resta: ". Prima della revisione ti controllo il mezzo gratis.", questoMese: "Scade questo mese: prenota adesso il controllo gratuito.",
     chiedi: "Questa data è passata. Dopo la prima, la revisione si rifà ogni due anni: aggiungi mese e anno dell'ultima e ti dico la prossima scadenza.",
@@ -556,11 +528,10 @@
   }
   function durata(mesi) {
     var a = Math.floor(mesi / 12), m = mesi % 12, parti = [];
-    var conta = function (x, nomi) { return x === 1 ? (EN ? "1 " : "un ") + nomi[0] : x + " " + nomi[1]; };
+    var conta = function (x, nomi) { return x === 1 ? "un " + nomi[0] : x + " " + nomi[1]; };
     if (a) parti.push(conta(a, T.anno));
     if (m) parti.push(conta(m, T.mese));
     var testo = parti.join(T.e);
-    if (EN) return testo.charAt(0).toUpperCase() + testo.slice(1);
     return (mesi === 1 || mesi === 12 ? "Manca " : "Mancano ") + testo;
   }
   function inParole(d) { return MESI[d.m - 1] + " " + d.a; }
@@ -626,7 +597,7 @@
       return fuori;
     };
     var titolo = T.titolo + inParole(s);
-    return ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//L.M. Autoservizi//Revisione//" + (EN ? "EN" : "IT"), "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
+    return ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//L.M. Autoservizi//Revisione//IT", "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
       "BEGIN:VEVENT", "UID:revisione-" + data(giorno) + "-" + Date.now().toString(36) + "@lmautoservizi.it",
       "DTSTAMP:" + new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+/, ""),
       "DTSTART;VALUE=DATE:" + data(giorno), "DTEND;VALUE=DATE:" + data(dopo),

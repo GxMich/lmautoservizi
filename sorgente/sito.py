@@ -1,20 +1,21 @@
-"""Nucleo del sito di L.M. Autoservizi: configurazione, lingua, link, icone e pezzi comuni delle pagine.
+"""Nucleo del sito di L.M. Autoservizi: configurazione, link, icone e pezzi comuni delle pagine.
+Il sito è solo in italiano: la versione inglese è stata tolta il 29/10/2026 su richiesta di Luca.
 
 Ogni modulo in sorgente/pagine/ espone costruisci() e scrive le sue pagine così:
 
-    from sito import inizia, scrivi, head, testata, intro, finale, piede, t, href, ...
+    from sito import inizia, scrivi, head, testata, intro, finale, piede, href, ...
     def costruisci():
         inizia("contatti")                      # pagina corrente: id del registro PAGINE
         scrivi(head(titolo, descrizione, [azienda(), briciole()]) + testata() + intro(...) + corpo + finale() + piede())
 
-genera.py chiama costruisci() una volta per lingua di LINGUE, dopo imposta_lingua(): oggi solo "it" (l'inglese è stato tolto il 29/10/2026).
+genera.py chiama costruisci() di ogni modulo.
 
 API per i moduli delle pagine
-- Stato: imposta_lingua(l), inizia(id), lingua() -> "it"/"en". Non importare LINGUA o PAGINA: usare le funzioni.
-- Testi: t(it, en), tt((it, en)) per le coppie, attr(testo) per gli attributi HTML.
-- Registro: PAGINE {id: (percorso, (nome it, nome en))}; nome(id) dà il nome nella lingua corrente.
-- Link: href(id, lingua=None, frammento="") relativo alla pagina corrente (sulla stessa pagina diventa "#frammento");
-  risorsa("assets/...") per file in docs/; url(id, lingua) e URL per gli indirizzi assoluti (canonical, schema).
+- Stato: inizia(id). Non importare PAGINA: usare la funzione.
+- Testi: attr(testo) per gli attributi HTML.
+- Registro: PAGINE {id: (percorso, nome)}; nome(id) dà il nome della pagina.
+- Link: href(id, frammento="") relativo alla pagina corrente (sulla stessa pagina diventa "#frammento");
+  risorsa("assets/...") per file in docs/; url(id) e URL per gli indirizzi assoluti (canonical, schema).
   Le pagine in ASSOLUTE (la 404) ricevono sempre indirizzi assoluti.
 - Contatti: TEL, tel_txt(), wa(), EMAIL, MAPS, indirizzo_officina().
 - Icone: I (interfaccia), ICONE (servizi), VANTAGGI_ICO, veicolo(id).
@@ -45,31 +46,29 @@ STATISTICHE = os.environ.get("LM_GOATCOUNTER", "").strip().lower() or None
 if STATISTICHE and not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,62}", STATISTICHE):
     raise SystemExit(f"LM_GOATCOUNTER non valido: {STATISTICHE!r} (serve solo il codice, per esempio lmautoservizi)")
 
-# Registro delle pagine: id -> (percorso rispetto alla radice della lingua, nome). L'inglese sta sotto en/ con gli stessi percorsi.
+# Registro delle pagine: id -> (percorso dalla radice del sito, nome).
 PAGINE = {
-    "home": ("", ("Home", "Home")),
-    "servizi": ("servizi/", ("Servizi", "Services")),
-    "meccanica": ("servizi/meccanica/", ("Meccanica", "Mechanics")),
-    "elettrauto": ("servizi/elettrauto/", ("Elettrauto", "Auto electrics")),
-    "gommista": ("servizi/gommista/", ("Gommista", "Tyres")),
-    "carrozzeria": ("servizi/carrozzeria/", ("Carrozzeria", "Bodywork")),
-    "diagnosi": ("servizi/diagnosi-e-pre-revisione/", ("Diagnosi e pre-revisione", "Diagnostics & pre-inspection")),
-    "officina": ("officina/", ("L'officina", "The workshop")),
-    "ritiro": ("ritiro-e-consegna/", ("Ritiro e consegna", "Pick-up & delivery")),
-    "mobile": ("officina-mobile/", ("Officina mobile", "Mobile workshop")),
-    "gomme": ("gomme-e-ricambi/", ("Gomme e ricambi", "Tyres & parts")),
-    "chi": ("chi-sono/", ("Chi sono", "About me")),
-    "contatti": ("contatti/", ("Contatti", "Contact")),
-    "privacy": ("privacy/", ("Privacy e cookie", "Privacy and cookies")),
-    "condizioni": ("garanzia-e-condizioni/", ("Garanzia e condizioni", "Warranty and terms")),
-    "404": ("404.html", ("Pagina non trovata", "Page not found")),
+    "home": ("", "Home"),
+    "servizi": ("servizi/", "Servizi"),
+    "meccanica": ("servizi/meccanica/", "Meccanica"),
+    "elettrauto": ("servizi/elettrauto/", "Elettrauto"),
+    "gommista": ("servizi/gommista/", "Gommista"),
+    "carrozzeria": ("servizi/carrozzeria/", "Carrozzeria"),
+    "diagnosi": ("servizi/diagnosi-e-pre-revisione/", "Diagnosi e pre-revisione"),
+    "officina": ("officina/", "L'officina"),
+    "ritiro": ("ritiro-e-consegna/", "Ritiro e consegna"),
+    "mobile": ("officina-mobile/", "Officina mobile"),
+    "gomme": ("gomme-e-ricambi/", "Gomme e ricambi"),
+    "chi": ("chi-sono/", "Chi sono"),
+    "contatti": ("contatti/", "Contatti"),
+    "privacy": ("privacy/", "Privacy e cookie"),
+    "condizioni": ("garanzia-e-condizioni/", "Garanzia e condizioni"),
+    "404": ("404.html", "Pagina non trovata"),
 }
 NAV = ["servizi", "officina", "gomme", "chi", "contatti"]
 PIEDE_PAGINE = ["servizi", "officina", "ritiro", "mobile", "gomme", "chi", "contatti", "condizioni", "privacy"]
 ASSOLUTE = {"404"}          # servite a indirizzi qualsiasi: link e risorse assoluti
 NON_INDICIZZATE = {"404"}   # fuori dalla sitemap, sempre noindex
-# Solo italiano: Luca ha chiesto di togliere la versione inglese (29/10/2026).
-LINGUE = ("it",)
 # Le cinque pagine dei servizi principali (sotto servizi/): catalogo nei dati strutturati
 SERVIZI_PAGINE = ["meccanica", "elettrauto", "gommista", "carrozzeria", "diagnosi"]
 # Comuni serviti (dati strutturati e llms.txt): i principali entro RAGGIO_KM in linea d'aria dall'officina (calcolati il 29/10/2026)
@@ -77,14 +76,9 @@ ZONA = ["Frassineto Po", "Casale Monferrato", "Valenza", "Ticineto", "Borgo San 
         "Villanova Monferrato", "Mirabello Monferrato", "San Salvatore Monferrato", "Pomaro Monferrato", "Bozzole", "Terruggia",
         "Balzola", "Breme", "Candia Lomellina", "Sartirana Lomellina", "Mede"]
 
-# Stato: lingua e pagina che si sta costruendo.
-LINGUA, PAGINA = "it", None
+# Stato: la pagina che si sta costruendo.
+PAGINA = None
 SCRITTE, FILE_SCRITTI = [], set()
-
-
-def imposta_lingua(lingua):
-    global LINGUA
-    LINGUA = lingua
 
 
 def inizia(pagina):
@@ -95,25 +89,12 @@ def inizia(pagina):
     PAGINA = pagina
 
 
-def lingua():
-    return LINGUA
-
-
-def t(it, en):
-    return en if LINGUA == "en" else it
-
-
-def tt(testo):
-    """Testo bilingue scritto come coppia (italiano, inglese)."""
-    return t(*testo) if isinstance(testo, tuple) else testo
-
-
 def attr(testo):
     return escape(testo, quote=True)
 
 
 def nome(pagina):
-    return tt(PAGINE[pagina][1])
+    return PAGINE[pagina][1]
 
 
 # ---------------------------------------------------------------- testi legali
@@ -129,20 +110,20 @@ def slug(testo):
 
 
 def nota_recensioni():
-    """Nota sotto le recensioni (Codice del Consumo, art. 22, comma 5-bis) nella lingua corrente, come <p class="piccolo">."""
-    nota = senza_commenti(t(testi_legali.RECENSIONI_NOTA_IT, testi_legali.RECENSIONI_NOTA_EN)).strip()
+    """Nota sotto le recensioni (Codice del Consumo, art. 22, comma 5-bis) come <p class="piccolo">."""
+    nota = senza_commenti(testi_legali.RECENSIONI_NOTA_IT).strip()
     return nota.replace("<p>", '<p class="piccolo nota-recensioni">')
 
 
 # ---------------------------------------------------------------- indirizzi
-def percorso(pagina, lingua=None):
-    """Percorso della pagina dalla radice di docs/, per esempio en/servizi/meccanica/."""
-    return ("en/" if (lingua or LINGUA) == "en" else "") + PAGINE[pagina][0]
+def percorso(pagina):
+    """Percorso della pagina dalla radice di docs/, per esempio servizi/meccanica/."""
+    return PAGINE[pagina][0]
 
 
-def url(pagina=None, lingua=None):
-    """Indirizzo pubblico assoluto della pagina (canonical, hreflang, sitemap, schema)."""
-    return URL + percorso(pagina or PAGINA, lingua)
+def url(pagina=None):
+    """Indirizzo pubblico assoluto della pagina (canonical, sitemap, schema)."""
+    return URL + percorso(pagina or PAGINA)
 
 
 def _relativo(destinazione):
@@ -156,10 +137,10 @@ def _relativo(destinazione):
     return r
 
 
-def href(pagina, lingua=None, frammento=""):
-    if frammento and pagina == PAGINA and (lingua or LINGUA) == LINGUA and PAGINA not in ASSOLUTE:
+def href(pagina, frammento=""):
+    if frammento and pagina == PAGINA and PAGINA not in ASSOLUTE:
         return "#" + frammento
-    return _relativo(percorso(pagina, lingua)) + ("#" + frammento if frammento else "")
+    return _relativo(percorso(pagina)) + ("#" + frammento if frammento else "")
 
 
 def risorsa(file):
@@ -168,11 +149,11 @@ def risorsa(file):
 
 
 def tel_txt():
-    return t(TEL_TXT, "+39 " + TEL_TXT)
+    return TEL_TXT
 
 
 def wa():
-    return t(WA, "https://wa.me/393426436085?text=Hi%20Luca%2C%20I%27d%20like%20some%20information.")
+    return WA
 
 
 def indirizzo_officina():
@@ -272,14 +253,14 @@ VEICOLI = {
               '<circle class="pieno" cx="32" cy="25.6" r="1.4"/>'),
 }
 # (id, nome, valore per il messaggio, aiuto sotto le note)
-MEZZI = [("auto", ("Auto", "Car"), ("Auto", "Car"),
-          ("Marca e modello aiutano, per esempio Fiat Panda 2015.", "Make and model help, for example Fiat Panda 2015.")),
-         ("fuoristrada", ("Fuoristrada", "Off-road"), ("Fuoristrada", "Off-road"),
-          ("Marca e modello aiutano, per esempio Suzuki Jimny 2019.", "Make and model help, for example Suzuki Jimny 2019.")),
-         ("furgone", ("Furgone", "Van"), ("Furgone", "Van"),
-          ("Marca e modello aiutano, per esempio Fiat Ducato 2017.", "Make and model help, for example Fiat Ducato 2017.")),
-         ("camper", ("Camper", "Motorhome"), ("Camper", "Motorhome"),
-          ("Marca e modello aiutano, per esempio mansardato su Ducato, 2016.", "Make and model help, for example a Ducato-based motorhome, 2016.")),
+MEZZI = [("auto", "Auto", "Auto",
+          "Marca e modello aiutano, per esempio Fiat Panda 2015."),
+         ("fuoristrada", "Fuoristrada", "Fuoristrada",
+          "Marca e modello aiutano, per esempio Suzuki Jimny 2019."),
+         ("furgone", "Furgone", "Furgone",
+          "Marca e modello aiutano, per esempio Fiat Ducato 2017."),
+         ("camper", "Camper", "Camper",
+          "Marca e modello aiutano, per esempio mansardato su Ducato, 2016."),
          ]
 
 
@@ -290,50 +271,48 @@ def veicolo(chi):
 # ---------------------------------------------------------------- servizi (le caselle della home e la tendina)
 # (id, nome, descrizione breve, suggerimento per le note, opzioni)
 SERVIZI = [
-    ("meccanica", ("Meccanica", "Mechanics"),
-     ("Tagliandi, riparazioni, manutenzione ordinaria e straordinaria", "Servicing, repairs, routine and extraordinary maintenance"),
-     ("Es. tagliando, rumore in frenata, perdita d'olio.", "E.g. service due, noise when braking, oil leak."), ""),
-    ("elettrauto", ("Elettrauto", "Auto electrics"),
-     ("Avviamento, batteria e ricarica, luci, climatizzatore", "Starting, battery and charging, lights, air conditioning"),
-     ("Es. non parte, la batteria si scarica, il clima non raffredda.", "E.g. it won't start, the battery keeps going flat, the A/C isn't cooling."), ""),
-    ("gommista", ("Gommista", "Tyres"),
-     ("Cambio, equilibratura, convergenza e vendita di pneumatici", "Fitting, balancing, alignment and tyre sales"),
-     ("Es. cambio stagionale o foratura. La misura è scritta sul fianco della gomma.", "E.g. seasonal change or a puncture. The size is written on the tyre sidewall."), ""),
-    ("carrozzeria", ("Carrozzeria", "Bodywork"),
-     ("Carrozzeria, verniciatura e saldatura", "Bodywork, painting and welding"),
-     ("Es. urto sul paraurti, graffio sulla portiera. Le foto del danno puoi mandarmele su WhatsApp.", "E.g. dented bumper, scratched door. You can send me photos of the damage on WhatsApp."), ""),
-    ("diagnosi", ("Diagnosi e pre-revisione", "Diagnostics & pre-inspection"),
-     ("Spie accese, centraline, controllo gratuito prima della revisione", "Warning lights, ECUs, free check before the roadworthiness test"),
-     ("Es. spia del motore accesa, revisione in scadenza a marzo.", "E.g. engine warning light on, inspection due in March."), ""),
-    ("soccorso", ("Assistenza a domicilio", "At-home assistance"),
-     ("Interventi possibili direttamente a casa tua", "Repairs that can be carried out at your home"),
-     ("Dimmi dove si trova il mezzo e di che intervento hai bisogno.", "Tell me where the vehicle is and what kind of help you need."), ""),
-    ("ricambi", ("Vendita ricambi e gomme", "Parts and tyres for sale"),
-     ("Ricambi e pneumatici: chiedimi disponibilità e prezzo", "Spare parts and tyres: ask me about availability and price"),
-     ("Scrivimi marca, modello e anno del mezzo; per le gomme, anche la misura.", "Send me the make, model and year; for tyres, include the size."), "vendita"),
+    ("meccanica", "Meccanica",
+     "Tagliandi, riparazioni, manutenzione ordinaria e straordinaria",
+     "Es. tagliando, rumore in frenata, perdita d'olio.", ""),
+    ("elettrauto", "Elettrauto",
+     "Avviamento, batteria e ricarica, luci, climatizzatore",
+     "Es. non parte, la batteria si scarica, il clima non raffredda.", ""),
+    ("gommista", "Gommista",
+     "Cambio, equilibratura, convergenza e vendita di pneumatici",
+     "Es. cambio stagionale o foratura. La misura è scritta sul fianco della gomma.", ""),
+    ("carrozzeria", "Carrozzeria",
+     "Carrozzeria, verniciatura e saldatura",
+     "Es. urto sul paraurti, graffio sulla portiera. Le foto del danno puoi mandarmele su WhatsApp.", ""),
+    ("diagnosi", "Diagnosi e pre-revisione",
+     "Spie accese, centraline, controllo gratuito prima della revisione",
+     "Es. spia del motore accesa, revisione in scadenza a marzo.", ""),
+    ("soccorso", "Assistenza a domicilio",
+     "Interventi possibili direttamente a casa tua",
+     "Dimmi dove si trova il mezzo e di che intervento hai bisogno.", ""),
+    ("ricambi", "Vendita ricambi e gomme",
+     "Ricambi e pneumatici: chiedimi disponibilità e prezzo",
+     "Scrivimi marca, modello e anno del mezzo; per le gomme, anche la misura.", "vendita"),
 ]
 # Pagina di approfondimento di ogni servizio (id del registro PAGINE)
 PAGINA_SERVIZIO = {"meccanica": "meccanica", "elettrauto": "elettrauto", "gommista": "gommista", "carrozzeria": "carrozzeria",
                    "diagnosi": "diagnosi", "soccorso": "mobile", "ricambi": "gomme"}
 # Richieste che non sono caselle: (nome, suggerimento, opzioni, titolo della tendina)
 EXTRA = {
-    "ritiro": (("Ritiro e consegna", "Pick-up and delivery"),
-               ("Dove si trova il mezzo e cosa non va. Ti dico subito se e quanto costa il ritiro.", "Where the vehicle is and what's wrong. I'll tell you straight away whether the pick-up has a cost."), "", None),
-    "aziende": (("Consulenza alle imprese", "Business consulting"),
-                ("Che attività hai e di cosa avresti bisogno.", "What your business does and what you need."), "senza-mezzo", None),
-    "altro": (("Non so quale sia il problema", "I don't know what's wrong"),
-              ("Raccontami cosa fa il mezzo: rumori, spie accese, quando succede.", "Tell me what the vehicle does: noises, warning lights, when it happens."), "",
-              ("Descrivimi il problema", "Describe the problem")),
+    "ritiro": ("Ritiro e consegna",
+               "Dove si trova il mezzo e cosa non va. Ti dico subito se e quanto costa il ritiro.", "", None),
+    "aziende": ("Consulenza alle imprese",
+                "Che attività hai e di cosa avresti bisogno.", "senza-mezzo", None),
+    "altro": ("Non so quale sia il problema",
+              "Raccontami cosa fa il mezzo: rumori, spie accese, quando succede.", "",
+              "Descrivimi il problema"),
 }
 
 
 def dati_servizio(nome, nota, opzioni="", titolo=None):
-    """Attributi della tendina. In inglese il nome italiano viaggia a parte: nel messaggio Luca lo legge tra parentesi."""
-    a = f'data-servizio="{attr(tt(nome))}" data-nota="{attr(tt(nota))}"'
-    if LINGUA == "en":
-        a += f' data-servizio-it="{attr(nome[0])}"'
+    """Attributi della tendina: nome del servizio, suggerimento per le note, opzioni e titolo se diverso dal nome."""
+    a = f'data-servizio="{attr(nome)}" data-nota="{attr(nota)}"'
     if titolo:
-        a += f' data-titolo="{attr(tt(titolo))}"'
+        a += f' data-titolo="{attr(titolo)}"'
     if "urgente" in opzioni:
         a += " data-urgente"
     if "senza-mezzo" in opzioni:
@@ -354,20 +333,9 @@ def apri_servizio(chi, testo, classe="btn btn--arancio"):
 
 
 # ---------------------------------------------------------------- foto
-ALT_EN = {
-    "luca": ("Example photo: a mechanic's hands working on an engine", "Luca Miglietta at work in his workshop"),
-    "officina": ("Example photo: cars and equipment in a workshop", "Inside the L.M. Autoservizi workshop in Frassineto Po"),
-    "ingresso": ("Example photo: a workshop with cars and a lift", "The entrance of the L.M. Autoservizi workshop"),
-    "officina-mobile": ("Example photo: engine work outdoors", "The L.M. Autoservizi mobile workshop van"),
-    "ritiro": ("Example photo: handing over car keys", "Luca hands over the courtesy car keys"),
-}
-
-
 def foto_info(spazio):
     """(percorso senza estensione dalla radice di docs/, larghezza, altezza, alt, è stock)."""
     (rw, rh), stock, alt_stock, alt_vero = FOTO_SLOT[spazio]
-    if LINGUA == "en" and spazio in ALT_EN:
-        alt_stock, alt_vero = ALT_EN[spazio]
     if os.path.exists(os.path.join(DOCS, "assets", "img", "foto", spazio + ".webp")):
         return "assets/img/foto/" + spazio, 1600, round(1600 * rh / rw), alt_vero, False
     w, h = STOCK[stock]
@@ -386,7 +354,7 @@ def img(spazio, sizes, lazy=True, alt=None, priorita=False, piccola=False):
 
 
 def nota_foto(spazio):
-    return f'<span class="nota-foto">{t("Foto di esempio", "Example photo")}</span>' if foto_info(spazio)[4] else ""
+    return f'<span class="nota-foto">Foto di esempio</span>' if foto_info(spazio)[4] else ""
 
 
 def foto(spazio, sizes, classe="foto", iride=True):
@@ -405,23 +373,22 @@ def azienda():
                  "postalCode": CAP_OFFICINA, "addressRegion": PROVINCIA, "addressCountry": "IT"}
     descrizioni = {s[0]: s[2] for s in SERVIZI}
     catalogo = [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": nome(p), "url": url(p),
-                                                    **({"description": tt(descrizioni[p])} if p in descrizioni else {})}}
+                                                    **({"description": descrizioni[p]} if p in descrizioni else {})}}
                 for p in SERVIZI_PAGINE]
     dati = {"@context": "https://schema.org", "@type": "AutoRepair", "@id": URL + "#azienda",
             "name": "L.M. Autoservizi di Miglietta Luca",
             "alternateName": "L.M. Autoservizi",
-            "description": t("Officina multimarca a Frassineto Po: meccanica, elettrauto, gommista, carrozzeria, diagnosi centraline e pre-revisione. Vettura di cortesia gratuita, ritiro e consegna, officina mobile.",
-                             "Multi-brand workshop in Frassineto Po, Italy: mechanics, auto electrics, tyres, bodywork, ECU diagnostics and pre-inspection. Free courtesy car, pick-up and delivery, mobile workshop."),
+            "description": "Officina multimarca a Frassineto Po: meccanica, elettrauto, gommista, carrozzeria, diagnosi centraline e pre-revisione. Vettura di cortesia gratuita, ritiro e consegna, officina mobile.",
             "url": url("home"), "telephone": TEL, "email": EMAIL, "vatID": "IT" + PIVA,
             "image": URL + foto_info("officina")[0] + ".webp", "logo": URL + "assets/img/favicon-192.png",
             "founder": {"@type": "Person", "name": "Luca Miglietta"},
             "address": {k: v for k, v in indirizzo.items() if v},
             "hasMap": MAPS,
             "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "07:30", "closes": "19:30"}],
-            "paymentAccepted": t("Contanti, carta di credito, bancomat", "Cash, credit card, debit card"),
+            "paymentAccepted": "Contanti, carta di credito, bancomat",
             "currenciesAccepted": "EUR",
             "areaServed": [{"@type": "City", "name": comune} for comune in ZONA],
-            "hasOfferCatalog": {"@type": "OfferCatalog", "name": t("Servizi dell'officina", "Workshop services"), "itemListElement": catalogo}}
+            "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Servizi dell'officina", "itemListElement": catalogo}}
     if GEO:
         dati["geo"] = {"@type": "GeoCoordinates", "latitude": GEO[0], "longitude": GEO[1]}
     if PREZZI:
@@ -448,10 +415,10 @@ def briciole(nome_pagina=None):
 
 
 def sito_web():
-    """WebSite della lingua corrente: head() lo aggiunge da solo ai dati strutturati della home."""
+    """WebSite: head() lo aggiunge da solo ai dati strutturati della home."""
     return {"@context": "https://schema.org", "@type": "WebSite", "@id": url("home") + "#sito",
             "name": "L.M. Autoservizi", "alternateName": "L.M. Autoservizi di Miglietta Luca",
-            "url": url("home"), "inLanguage": LINGUA, "publisher": {"@id": URL + "#azienda"}}
+            "url": url("home"), "inLanguage": "it", "publisher": {"@id": URL + "#azienda"}}
 
 
 # ---------------------------------------------------------------- pacchetti CSS e JS
@@ -479,7 +446,7 @@ def head(titolo, descrizione, schema=(), immagine="officina", noindex=False):
     if STATISTICHE:  # statistiche senza cookie: lo script conta la pagina, 40-statistiche.js i clic su Chiama e WhatsApp
         ld += f'<script data-goatcounter="https://{STATISTICHE}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>\n'
     return f'''<!doctype html>
-<html lang="{LINGUA}">
+<html lang="it">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -488,7 +455,7 @@ def head(titolo, descrizione, schema=(), immagine="officina", noindex=False):
 {robots}
 <meta name="theme-color" content="#0b0d10">
 <meta property="og:type" content="website">
-<meta property="og:locale" content="{t("it_IT", "en_GB")}">
+<meta property="og:locale" content="it_IT">
 <meta property="og:site_name" content="L.M. Autoservizi">
 <meta property="og:title" content="{attr(titolo)}">
 <meta property="og:description" content="{attr(descrizione)}">
@@ -507,7 +474,7 @@ def head(titolo, descrizione, schema=(), immagine="officina", noindex=False):
 <link rel="stylesheet" href="{risorsa("assets/sito.css")}?v={V_CSS}">
 {ld}</head>
 <body class="p-{PAGINA}">
-<a class="salta-link" href="#contenuto">{t("Vai al contenuto", "Skip to content")}</a>
+<a class="salta-link" href="#contenuto">Vai al contenuto</a>
 '''
 
 
@@ -526,26 +493,26 @@ def testata():
     def voci(con_home=False):
         lista = (["home"] if con_home else []) + NAV
         return "".join(f'<li><a href="{href(p)}"{corrente(p)}>{nome(p)}</a></li>' for p in lista)
-    etichetta_tema = t("Passa al tema chiaro", "Switch to light theme")
+    etichetta_tema = "Passa al tema chiaro"
     return f'''<header class="testata">
   <div class="wrap testata-riga">
-    <a class="marchio" href="{href("home")}"><img src="{risorsa("assets/img/logo-arancio-84.png")}" width="40" height="40" alt=""><span>L.M. Autoservizi<small>{t("Officina a Frassineto Po", "Workshop in Frassineto Po")}</small></span></a>
-    <nav class="nav" aria-label="{t("Principale", "Main")}"><ul>{voci()}</ul></nav>
+    <a class="marchio" href="{href("home")}"><img src="{risorsa("assets/img/logo-arancio-84.png")}" width="40" height="40" alt=""><span>L.M. Autoservizi<small>Officina a Frassineto Po</small></span></a>
+    <nav class="nav" aria-label="Principale"><ul>{voci()}</ul></nav>
     <div class="testata-azioni">
       <button class="tema-bottone" type="button" data-tema-bottone aria-label="{etichetta_tema}">{I["sole"]}{I["luna"]}</button>
-      <a class="btn btn--arancio btn--piccolo testata-chiama" href="tel:{TEL}" aria-label="{t("Chiama Luca al", "Call Luca on")} {tel_txt()}">{I["tel"]}<span>{t("Chiama", "Call")}</span></a>
-      <button class="menu-bottone" type="button" aria-expanded="false" aria-controls="menu" aria-label="{t("Apri il menu", "Open the menu")}"><span></span><span></span></button>
+      <a class="btn btn--arancio btn--piccolo testata-chiama" href="tel:{TEL}" aria-label="Chiama Luca al {tel_txt()}">{I["tel"]}<span>Chiama</span></a>
+      <button class="menu-bottone" type="button" aria-expanded="false" aria-controls="menu" aria-label="Apri il menu"><span></span><span></span></button>
     </div>
   </div>
 </header>
 <div class="menu" id="menu" hidden data-lenis-prevent>
   <nav aria-label="Menu"><ul>{voci(True)}</ul></nav>
-  <div class="menu-piede" role="region" aria-label="{t("Contatti", "Contact")}">
+  <div class="menu-piede" role="region" aria-label="Contatti">
     <p class="stato" data-stato></p>
     <div class="azioni">
-      <a class="btn btn--arancio" href="tel:{TEL}">{I["tel"]}{t("Chiama", "Call")} {tel_txt()}</a>
+      <a class="btn btn--arancio" href="tel:{TEL}">{I["tel"]}Chiama {tel_txt()}</a>
       <a class="btn btn--vuoto" href="{wa()}" target="_blank" rel="noopener">{I["chat"]}WhatsApp</a>
-      <button class="btn btn--vuoto" type="button" data-tema-bottone aria-label="{etichetta_tema}">{I["sole"]}{I["luna"]}<span data-tema-testo>{t("Tema chiaro", "Light theme")}</span></button>
+      <button class="btn btn--vuoto" type="button" data-tema-bottone aria-label="{etichetta_tema}">{I["sole"]}{I["luna"]}<span data-tema-testo>Tema chiaro</span></button>
     </div>
   </div>
 </div>
@@ -556,49 +523,47 @@ def testata():
 def scheda():
     scelte = []
     for i, (chi, nome_mezzo, valore, aiuto) in enumerate(MEZZI):
-        dati = f'value="{attr(tt(valore))}" data-consiglio="{attr(tt(aiuto))}"'
-        if LINGUA == "en":
-            dati += f' data-it="{attr(valore[0])}"'
-        scelte.append(f'<label><input type="radio" name="mezzo" {dati}{" checked" if i == 0 else ""}><span>{veicolo(chi)}<b>{tt(nome_mezzo)}</b></span></label>')
+        dati = f'value="{attr(valore)}" data-consiglio="{attr(aiuto)}"'
+        scelte.append(f'<label><input type="radio" name="mezzo" {dati}{" checked" if i == 0 else ""}><span>{veicolo(chi)}<b>{nome_mezzo}</b></span></label>')
     return f'''<dialog class="scheda" id="scheda" aria-labelledby="scheda-t" data-lenis-prevent>
   <form class="scheda-form" novalidate>
     <div class="scheda-maniglia" aria-hidden="true"></div>
     <header class="scheda-testa">
-      <h2 id="scheda-t" tabindex="-1">{tt(SERVIZI[0][1])}</h2>
-      <button type="button" class="scheda-chiudi" data-chiudi aria-label="{t("Chiudi", "Close")}">{I["chiudi"]}</button>
+      <h2 id="scheda-t" tabindex="-1">{SERVIZI[0][1]}</h2>
+      <button type="button" class="scheda-chiudi" data-chiudi aria-label="Chiudi">{I["chiudi"]}</button>
     </header>
     <div class="scheda-corpo">
       <fieldset class="mezzi" data-mezzi>
-        <legend>{t("Che mezzo è?", "What vehicle is it?")}</legend>
+        <legend>Che mezzo è?</legend>
         <div>{"".join(scelte)}</div>
       </fieldset>
       <div class="scheda-vendita" data-vendita-campi hidden>
-        <div class="campo"><label for="scheda-tipo">{t("Cosa cerchi?", "What are you looking for?")}</label><select id="scheda-tipo" name="tipo"><option value="gomme">{t("Gomme", "Tyres")}</option><option value="ricambi">{t("Ricambi", "Parts")}</option></select></div>
+        <div class="campo"><label for="scheda-tipo">Cosa cerchi?</label><select id="scheda-tipo" name="tipo"><option value="gomme">Gomme</option><option value="ricambi">Ricambi</option></select></div>
         <div data-pannello-vendita="gomme">
-          <fieldset class="campo misura-scheda"><legend>{t("Misura della gomma", "Tyre size")}</legend><div class="misura">
-            <label><span class="sr">{t("Larghezza", "Width")}</span><input name="larghezza" inputmode="numeric" maxlength="3" placeholder="205" autocomplete="off"></label><i aria-hidden="true">/</i>
-            <label><span class="sr">{t("Spalla", "Profile")}</span><input name="spalla" inputmode="numeric" maxlength="2" placeholder="55" autocomplete="off"></label><i aria-hidden="true">R</i>
-            <label><span class="sr">{t("Cerchio in pollici", "Rim size in inches")}</span><input name="cerchio" inputmode="numeric" maxlength="2" placeholder="16" autocomplete="off"></label>
+          <fieldset class="campo misura-scheda"><legend>Misura della gomma</legend><div class="misura">
+            <label><span class="sr">Larghezza</span><input name="larghezza" inputmode="numeric" maxlength="3" placeholder="205" autocomplete="off"></label><i aria-hidden="true">/</i>
+            <label><span class="sr">Spalla</span><input name="spalla" inputmode="numeric" maxlength="2" placeholder="55" autocomplete="off"></label><i aria-hidden="true">R</i>
+            <label><span class="sr">Cerchio in pollici</span><input name="cerchio" inputmode="numeric" maxlength="2" placeholder="16" autocomplete="off"></label>
           </div><p class="errore" data-errore-misura aria-live="polite"></p></fieldset>
-          <div class="campo"><label for="scheda-stagione">{t("Che gomme cerchi", "Which tyres")}</label><select id="scheda-stagione" name="stagione"><option>{t("Estive", "Summer")}</option><option>{t("Invernali", "Winter")}</option><option>{t("Quattro stagioni", "All-season")}</option><option>{t("Non lo so, consigliami tu", "Not sure, please advise")}</option></select></div>
-          <div class="campo"><label for="scheda-targa-gomme">{t("Targa", "Number plate")} <span>({t("facoltativa", "optional")})</span></label><input id="scheda-targa-gomme" name="targa-gomme" maxlength="8" placeholder="AB123CD" autocomplete="off" autocapitalize="characters"></div>
+          <div class="campo"><label for="scheda-stagione">Che gomme cerchi</label><select id="scheda-stagione" name="stagione"><option>Estive</option><option>Invernali</option><option>Quattro stagioni</option><option>Non lo so, consigliami tu</option></select></div>
+          <div class="campo"><label for="scheda-targa-gomme">Targa <span>(facoltativa)</span></label><input id="scheda-targa-gomme" name="targa-gomme" maxlength="8" placeholder="AB123CD" autocomplete="off" autocapitalize="characters"></div>
         </div>
         <div data-pannello-vendita="ricambi" hidden>
-          <div class="campo"><label for="scheda-targa-ricambi">{t("Targa", "Number plate")} <span>({t("facoltativa", "optional")})</span></label><input id="scheda-targa-ricambi" name="targa-ricambi" maxlength="8" placeholder="AB123CD" autocomplete="off" autocapitalize="characters"></div>
-          <div class="campo"><label for="scheda-pezzo">{t("Che pezzo ti serve", "Which part do you need")}</label><input id="scheda-pezzo" name="pezzo" placeholder="{t("Es. pastiglie dei freni anteriori", "E.g. front brake pads")}"><p class="errore" data-errore-pezzo aria-live="polite"></p></div>
-          <div class="campo"><label for="scheda-mezzo-ricambi">{t("Mezzo", "Vehicle")} <span>({t("facoltativo", "optional")})</span></label><input id="scheda-mezzo-ricambi" name="mezzo-ricambi" placeholder="{t("Es.", "E.g.")} Fiat Panda 2015"></div>
+          <div class="campo"><label for="scheda-targa-ricambi">Targa <span>(facoltativa)</span></label><input id="scheda-targa-ricambi" name="targa-ricambi" maxlength="8" placeholder="AB123CD" autocomplete="off" autocapitalize="characters"></div>
+          <div class="campo"><label for="scheda-pezzo">Che pezzo ti serve</label><input id="scheda-pezzo" name="pezzo" placeholder="Es. pastiglie dei freni anteriori"><p class="errore" data-errore-pezzo aria-live="polite"></p></div>
+          <div class="campo"><label for="scheda-mezzo-ricambi">Mezzo <span>(facoltativo)</span></label><input id="scheda-mezzo-ricambi" name="mezzo-ricambi" placeholder="Es. Fiat Panda 2015"></div>
         </div>
       </div>
       <div class="campo">
-        <label for="scheda-note">{t("Scrivimi due righe", "Write me a couple of lines")} <span>({t("facoltativo", "optional")})</span></label>
+        <label for="scheda-note">Scrivimi due righe <span>(facoltativo)</span></label>
         <textarea id="scheda-note" name="note" rows="3" maxlength="600" aria-describedby="scheda-aiuto"></textarea>
         <p class="aiuto" id="scheda-aiuto" data-aiuto></p>
       </div>
       <div class="scheda-azioni">
-        <button type="submit" class="btn btn--arancio" data-invia>{I["chat"]}{t("Invia su WhatsApp", "Send on WhatsApp")}</button>
-        <a class="btn btn--vuoto" href="tel:{TEL}" data-chiama>{I["tel"]}{t("Chiama", "Call")} {tel_txt()}</a>
+        <button type="submit" class="btn btn--arancio" data-invia>{I["chat"]}Invia su WhatsApp</button>
+        <a class="btn btn--vuoto" href="tel:{TEL}" data-chiama>{I["tel"]}Chiama {tel_txt()}</a>
       </div>
-      <p class="scheda-nota" data-esito role="status">{t("Si apre WhatsApp con il messaggio già scritto: l'invio lo confermi tu.", "WhatsApp opens with the message already written: you just tap Send.")}</p>
+      <p class="scheda-nota" data-esito role="status">Si apre WhatsApp con il messaggio già scritto: l\'invio lo confermi tu.</p>
     </div>
   </form>
 </dialog>
@@ -606,39 +571,39 @@ def scheda():
 
 
 def orari():
-    return f'''<table class="orari"><caption class="sr">{t("Orari di apertura", "Opening hours")}</caption>
-  <tr data-giorni="1,2,3,4,5"><th scope="row">{t("Lunedì – venerdì", "Monday – Friday")}</th><td>{t("7:30 – 19:30, continuato", "7:30 – 19:30, no lunch break")}</td></tr>
-  <tr data-giorni="6,0"><th scope="row">{t("Sabato e domenica", "Saturday and Sunday")}</th><td>{t("Chiuso", "Closed")}</td></tr>
+    return f'''<table class="orari"><caption class="sr">Orari di apertura</caption>
+  <tr data-giorni="1,2,3,4,5"><th scope="row">Lunedì – venerdì</th><td>7:30 – 19:30, continuato</td></tr>
+  <tr data-giorni="6,0"><th scope="row">Sabato e domenica</th><td>Chiuso</td></tr>
 </table>'''
 
 
 def piede(extra=""):
     voci = "".join(f'<li><a href="{href(p)}">{nome(p)}</a></li>' for p in PIEDE_PAGINE)
-    nota = f'<span>{t("Le fotografie sono di esempio: verranno sostituite con quelle dell’officina.", "The photos are examples: they will be replaced with photos of the workshop.")}</span>' if ci_sono_foto_stock() else ""
+    nota = f'<span>Le fotografie sono di esempio: verranno sostituite con quelle dell’officina.</span>' if ci_sono_foto_stock() else ""
     social = "".join(f'\n      <li><a href="{p}" target="_blank" rel="noopener">{n}</a></li>' for p, n in ((FACEBOOK, "Facebook"), (INSTAGRAM, "Instagram")) if p)
-    officina = f'\n      <li><a href="{MAPS}" target="_blank" rel="noopener">{t("Officina", "Workshop")}: {indirizzo_officina()}</a></li>' if INDIRIZZO_OFFICINA else ""
+    officina = f'\n      <li><a href="{MAPS}" target="_blank" rel="noopener">Officina: {indirizzo_officina()}</a></li>' if INDIRIZZO_OFFICINA else ""
     # Dati obbligatori in ogni pagina (D.Lgs. 70/2003, art. 7; P.IVA: DPR 633/1972, art. 35): vedi materiali/testi-legali/05.
     # Ogni dato è un pezzo che non si spezza; il REA compare appena è in contenuti.py.
-    dati_legali = [f'© <span data-anno>2026</span> L.M. Autoservizi di Miglietta Luca, {t("ditta individuale", "sole proprietorship")}',
-                   f'{t("Sede legale e officina", "Registered office and workshop") if indirizzo_officina() == SEDE_LEGALE else t("Sede legale", "Registered office")}: {SEDE_LEGALE}',
-                   f'{t("P.IVA", "VAT no.")} {PIVA}'] + ([f"REA {REA}"] if REA else []) + [f'PEC <a href="mailto:{PEC}">{PEC}</a>']
+    dati_legali = [f'© <span data-anno>2026</span> L.M. Autoservizi di Miglietta Luca, ditta individuale',
+                   f'{"Sede legale e officina" if indirizzo_officina() == SEDE_LEGALE else "Sede legale"}: {SEDE_LEGALE}',
+                   f'P.IVA {PIVA}'] + ([f"REA {REA}"] if REA else []) + [f'PEC <a href="mailto:{PEC}">{PEC}</a>']
     legale = " · ".join(f'<span class="piede-dato">{d}</span>' for d in dati_legali)
     return f'''</main>
 <footer class="piede">
   <div class="wrap piede-griglia">
     <div class="piede-marchio">
       <img src="{risorsa("assets/img/logo-arancio-84.png")}" width="52" height="52" alt="" loading="lazy">
-      <p><strong>L.M. Autoservizi di Miglietta Luca</strong><br>{t("Officina multimarca a Frassineto Po. Ritiro e consegna, vettura di cortesia gratuita e officina mobile.", "Multi-brand workshop in Frassineto Po. Pick-up and delivery, free courtesy car and mobile workshop.")}</p>
+      <p><strong>L.M. Autoservizi di Miglietta Luca</strong><br>Officina multimarca a Frassineto Po. Ritiro e consegna, vettura di cortesia gratuita e officina mobile.</p>
     </div>
-    <div><h2>{t("Pagine", "Pages")}</h2><ul>{voci}</ul></div>
-    <div><h2>{t("Contatti", "Contact")}</h2><ul>
+    <div><h2>Pagine</h2><ul>{voci}</ul></div>
+    <div><h2>Contatti</h2><ul>
       <li><a href="tel:{TEL}">{tel_txt()}</a></li>
       <li><a href="{wa()}" target="_blank" rel="noopener">WhatsApp</a></li>
       <li><a href="mailto:{EMAIL}">{EMAIL}</a></li>
       <li><a href="mailto:{PEC}">PEC: {PEC}</a></li>{social}{officina}</ul></div>
-    <div><h2>{t("Orari", "Opening hours")}</h2><ul>
-      <li>{t("Lunedì – venerdì", "Monday – Friday")}<br>{t("7:30 – 19:30, continuato", "7:30 – 19:30, no lunch break")}</li>
-      <li>{t("Sabato e domenica chiuso", "Closed on Saturday and Sunday")}</li>
+    <div><h2>Orari</h2><ul>
+      <li>Lunedì – venerdì<br>7:30 – 19:30, continuato</li>
+      <li>Sabato e domenica chiuso</li>
       <li><span class="stato" data-stato></span></li></ul></div>
   </div>
   <div class="wrap piede-basso">
@@ -647,9 +612,9 @@ def piede(extra=""):
     <ul class="piede-note"><li><a href="{href("condizioni")}">{nome("condizioni")}</a></li><li><a href="{href("privacy")}">{nome("privacy")}</a></li></ul>
   </div>
 </footer>
-<nav class="barra" aria-label="{t("Azioni rapide", "Quick actions")}">
-  <a href="tel:{TEL}">{I["tel"]}{t("Chiama", "Call")}</a>
-  <a href="{href("home", frammento="servizi")}">{ICONE["meccanica"]}{t("Servizi", "Services")}</a>
+<nav class="barra" aria-label="Azioni rapide">
+  <a href="tel:{TEL}">{I["tel"]}Chiama</a>
+  <a href="{href("home", frammento="servizi")}">{ICONE["meccanica"]}Servizi</a>
   <a href="{wa()}" target="_blank" rel="noopener">{I["chat"]}WhatsApp</a>
 </nav>
 {scheda()}{extra}<script src="{risorsa("assets/js/vendor/gsap.min.js")}" defer></script>
@@ -675,7 +640,7 @@ def casella(s, con_foto=True):
     foto_html = f'<span class="servizio-foto" aria-hidden="true">{img("servizio-" + chi, "", piccola=True, alt="")}</span>' if con_foto else ""
     return f'''<li><button type="button" class="servizio servizio--{chi}{" servizio--urgente" if "urgente" in opzioni else ""}" {dati_servizio(nome_servizio, nota, opzioni)}>
   {foto_html}<span class="servizio-ico" aria-hidden="true">{ICONE[chi]}</span>
-  <span class="servizio-nome">{tt(nome_servizio)}</span><span class="servizio-desc">{tt(desc)}</span>
+  <span class="servizio-nome">{nome_servizio}</span><span class="servizio-desc">{desc}</span>
 </button></li>'''
 
 
@@ -683,21 +648,21 @@ def griglia_servizi(con_foto=True):
     nome_altro, nota, opzioni, titolo = EXTRA["altro"]
     altro = f'''<li><button type="button" class="servizio" {dati_servizio(nome_altro, nota, opzioni, titolo)}>
   <span class="servizio-ico" aria-hidden="true">{ICONE["altro"]}</span>
-  <span class="servizio-nome">{t("Non so cos'ha", "Not sure what's wrong")}</span><span class="servizio-desc">{t("Descrivimi il problema e lo capiamo insieme", "Describe the problem and we'll work it out together")}</span>
+  <span class="servizio-nome">Non so cos\'ha</span><span class="servizio-desc">Descrivimi il problema e lo capiamo insieme</span>
 </button></li>'''
     return f'<ul class="servizi-griglia">{"".join(casella(s, con_foto) for s in SERVIZI)}{altro}</ul>'
 
 
 def finale(titolo=None, testo=None):
-    titolo = titolo or t("Ti serve una mano con il tuo mezzo?", "Need a hand with your vehicle?")
-    testo = testo or t("Chiamami o scrivimi: ti dico quando puoi portarmelo in officina, o quando posso passare a ritirarlo.", "Call or message me: I'll tell you when you can bring it to the workshop, or when I can come and collect it.")
+    titolo = titolo or "Ti serve una mano con il tuo mezzo?"
+    testo = testo or "Chiamami o scrivimi: ti dico quando puoi portarmelo in officina, o quando posso passare a ritirarlo."
     return f'''
 <section class="finale">
   <div class="wrap finale-riga">
     <div><h2>{titolo}</h2><p>{testo}</p></div>
     <div class="finale-azioni">
       <a class="numerone" href="tel:{TEL}">{tel_txt()}</a>
-      <div class="azioni"><a class="btn btn--arancio" href="{href("home", frammento="servizi")}">{t("Scegli il servizio", "Choose the service")} {I["freccia"]}</a><a class="btn btn--vuoto" href="{wa()}" target="_blank" rel="noopener">{I["chat"]}WhatsApp</a></div>
+      <div class="azioni"><a class="btn btn--arancio" href="{href("home", frammento="servizi")}">Scegli il servizio {I["freccia"]}</a><a class="btn btn--vuoto" href="{wa()}" target="_blank" rel="noopener">{I["chat"]}WhatsApp</a></div>
     </div>
   </div>
 </section>
@@ -705,7 +670,7 @@ def finale(titolo=None, testo=None):
 
 
 def spunte(voci):
-    return '<ul class="spunte">' + "".join(f"<li>{I['check']}<span>{tt(v)}</span></li>" for v in voci) + "</ul>"
+    return '<ul class="spunte">' + "".join(f"<li>{I['check']}<span>{v}</span></li>" for v in voci) + "</ul>"
 
 
 def scrivi(contenuto):
@@ -717,6 +682,6 @@ def scrivi(contenuto):
     os.makedirs(os.path.dirname(file), exist_ok=True)
     with open(file, "w", encoding="utf-8", newline="\n") as f:
         f.write(contenuto)
-    SCRITTE.append((LINGUA, PAGINA))
+    SCRITTE.append(PAGINA)
     FILE_SCRITTI.add(os.path.normpath(file))
     print("scritto", relativo, len(contenuto))

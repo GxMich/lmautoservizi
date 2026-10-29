@@ -6,20 +6,8 @@
   var form = document.querySelector("[data-revisione]");
   if (!form) return;
   var $ = function (s) { return form.querySelector(s); };
-  var EN = document.documentElement.lang === "en";
-  var MESI = EN ? ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    : ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
-  var T = EN ? {
-    prima: "First test due by the end of", prossima: "Next test due by the end of", eraPrima: "The first test was due by the end of", era: "The test was due by the end of",
-    resta: " to go. Before the test I check your vehicle for free.", questoMese: "Due this month: book the free check now.",
-    chiedi: "That date has passed. After the first test it's every two years: add the month and year of your last one and I'll tell you the next deadline.",
-    scaduta: "The test is overdue: best to book it straight away. First I check your vehicle for free.",
-    erroreOrdine: "The last test can't be before the first registration: check the dates.", erroreFuturo: "That date is in the future: check month and year.",
-    anno: ["year", "years"], mese: ["month", "months"], e: " and ",
-    titolo: "Roadworthiness test (revisione) due by ", nota: "Roadworthiness test (revisione) due by ", notaScaduta: "Roadworthiness test (revisione) overdue since ",
-    descrizione: "Before the test I check your vehicle for free and book it for you. Luca, L.M. Autoservizi: ", file: "revisione-reminder-",
-    pronto: "Reminder ready: open the downloaded file to add it to your calendar."
-  } : {
+  var MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
+  var T = {
     prima: "Prima revisione entro la fine di", prossima: "Prossima revisione entro la fine di", eraPrima: "La prima revisione era entro la fine di", era: "La revisione era entro la fine di",
     resta: ". Prima della revisione ti controllo il mezzo gratis.", questoMese: "Scade questo mese: prenota adesso il controllo gratuito.",
     chiedi: "Questa data è passata. Dopo la prima, la revisione si rifà ogni due anni: aggiungi mese e anno dell'ultima e ti dico la prossima scadenza.",
@@ -42,11 +30,10 @@
   }
   function durata(mesi) {
     var a = Math.floor(mesi / 12), m = mesi % 12, parti = [];
-    var conta = function (x, nomi) { return x === 1 ? (EN ? "1 " : "un ") + nomi[0] : x + " " + nomi[1]; };
+    var conta = function (x, nomi) { return x === 1 ? "un " + nomi[0] : x + " " + nomi[1]; };
     if (a) parti.push(conta(a, T.anno));
     if (m) parti.push(conta(m, T.mese));
     var testo = parti.join(T.e);
-    if (EN) return testo.charAt(0).toUpperCase() + testo.slice(1);
     return (mesi === 1 || mesi === 12 ? "Manca " : "Mancano ") + testo;
   }
   function inParole(d) { return MESI[d.m - 1] + " " + d.a; }
@@ -112,7 +99,7 @@
       return fuori;
     };
     var titolo = T.titolo + inParole(s);
-    return ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//L.M. Autoservizi//Revisione//" + (EN ? "EN" : "IT"), "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
+    return ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//L.M. Autoservizi//Revisione//IT", "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
       "BEGIN:VEVENT", "UID:revisione-" + data(giorno) + "-" + Date.now().toString(36) + "@lmautoservizi.it",
       "DTSTAMP:" + new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+/, ""),
       "DTSTART;VALUE=DATE:" + data(giorno), "DTEND;VALUE=DATE:" + data(dopo),
