@@ -8,7 +8,7 @@ WordPress) e _headers (intestazioni di sicurezza e cache): li leggono Netlify e 
 In anteprima questi tre file vengono cancellati da docs/, se ci sono.
 Il questionario per Luca (sorgente/domande/index.html) non si pubblica più: Luca ha risposto il 29/10/2026.
 Se docs/domande/ c'è ancora, viene cancellata."""
-import html, importlib, json, os, pkgutil, re, shutil, sys
+import datetime, html, importlib, json, os, pkgutil, re, shutil, sys
 from urllib.parse import urlsplit
 sys.stdout.reconfigure(encoding="utf-8")
 import contenuti, pagine, sito
@@ -46,11 +46,12 @@ for cartella, sotto, file in os.walk(DOCS):
             print("attenzione: pagina non più generata, da cancellare a mano:", os.path.relpath(os.path.join(cartella, nome), RADICE))
 
 # ---------------------------------------------------------------- sitemap, robots, manifest
-voci = []
+# lastmod: il giorno della generazione, cioè dell'ultima pubblicazione di tutte le pagine
+voci, oggi = [], datetime.date.today().isoformat()
 for p in PAGINE:
     if p in NON_INDICIZZATE:
         continue
-    voci.append(f"  <url>\n    <loc>{url(p)}</loc>\n  </url>\n")
+    voci.append(f"  <url>\n    <loc>{url(p)}</loc>\n    <lastmod>{oggi}</lastmod>\n  </url>\n")
 scrivi_file("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
             + "".join(voci) + "</urlset>\n")
 # In produzione tutto aperto, con un permesso esplicito per i motori di ricerca e per i robot degli assistenti
@@ -105,6 +106,15 @@ if PRODUZIONE:
             f"- Officina: {officina}; mappa: {contenuti.MAPS}",
             f"- Zona servita: entro {contenuti.RAGGIO_KM} km dall'officina, cioè {', '.join(sito.ZONA)} e paesi vicini",
             "- Pagamenti: contanti, carta o bancomat, alla riconsegna", "",
+            # Fatti che chi risponde a una domanda deve sapere per non promettere cose che l'officina non fa.
+            "## Fatti utili", "",
+            "- Preventivo gratuito prima di ogni lavoro; il sito non pubblica prezzi.",
+            "- Ritiro e riconsegna del mezzo sempre gratis entro 20 km dall'officina.",
+            "- Assistenza a domicilio solo per interventi veloci: cambio della batteria, diagnosi con il computer, riparazione della gomma bucata.",
+            "- Una sola vettura di cortesia, gratuita, se è libera: va chiesta quando si prenota.",
+            "- La revisione si fa alla Motorizzazione o in un centro autorizzato: Luca fa il controllo gratuito prima e la prenota.",
+            "- Gomme e ricambi: niente spedizioni, si ritirano in officina; il pezzo si ordina dopo il pagamento.",
+            "- Officina abilitata per meccatronica, carrozzeria e gommista (legge 122/1992).", "",
             "## Pagine", ""] + [voce_llms(p) for p in principali]
     llms += ["", "## Optional", ""] + [voce_llms(p) for p in legali]
     scrivi_file("llms.txt", "\n".join(llms) + "\n")

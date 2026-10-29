@@ -7,7 +7,7 @@ from sito import (inizia, scrivi, head, testata, intro, piede, orari, foto, grig
 def costruisci():
     inizia("contatti")
     rea = f'\n        <div><dt>REA</dt><dd>{REA}</dd></div>' if REA else ""
-    scrivi(head("Contatti | L.M. Autoservizi, Frassineto Po",
+    scrivi(head("Contatti e orari, officina a Frassineto Po | L.M. Autoservizi",
                 "Chiama il 342 643 6085 o scrivi su WhatsApp. Officina a Frassineto Po, aperta dal lunedì al venerdì dalle 7:30 alle 19:30, orario continuato.",
                 [azienda(), briciole()], immagine="ingresso") + testata()
            + intro("Contatti", "Chiamami o scrivimi su WhatsApp: ti rispondo io.") + f'''

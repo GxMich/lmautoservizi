@@ -32,7 +32,7 @@ API per i moduli delle pagine
 - Pacchetti: CSS e JS (tutti i file di sorgente/stile e sorgente/script in ordine di nome), V_CSS e V_JS per la cache."""
 import hashlib, json, math, os, posixpath, re, unicodedata
 from html import escape
-from contenuti import (TEL, TEL_TXT, WA, EMAIL, PEC, PIVA, MAPS, SEDE_LEGALE, GEAR_PIENO, FOTO_SLOT, STOCK, ANNO_INIZIO, ANNI_ESPERIENZA, ABILITAZIONI,
+from contenuti import (DOMINIO, TEL, TEL_TXT, WA, EMAIL, PEC, PIVA, MAPS, SCHEDA_GOOGLE, SEDE_LEGALE, GEAR_PIENO, FOTO_SLOT, STOCK, ANNO_INIZIO, ANNI_ESPERIENZA, ABILITAZIONI,
                        INDIRIZZO_OFFICINA, CAP_OFFICINA, COMUNE_OFFICINA, PROVINCIA, GEO, RAGGIO_KM, REA, FACEBOOK, INSTAGRAM, PREZZI, NOLEGGIO_LINK)
 import testi_legali
 
@@ -40,7 +40,8 @@ QUI = os.path.dirname(os.path.abspath(__file__))
 RADICE = os.path.dirname(QUI)
 DOCS = os.path.join(RADICE, "docs")
 PRODUZIONE = os.environ.get("LM_PRODUZIONE") == "1"
-URL = os.environ.get("LM_URL", "https://gxmich.github.io/lmautoservizi/").rstrip("/") + "/"
+# In produzione l'indirizzo predefinito è il dominio vero: senza LM_URL canonical, sitemap e schema non puntano più all'anteprima.
+URL = os.environ.get("LM_URL", DOMINIO if PRODUZIONE else "https://gxmich.github.io/lmautoservizi/").rstrip("/") + "/"
 # Statistiche senza cookie (GoatCounter): spente se LM_GOATCOUNTER manca. Il codice è il nome del sito su goatcounter.com.
 STATISTICHE = os.environ.get("LM_GOATCOUNTER", "").strip().lower() or None
 if STATISTICHE and not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,62}", STATISTICHE):
@@ -405,20 +406,23 @@ def azienda():
     indirizzo = {"@type": "PostalAddress", "streetAddress": INDIRIZZO_OFFICINA, "addressLocality": COMUNE_OFFICINA,
                  "postalCode": CAP_OFFICINA, "addressRegion": PROVINCIA, "addressCountry": "IT"}
     descrizioni = {s[0]: s[2] for s in SERVIZI}
+    descrizioni.update({"ritiro": "Ritiro e riconsegna del mezzo, gratis entro 20 km dall'officina",
+                        "mobile": descrizioni["soccorso"], "gomme": descrizioni["ricambi"]})
+    # Nel catalogo anche ritiro, domicilio e gomme e ricambi: sono i servizi che distinguono l'officina.
     catalogo = [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": nome(p), "url": url(p),
                                                     **({"description": descrizioni[p]} if p in descrizioni else {})}}
-                for p in SERVIZI_PAGINE]
+                for p in SERVIZI_PAGINE + ["ritiro", "mobile", "gomme"]]
     dati = {"@context": "https://schema.org", "@type": "AutoRepair", "@id": URL + "#azienda",
             "name": "L.M. Autoservizi di Miglietta Luca",
             "alternateName": "L.M. Autoservizi",
             "description": "Officina multimarca a Frassineto Po: meccanica, elettrauto, gommista, carrozzeria, diagnosi centraline e pre-revisione. Ritiro e consegna gratis entro 20 km, assistenza a domicilio, vettura di cortesia gratuita.",
             "url": url("home"), "telephone": TEL, "email": EMAIL, "vatID": "IT" + PIVA,
-            "image": URL + foto_info("officina")[0] + ".webp", "logo": URL + "assets/img/favicon-192.png",
+            "logo": URL + "assets/img/favicon-192.png",
             "founder": {"@type": "Person", "name": "Luca Miglietta"},
             "hasCredential": [{"@type": "EducationalOccupationalCredential", "credentialCategory": "Abilitazione di autoriparazione (legge 122/1992)",
                                "name": f"Autoriparazione: {sezione}"} for sezione in ABILITAZIONI],
             "address": {k: v for k, v in indirizzo.items() if v},
-            "hasMap": MAPS,
+            "hasMap": SCHEDA_GOOGLE,
             "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "07:30", "closes": "19:30"}],
             "paymentAccepted": "Contanti, carta di credito, bancomat",
             "currenciesAccepted": "EUR",
@@ -428,9 +432,11 @@ def azienda():
         dati["geo"] = {"@type": "GeoCoordinates", "latitude": GEO[0], "longitude": GEO[1]}
     if PREZZI:
         dati["priceRange"] = PREZZI
-    profili = [p for p in (FACEBOOK, INSTAGRAM) if p]
-    if profili:
-        dati["sameAs"] = profili
+    # La foto dell'officina solo quando è vera: una foto di esempio nei dati per Google sarebbe ingannevole.
+    officina, *_, officina_stock = foto_info("officina")
+    if not officina_stock:
+        dati["image"] = URL + officina + ".webp"
+    dati["sameAs"] = [SCHEDA_GOOGLE] + [p for p in (FACEBOOK, INSTAGRAM) if p]
     return dati
 
 
@@ -470,7 +476,15 @@ V_CSS, V_JS = (hashlib.sha256(x.encode("utf-8")).hexdigest()[:10] for x in (CSS,
 # ---------------------------------------------------------------- pezzi comuni
 def head(titolo, descrizione, schema=(), immagine="officina", noindex=False):
     indirizzo = url()
-    base, w, h, alt, _ = foto_info(immagine)
+    base, w, h, alt, stock = foto_info(immagine)
+    # In produzione l'anteprima social usa solo foto vere: con una foto di esempio niente immagine (si vede il logo del sito).
+    if PRODUZIONE and stock:
+        anteprima = '<meta name="twitter:card" content="summary">'
+    else:
+        anteprima = (f'<meta property="og:image" content="{URL + base}.webp">\n<meta property="og:image:width" content="{w}">\n'
+                     f'<meta property="og:image:height" content="{h}">\n'
+                     f'<meta property="og:image:alt" content="{attr(alt or "L.M. Autoservizi, officina a Frassineto Po")}">\n'
+                     '<meta name="twitter:card" content="summary_large_image">')
     noindex = noindex or PAGINA in NON_INDICIZZATE
     robots = f'<link rel="canonical" href="{indirizzo}">' if PRODUZIONE and not noindex else '<meta name="robots" content="noindex, nofollow">'
     schema = list(schema)
@@ -495,11 +509,7 @@ def head(titolo, descrizione, schema=(), immagine="officina", noindex=False):
 <meta property="og:title" content="{attr(titolo)}">
 <meta property="og:description" content="{attr(descrizione)}">
 <meta property="og:url" content="{indirizzo}">
-<meta property="og:image" content="{URL + base}.webp">
-<meta property="og:image:width" content="{w}">
-<meta property="og:image:height" content="{h}">
-<meta property="og:image:alt" content="{attr(alt or "L.M. Autoservizi, officina a Frassineto Po")}">
-<meta name="twitter:card" content="summary_large_image">
+{anteprima}
 <link rel="icon" type="image/png" sizes="32x32" href="{risorsa("assets/img/favicon-32.png")}">
 <link rel="icon" type="image/png" sizes="192x192" href="{risorsa("assets/img/favicon-192.png")}">
 <link rel="apple-touch-icon" href="{risorsa("assets/img/favicon-180.png")}">
@@ -663,10 +673,13 @@ def piede(extra=""):
 
 
 def intro(titolo, testo):
+    """Apertura delle pagine interne. Sotto servizi/ c'è anche il percorso visibile, "Servizi" con il link all'indice."""
+    madre = PAGINE[PAGINA][0].startswith("servizi/") and PAGINA != "servizi"
+    percorso_pagina = f'<nav class="percorso-pagina" aria-label="Sei in"><a href="{href("servizi")}">Servizi</a> <span aria-hidden="true">›</span></nav>' if madre else ""
     return f'''
 <section class="intro">
   <div class="intro-ingranaggio" aria-hidden="true"><svg viewBox="-300 -300 600 600"><path fill="currentColor" fill-rule="evenodd" d="{GEAR_PIENO}"/></svg></div>
-  <div class="wrap"><h1><span class="riga"><span>{titolo}</span></span></h1><p class="lead intro-lead">{testo}</p></div>
+  <div class="wrap">{percorso_pagina}<h1><span class="riga"><span>{titolo}</span></span></h1><p class="lead intro-lead">{testo}</p></div>
 </section>
 '''
 

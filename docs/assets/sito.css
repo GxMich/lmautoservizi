@@ -982,3 +982,8 @@ body.menu-aperto, html:has(dialog[open]) { overflow: hidden; }
 }
 /* il testo non si taglia mai, nemmeno con lo zoom forte o la spaziatura del testo aumentata */
 .servizio { min-height: min-content; }
+
+/* ---------- percorso visibile nelle pagine sotto Servizi ---------- */
+.percorso-pagina { margin: 0 0 14px; font-size: .92rem; font-weight: 600; color: var(--grigio); }
+.percorso-pagina a { color: var(--accento-testo); text-decoration: none; }
+.percorso-pagina a:hover { text-decoration: underline; }

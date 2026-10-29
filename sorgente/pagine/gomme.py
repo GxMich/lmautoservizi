@@ -48,7 +48,7 @@ def costruisci():
     catalogo = "".join(casella_catalogo(*voce) for voce in CATALOGO)
     ordine = "".join(f'<li><span class="ordine-n" aria-hidden="true">{i + 1}</span><div><h3>{titolo}</h3><p>{testo}</p></div></li>'
                      for i, (titolo, testo) in enumerate(ORDINE))
-    scrivi(head("Gomme e ricambi a Frassineto Po | L.M. Autoservizi",
+    scrivi(head("Vendita gomme e ricambi a Frassineto Po | L.M. Autoservizi",
                 "Ricambi, gomme, lubrificanti, additivi, accessori e batterie: chiedi su WhatsApp disponibilità e prezzo, poi ritiri in officina a Frassineto Po.",
                 [azienda(), briciole("Gomme e ricambi")], immagine="servizio-gommista") + testata()
            + intro("Gomme e ricambi", "Dimmi cosa ti serve: ti rispondo con disponibilità e prezzo. Lo ritiri in officina, e al montaggio penso io.") + f'''

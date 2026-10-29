@@ -12,6 +12,8 @@ EMAIL = "lucamiglietta4@gmail.com"
 PEC = "lucamiglie@pec.it"
 PIVA = "02625920067"
 MAPS = "https://maps.app.goo.gl/MKwoz3CKAvCdeNwj8"
+# La stessa scheda con il suo CID (0xf52d227d144833d9): un indirizzo stabile per hasMap e sameAs nei dati strutturati.
+SCHEDA_GOOGLE = "https://maps.google.com/?cid=17666814833850856409"
 # Sede legale e officina coincidono (risposta di Luca al questionario, 29/10/2026).
 SEDE_LEGALE = "Via Ticineto 15, 15040 Frassineto Po (AL)"
 GEAR = open(os.path.join(QUI, "ingranaggio.txt"), encoding="utf-8").read().strip()

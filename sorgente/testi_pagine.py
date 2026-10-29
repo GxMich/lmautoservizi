@@ -14,9 +14,9 @@ SERVIZI_PAGINE = {
     # ------------------------------------------------------------------ MECCANICA
     "meccanica": {
         "nome": "Meccanica",
-        "title": "Meccanico a Frassineto Po, vicino a Casale | L.M. Autoservizi",
+        "title": "Tagliando e riparazioni auto a Frassineto Po | L.M. Autoservizi",
         "description": "Tagliandi, manutenzione e riparazioni meccaniche sul ponte, su tutte le marche. Officina a Frassineto Po, vicino a Casale. Chiedi un preventivo gratuito.",
-        "h1": "Meccanico a Frassineto Po",
+        "h1": "Tagliandi e riparazioni a Frassineto Po",
         "risposta": ("Sono Luca Miglietta, di L.M. Autoservizi. Lavoro da solo nella mia officina a Frassineto Po, vicino a Casale Monferrato. "
                      "Faccio tagliandi, manutenzione ordinaria e straordinaria e riparazioni meccaniche su tutte le marche. "
                      "Sono aperto dal lunedì al venerdì, dalle 7:30 alle 19:30, orario continuato. "
