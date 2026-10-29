@@ -1,5 +1,5 @@
 """Genera il sito in docs/: python sorgente/genera.py
-Pagine: ogni modulo di sorgente/pagine/ con costruisci(), chiamato una volta per lingua (italiano in docs/, inglese in docs/en/).
+Pagine: ogni modulo di sorgente/pagine/ con costruisci(), chiamato una volta per lingua (oggi solo l'italiano, in docs/).
 Poi scrive sitemap.xml, robots.txt, .nojekyll, site.webmanifest, i pacchetti assets/sito.css e assets/sito.js
 (tutti i file di sorgente/stile e sorgente/script, in ordine di nome) e l'elenco dei dati da completare.
 LM_URL dà l'indirizzo pubblico (predefinito: GitHub Pages); LM_PRODUZIONE=1 attiva canonical e indicizzazione.
@@ -58,10 +58,8 @@ voci = []
 for p in PAGINE:
     if p in NON_INDICIZZATE:
         continue
-    alternative = "".join(f'\n    <xhtml:link rel="alternate" hreflang="{a}" href="{url(p, a)}"/>' for a in LINGUE)
-    alternative += f'\n    <xhtml:link rel="alternate" hreflang="x-default" href="{url(p, "it")}"/>'
-    voci += [f"  <url>\n    <loc>{url(p, l)}</loc>{alternative}\n  </url>\n" for l in LINGUE]
-scrivi_file("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
+    voci += [f"  <url>\n    <loc>{url(p, l)}</loc>\n  </url>\n" for l in LINGUE]
+scrivi_file("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
             + "".join(voci) + "</urlset>\n")
 # In produzione tutto aperto, con un permesso esplicito per i motori di ricerca e per i robot degli assistenti
 # che cercano e citano le fonti (per gli altri robot vale la regola generale).
@@ -108,7 +106,7 @@ if PRODUZIONE:
     llms = ["# L.M. Autoservizi", "",
             "> Officina multimarca di Luca Miglietta a Frassineto Po (AL), vicino a Casale Monferrato: meccanica, elettrauto, gommista, "
             "carrozzeria, diagnosi e pre-revisione. Vettura di cortesia gratuita, ritiro e consegna dell'auto, officina mobile.", "",
-            f"L.M. Autoservizi di Miglietta Luca, ditta individuale, P.IVA {contenuti.PIVA}. Sito in italiano, con la versione inglese sotto /en/.", "",
+            f"L.M. Autoservizi di Miglietta Luca, ditta individuale, P.IVA {contenuti.PIVA}. Sito in italiano.", "",
             f"- Telefono e WhatsApp: +39 {contenuti.TEL_TXT}",
             f"- Email: {contenuti.EMAIL}",
             "- Orari: dal lunedì al venerdì 7:30–19:30, orario continuato; sabato e domenica chiuso",
@@ -116,7 +114,6 @@ if PRODUZIONE:
             f"- Zona servita: {', '.join(sito.ZONA)} e paesi vicini",
             "- Pagamenti: contanti, carta o bancomat, alla riconsegna", "",
             "## Pagine", ""] + [voce_llms(p, "it") for p in principali]
-    llms += ["", "## English", ""] + [voce_llms(p, "en") for p in ("home", "servizi", "ritiro", "contatti")]
     llms += ["", "## Optional", ""] + [voce_llms(p, "it") for p in legali]
     scrivi_file("llms.txt", "\n".join(llms) + "\n")
 

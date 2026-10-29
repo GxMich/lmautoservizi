@@ -1,183 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://gxmich.github.io/lmautoservizi/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/"/>
-  </url>
-  <url>
-    <loc>https://gxmich.github.io/lmautoservizi/en/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/"/>
   </url>
   <url>
     <loc>https://gxmich.github.io/lmautoservizi/servizi/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/servizi/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/servizi/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/servizi/"/>
-  </url>
-  <url>
-    <loc>https://gxmich.github.io/lmautoservizi/en/servizi/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/servizi/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/servizi/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/servizi/"/>
   </url>
   <url>
     <loc>https://gxmich.github.io/lmautoservizi/servizi/meccanica/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/servizi/meccanica/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/servizi/meccanica/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/servizi/meccanica/"/>
-  </url>
-  <url>
-    <loc>https://gxmich.github.io/lmautoservizi/en/servizi/meccanica/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/servizi/meccanica/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/servizi/meccanica/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/servizi/meccanica/"/>
   </url>
   <url>
     <loc>https://gxmich.github.io/lmautoservizi/servizi/elettrauto/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/servizi/elettrauto/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/servizi/elettrauto/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/servizi/elettrauto/"/>
-  </url>
-  <url>
-    <loc>https://gxmich.github.io/lmautoservizi/en/servizi/elettrauto/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/servizi/elettrauto/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/servizi/elettrauto/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/servizi/elettrauto/"/>
   </url>
   <url>
     <loc>https://gxmich.github.io/lmautoservizi/servizi/gommista/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/servizi/gommista/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/servizi/gommista/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/servizi/gommista/"/>
-  </url>
-  <url>
-    <loc>https://gxmich.github.io/lmautoservizi/en/servizi/gommista/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/servizi/gommista/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/servizi/gommista/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/servizi/gommista/"/>
   </url>
   <url>
     <loc>https://gxmich.github.io/lmautoservizi/servizi/carrozzeria/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/servizi/carrozzeria/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/servizi/carrozzeria/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/servizi/carrozzeria/"/>
-  </url>
-  <url>
-    <loc>https://gxmich.github.io/lmautoservizi/en/servizi/carrozzeria/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/servizi/carrozzeria/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/servizi/carrozzeria/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/servizi/carrozzeria/"/>
   </url>
   <url>
     <loc>https://gxmich.github.io/lmautoservizi/servizi/diagnosi-e-pre-revisione/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/servizi/diagnosi-e-pre-revisione/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/servizi/diagnosi-e-pre-revisione/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/servizi/diagnosi-e-pre-revisione/"/>
-  </url>
-  <url>
-    <loc>https://gxmich.github.io/lmautoservizi/en/servizi/diagnosi-e-pre-revisione/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/servizi/diagnosi-e-pre-revisione/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/servizi/diagnosi-e-pre-revisione/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/servizi/diagnosi-e-pre-revisione/"/>
   </url>
   <url>
     <loc>https://gxmich.github.io/lmautoservizi/officina/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/officina/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/officina/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/officina/"/>
-  </url>
-  <url>
-    <loc>https://gxmich.github.io/lmautoservizi/en/officina/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/officina/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/officina/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/officina/"/>
   </url>
   <url>
     <loc>https://gxmich.github.io/lmautoservizi/ritiro-e-consegna/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/ritiro-e-consegna/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/ritiro-e-consegna/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/ritiro-e-consegna/"/>
-  </url>
-  <url>
-    <loc>https://gxmich.github.io/lmautoservizi/en/ritiro-e-consegna/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/ritiro-e-consegna/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/ritiro-e-consegna/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/ritiro-e-consegna/"/>
   </url>
   <url>
     <loc>https://gxmich.github.io/lmautoservizi/officina-mobile/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/officina-mobile/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/officina-mobile/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/officina-mobile/"/>
-  </url>
-  <url>
-    <loc>https://gxmich.github.io/lmautoservizi/en/officina-mobile/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/officina-mobile/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/officina-mobile/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/officina-mobile/"/>
   </url>
   <url>
     <loc>https://gxmich.github.io/lmautoservizi/gomme-e-ricambi/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/gomme-e-ricambi/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/gomme-e-ricambi/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/gomme-e-ricambi/"/>
-  </url>
-  <url>
-    <loc>https://gxmich.github.io/lmautoservizi/en/gomme-e-ricambi/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/gomme-e-ricambi/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/gomme-e-ricambi/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/gomme-e-ricambi/"/>
   </url>
   <url>
     <loc>https://gxmich.github.io/lmautoservizi/chi-sono/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/chi-sono/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/chi-sono/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/chi-sono/"/>
-  </url>
-  <url>
-    <loc>https://gxmich.github.io/lmautoservizi/en/chi-sono/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/chi-sono/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/chi-sono/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/chi-sono/"/>
   </url>
   <url>
     <loc>https://gxmich.github.io/lmautoservizi/contatti/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/contatti/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/contatti/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/contatti/"/>
-  </url>
-  <url>
-    <loc>https://gxmich.github.io/lmautoservizi/en/contatti/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/contatti/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/contatti/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/contatti/"/>
   </url>
   <url>
     <loc>https://gxmich.github.io/lmautoservizi/privacy/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/privacy/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/privacy/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/privacy/"/>
-  </url>
-  <url>
-    <loc>https://gxmich.github.io/lmautoservizi/en/privacy/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/privacy/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/privacy/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/privacy/"/>
   </url>
   <url>
     <loc>https://gxmich.github.io/lmautoservizi/garanzia-e-condizioni/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/garanzia-e-condizioni/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/garanzia-e-condizioni/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/garanzia-e-condizioni/"/>
-  </url>
-  <url>
-    <loc>https://gxmich.github.io/lmautoservizi/en/garanzia-e-condizioni/</loc>
-    <xhtml:link rel="alternate" hreflang="it" href="https://gxmich.github.io/lmautoservizi/garanzia-e-condizioni/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gxmich.github.io/lmautoservizi/en/garanzia-e-condizioni/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gxmich.github.io/lmautoservizi/garanzia-e-condizioni/"/>
   </url>
 </urlset>

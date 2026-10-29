@@ -7,7 +7,7 @@ Ogni modulo in sorgente/pagine/ espone costruisci() e scrive le sue pagine così
         inizia("contatti")                      # pagina corrente: id del registro PAGINE
         scrivi(head(titolo, descrizione, [azienda(), briciole()]) + testata() + intro(...) + corpo + finale() + piede())
 
-genera.py chiama costruisci() una volta per lingua, dopo imposta_lingua("it") o imposta_lingua("en").
+genera.py chiama costruisci() una volta per lingua di LINGUE, dopo imposta_lingua(): oggi solo "it" (l'inglese è stato tolto il 29/10/2026).
 
 API per i moduli delle pagine
 - Stato: imposta_lingua(l), inizia(id), lingua() -> "it"/"en". Non importare LINGUA o PAGINA: usare le funzioni.
@@ -68,7 +68,8 @@ NAV = ["servizi", "officina", "gomme", "chi", "contatti"]
 PIEDE_PAGINE = ["servizi", "officina", "ritiro", "mobile", "gomme", "chi", "contatti", "condizioni", "privacy"]
 ASSOLUTE = {"404"}          # servite a indirizzi qualsiasi: link e risorse assoluti
 NON_INDICIZZATE = {"404"}   # fuori dalla sitemap, sempre noindex
-LINGUE = ("it", "en")
+# Solo italiano: Luca ha chiesto di togliere la versione inglese (29/10/2026).
+LINGUE = ("it",)
 # Le cinque pagine dei servizi principali (sotto servizi/): catalogo nei dati strutturati
 SERVIZI_PAGINE = ["meccanica", "elettrauto", "gommista", "carrozzeria", "diagnosi"]
 # Comuni serviti (dati strutturati e llms.txt): i principali entro RAGGIO_KM in linea d'aria dall'officina (calcolati il 29/10/2026)
@@ -470,8 +471,6 @@ def head(titolo, descrizione, schema=(), immagine="officina", noindex=False):
     base, w, h, alt, _ = foto_info(immagine)
     noindex = noindex or PAGINA in NON_INDICIZZATE
     robots = f'<link rel="canonical" href="{indirizzo}">' if PRODUZIONE and not noindex else '<meta name="robots" content="noindex, nofollow">'
-    alternative = "".join(f'<link rel="alternate" hreflang="{l}" href="{url(PAGINA, l)}">\n' for l in LINGUE)
-    alternative += f'<link rel="alternate" hreflang="x-default" href="{url(PAGINA, "it")}">\n'
     schema = list(schema)
     if PAGINA == "home" and not any(s.get("@type") == "WebSite" for s in schema):
         schema.append(sito_web())
@@ -487,10 +486,9 @@ def head(titolo, descrizione, schema=(), immagine="officina", noindex=False):
 <title>{titolo}</title>
 <meta name="description" content="{attr(descrizione)}">
 {robots}
-{alternative}<meta name="theme-color" content="#0b0d10">
+<meta name="theme-color" content="#0b0d10">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="{t("it_IT", "en_GB")}">
-<meta property="og:locale:alternate" content="{t("en_GB", "it_IT")}">
 <meta property="og:site_name" content="L.M. Autoservizi">
 <meta property="og:title" content="{attr(titolo)}">
 <meta property="og:description" content="{attr(descrizione)}">
@@ -511,13 +509,6 @@ def head(titolo, descrizione, schema=(), immagine="officina", noindex=False):
 <body class="p-{PAGINA}">
 <a class="salta-link" href="#contenuto">{t("Vai al contenuto", "Skip to content")}</a>
 '''
-
-
-def link_lingua():
-    """Lo stesso contenuto nell'altra lingua."""
-    if LINGUA == "it":
-        return f'<a class="lingua" href="{href(PAGINA, "en")}" hreflang="en" lang="en">EN<span class="sr"> (English version)</span></a>'
-    return f'<a class="lingua" href="{href(PAGINA, "it")}" hreflang="it" lang="it">IT<span class="sr"> (versione italiana)</span></a>'
 
 
 def corrente(pagina):
@@ -541,7 +532,6 @@ def testata():
     <a class="marchio" href="{href("home")}"><img src="{risorsa("assets/img/logo-arancio-84.png")}" width="40" height="40" alt=""><span>L.M. Autoservizi<small>{t("Officina a Frassineto Po", "Workshop in Frassineto Po")}</small></span></a>
     <nav class="nav" aria-label="{t("Principale", "Main")}"><ul>{voci()}</ul></nav>
     <div class="testata-azioni">
-      {link_lingua()}
       <button class="tema-bottone" type="button" data-tema-bottone aria-label="{etichetta_tema}">{I["sole"]}{I["luna"]}</button>
       <a class="btn btn--arancio btn--piccolo testata-chiama" href="tel:{TEL}" aria-label="{t("Chiama Luca al", "Call Luca on")} {tel_txt()}">{I["tel"]}<span>{t("Chiama", "Call")}</span></a>
       <button class="menu-bottone" type="button" aria-expanded="false" aria-controls="menu" aria-label="{t("Apri il menu", "Open the menu")}"><span></span><span></span></button>

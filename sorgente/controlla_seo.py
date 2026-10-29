@@ -1,15 +1,15 @@
 """Controlla la SEO tecnica del sito generato: python sorgente/controlla_seo.py
 Per ogni pagina HTML in docs/:
 - un solo <h1>;
-- <title> presente, al massimo 65 caratteri e diverso da quello delle altre pagine della stessa lingua;
-- meta description tra 70 e 160 caratteri, anche questa diversa per ogni pagina della stessa lingua;
-- <html lang> presente e coerente con la cartella (en/ in inglese);
-- hreflang it, en e x-default, reciproci: la pagina nell'altra lingua esiste e rimanda a questa; x-default è l'italiano;
+- <title> presente, al massimo 65 caratteri e diverso da quello delle altre pagine;
+- meta description tra 70 e 160 caratteri, anche questa diversa per ogni pagina;
+- <html lang="it"> (il sito è solo in italiano) e nessun hreflang rimasto da quando c'era l'inglese;
+- og:url uguale all'indirizzo della pagina;
 - in produzione (robots.txt con "Sitemap:") canonical presente e uguale all'indirizzo della pagina; in anteprima noindex;
 - ogni <img> ha alt (anche vuoto, per le immagini decorative), width e height;
 - ogni blocco JSON-LD si legge; niente Review o AggregateRating (recensioni autoreferenziali), niente valori null;
 - nessuna nota interna: "DA VERIFICARE" o "TODO" nel sorgente, "None" nel testo o negli attributi, commenti HTML.
-L'indirizzo pubblico si ricava dagli hreflang della home: il controllo vale per la generazione che c'è in docs/.
+L'indirizzo pubblico si ricava dall'og:url della home: il controllo vale per la generazione che c'è in docs/.
 Stampa una tabella dei problemi per pagina. Esce con errore solo per i problemi gravi (h1 mancante, JSON-LD rotto,
 note interne pubblicate); gli avvisi vanno letti ma non fermano la pubblicazione."""
 import json, os, re, sys
@@ -27,7 +27,7 @@ VIETATI = {"Review", "AggregateRating"}
 class Pagina(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
-        self.lang, self.h1, self.titolo, self.descrizione, self.robots, self.canonical = None, 0, None, None, "", None
+        self.lang, self.h1, self.titolo, self.descrizione, self.robots, self.canonical, self.og_url = None, 0, None, None, "", None, None
         self.alternative, self.immagini, self.ld, self.testo, self.attributi, self.commenti = {}, [], [], [], [], 0
         self._in, self._buffer = None, []
 
@@ -42,6 +42,8 @@ class Pagina(HTMLParser):
             self._in, self._buffer = "title", []
         elif tag == "meta" and a.get("name") == "description":
             self.descrizione = a.get("content", "")
+        elif tag == "meta" and a.get("property") == "og:url":
+            self.og_url = a.get("content")
         elif tag == "meta" and a.get("name") == "robots":
             self.robots = a.get("content", "")
         elif tag == "link" and "canonical" in a.get("rel", "").split():
@@ -116,7 +118,7 @@ for radice, sotto, nomi in os.walk(DOCS):
 if "index.html" not in pagine:
     sys.exit("docs/index.html non c'è: generare prima il sito con python sorgente/genera.py")
 
-URL = (pagine["index.html"].alternative.get("it") or [""])[0]
+URL = pagine["index.html"].og_url or ""
 robots_txt = os.path.join(DOCS, "robots.txt")
 PRODUZIONE = os.path.isfile(robots_txt) and "Sitemap:" in open(robots_txt, encoding="utf-8").read()
 
@@ -124,13 +126,6 @@ PRODUZIONE = os.path.isfile(robots_txt) and "Sitemap:" in open(robots_txt, encod
 def indirizzo(relativo):
     """Indirizzo pubblico di un file di docs/: le cartelle finiscono con /, la 404 resta un file."""
     return URL + (relativo[:-len("index.html")] if relativo.endswith("index.html") else relativo)
-
-
-def file_di(indirizzo_pubblico):
-    if not URL or not indirizzo_pubblico.startswith(URL):
-        return None
-    resto = indirizzo_pubblico[len(URL):]
-    return resto + "index.html" if resto == "" or resto.endswith("/") else resto
 
 
 problemi = defaultdict(list)       # pagina -> [(livello, testo)]
@@ -146,7 +141,6 @@ def avviso(pagina, testo):
 
 titoli, descrizioni = defaultdict(list), defaultdict(list)
 for rel, p in pagine.items():
-    lingua_cartella = "en" if rel.startswith("en/") else "it"
     proprio = indirizzo(rel)
     noindex = "noindex" in p.robots
 
@@ -160,34 +154,21 @@ for rel, p in pagine.items():
     else:
         if len(p.titolo) > TITOLO_MAX:
             avviso(rel, f"<title> di {len(p.titolo)} caratteri (massimo {TITOLO_MAX}): «{p.titolo}»")
-        titoli[(lingua_cartella, p.titolo)].append(rel)
+        titoli[p.titolo].append(rel)
     if p.descrizione is None:
         avviso(rel, "manca la meta description")
     else:
         if not DESCRIZIONE_MIN <= len(p.descrizione) <= DESCRIZIONE_MAX:
             avviso(rel, f"meta description di {len(p.descrizione)} caratteri (da {DESCRIZIONE_MIN} a {DESCRIZIONE_MAX})")
-        descrizioni[(lingua_cartella, p.descrizione)].append(rel)
+        descrizioni[p.descrizione].append(rel)
 
-    # lingua e alternative
-    if not p.lang:
-        avviso(rel, "manca <html lang>")
-    elif p.lang != lingua_cartella:
-        avviso(rel, f'<html lang="{p.lang}"> in una pagina della cartella {lingua_cartella}')
-    for l in ("it", "en", "x-default"):
-        valori = p.alternative.get(l, [])
-        if len(valori) != 1:
-            avviso(rel, f"hreflang {l}: {len(valori)} link (ne serve uno)")
-    if p.alternative.get(lingua_cartella, [None])[0] not in (None, proprio):
-        avviso(rel, f"l'hreflang {lingua_cartella} non punta alla pagina stessa ({p.alternative[lingua_cartella][0]})")
-    if p.alternative.get("x-default") and p.alternative.get("it") and p.alternative["x-default"][0] != p.alternative["it"][0]:
-        avviso(rel, "x-default diverso dalla versione italiana")
-    altra = "it" if lingua_cartella == "en" else "en"
-    for href in p.alternative.get(altra, [])[:1]:
-        arrivo = file_di(href)
-        if arrivo not in pagine:
-            avviso(rel, f"hreflang {altra} porta a una pagina che non esiste: {href}")
-        elif pagine[arrivo].alternative.get(lingua_cartella, [None])[0] != proprio:
-            avviso(rel, f"hreflang non reciproco: {arrivo} non rimanda a questa pagina")
+    # lingua e indirizzo
+    if p.lang != "it":
+        avviso(rel, f'<html lang="{p.lang}">: il sito è solo in italiano' if p.lang else "manca <html lang>")
+    if p.alternative:
+        avviso(rel, f"hreflang {', '.join(sorted(p.alternative))}: il sito ha una sola lingua, vanno tolti")
+    if p.og_url != proprio:
+        avviso(rel, f"og:url diverso dall'indirizzo della pagina: {p.og_url}")
 
     # canonical e indicizzazione
     if PRODUZIONE and not noindex:
@@ -229,11 +210,11 @@ for rel, p in pagine.items():
     if p.commenti:
         avviso(rel, f"{p.commenti} commenti HTML nel sorgente pubblicato")
 
-for (lingua_pagina, titolo), elenco in titoli.items():
+for titolo, elenco in titoli.items():
     if len(elenco) > 1:
         for rel in elenco:
             avviso(rel, f"<title> uguale a quello di {', '.join(r for r in elenco if r != rel)}")
-for (lingua_pagina, testo), elenco in descrizioni.items():
+for testo, elenco in descrizioni.items():
     if len(elenco) > 1:
         for rel in elenco:
             avviso(rel, f"meta description uguale a quella di {', '.join(r for r in elenco if r != rel)}")
