@@ -165,7 +165,7 @@
     });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !menu.hidden) chiudiMenu(true); });
     $$("a", menu).forEach(function (a) { a.addEventListener("click", function () { chiudiMenu(false); }); });
-    matchMedia("(min-width: 1240px)").addEventListener("change", function (e) { if (e.matches) chiudiMenu(false); });
+    matchMedia("(min-width: 1024px)").addEventListener("change", function (e) { if (e.matches) chiudiMenu(false); });
   }
 
   /* ---------- tendina "scrivi a Luca" ---------- */

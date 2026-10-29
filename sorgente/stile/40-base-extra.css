@@ -156,3 +156,41 @@ body.menu-aperto, html:has(dialog[open]) { overflow: hidden; }
   .menu:not([hidden]) .menu-ingranaggio { animation: menu-gira 1.2s var(--ease) both; }
 }
 @keyframes menu-gira { from { transform: rotate(-40deg) scale(.92); opacity: 0; } }
+
+/* ---------- home, telefono: apertura alta quanto il suo contenuto, ingranaggio più piccolo,
+   così nella prima schermata si vede già l'inizio della griglia dei servizi ---------- */
+@media (max-width: 599px) {
+  .eroe { min-height: 0; padding-bottom: 20px; }
+  .eroe-scena { flex: none; margin-block: 14px 4px; }
+  .eroe-ingranaggio { width: min(54vw, 30svh, 280px); }
+  .eroe-testo p { margin-bottom: 16px; }
+}
+
+/* ---------- la riga corta delle caselle compare solo nei quadrati del telefono ---------- */
+.servizio-breve { display: none; }
+@media (max-width: 599px) {
+  .servizi-griglia:not(.catalogo) .servizio-breve { display: block; margin-top: -4px; color: var(--testo-2); font-size: .8rem; line-height: 1.25; }
+  .servizi-griglia:not(.catalogo) .servizio-ico .ico { width: 44px; height: 44px; }
+  .servizi-griglia:not(.catalogo) .servizio:not(.servizio--largo) { gap: 8px; }
+}
+
+/* ---------- pagina Servizi, telefono: l'elenco di dettaglio diventa una lista di link compatti
+   (le descrizioni le mostra già la griglia sopra); "Servizi collegati" nelle pagine dei servizi resta com'è ---------- */
+@media (max-width: 599px) {
+  #dettaglio .dettaglio { gap: 14px; padding: 12px 0; }
+  #dettaglio .dettaglio-ico { width: 40px; height: 40px; }
+  #dettaglio .dettaglio-ico .ico { width: 21px; height: 21px; }
+  #dettaglio .dettaglio h3 { margin: 0; font-size: 1.15rem; }
+  #dettaglio .dettaglio p { display: none; }
+}
+
+/* ---------- mappa statica dell'officina (Contatti e Officina) ---------- */
+.mappa { margin: 18px 0 0; }
+.mappa a:first-child { position: relative; display: block; border-radius: 18px; overflow: hidden; border: 1px solid var(--linea-forte); }
+.mappa img { display: block; width: 100%; height: auto; aspect-ratio: 12 / 7; object-fit: cover; }
+.mappa-vai { position: absolute; left: 12px; bottom: 12px; display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; background: var(--asfalto-2); color: var(--testo); font-weight: 700; font-size: .9rem; box-shadow: 0 6px 18px -8px var(--ombra); }
+.mappa-vai .ico { width: 16px; height: 16px; color: var(--ico); }
+.mappa a:first-child:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.mappa figcaption { margin-top: 6px; font-size: .78rem; color: var(--grigio); }
+.mappa figcaption a { color: inherit; }
+.officina-dove > .mappa { grid-column: 1 / -1; margin-top: 0; }

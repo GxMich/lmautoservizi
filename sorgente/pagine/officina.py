@@ -1,12 +1,12 @@
 """L'officina a Frassineto Po: il centro del sito. Dove siamo e orari, cosa trovi, la vettura di cortesia passo per passo,
 le condizioni in breve e le domande frequenti. Testi approvati in testi_pagine.OFFICINA_PAGINA.
-Niente mappa incorporata (privacy): solo il link a Google Maps."""
+Niente mappa incorporata (privacy): un'immagine statica (sorgente/mappa.py) che apre Google Maps."""
 import re
 from html import escape
-from contenuti import PEC, PIVA, SEDE_LEGALE
+from contenuti import PEC, PIVA, SEDE_LEGALE, CORTESIA_TESTO
 from testi_pagine import OFFICINA_PAGINA as P
 from sito import (inizia, scrivi, head, testata, intro, finale, piede, orari, foto, foto_info, azienda, briciole, svg,
-                  href, I, ICONE, VANTAGGI_ICO, TEL, EMAIL, MAPS, tel_txt, wa, indirizzo_officina)
+                  href, I, ICONE, VANTAGGI_ICO, TEL, EMAIL, MAPS, tel_txt, wa, indirizzo_officina, mappa)
 
 try:  # i testi legali li cura un altro modulo: se mancano, resta solo il link alla pagina delle condizioni
     from testi_legali import VETTURA_CORTESIA_IT
@@ -73,8 +73,6 @@ def costruisci():
 
     sezioni = "".join(f'<li>{ICO[ico]}<h2>{titolo}</h2><p>{testo}</p>{rimando(extra)}</li>'
                       for (titolo, testo), (ico, extra) in zip(P["sezioni"], SEZIONI_EXTRA))
-    tappe = "".join(f'<li class="tappa"><span class="tappa-n">{i + 1}</span><div><h3>{titolo}</h3><p>{testo}</p></div></li>'
-                    for i, (titolo, testo) in enumerate(P["cortesia_passi"]))
 
     scrivi(head(P["title"], P["description"], [azienda(), briciole(), faq_schema], immagine="officina") + testata()
            + intro(P["h1"], P["intro"]) + fascia + f'''
@@ -95,6 +93,7 @@ def costruisci():
       <p class="stato" data-stato></p>
       {orari()}
     </div>
+    {mappa()}
   </div>
 </section>
 <section class="sezione sezione--asfalto" aria-label="L'officina in breve">
@@ -105,8 +104,9 @@ def costruisci():
 <section class="sezione" id="cortesia" aria-labelledby="cortesia-t">
   <div class="wrap officina-cortesia">
     <div class="officina-cortesia-passi">
-      <h2 id="cortesia-t">La vettura di cortesia, passo per passo</h2>
-      <div class="percorso" data-percorso><span class="percorso-linea" aria-hidden="true"><span></span></span><ol class="percorso-tappe">{tappe}</ol></div>
+      <h2 id="cortesia-t">La vettura di cortesia</h2>
+      <p class="lead">{CORTESIA_TESTO}</p>
+      <p>Te la consegno con il pieno, pulita e igienizzata. Quando ritiri il tuo mezzo ci scambiamo le chiavi e paghi la riparazione.</p>
     </div>
     <div class="riquadro officina-condizioni">
       <h2>Le condizioni in breve</h2>

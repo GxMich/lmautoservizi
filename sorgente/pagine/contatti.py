@@ -1,7 +1,7 @@
 """Contatti: numero, WhatsApp, recapiti, orari e di nuovo le caselle dei servizi."""
 from contenuti import PEC, PIVA, SEDE_LEGALE, REA
 from sito import (inizia, scrivi, head, testata, intro, piede, orari, foto, griglia_servizi, azienda, briciole,
-                  I, TEL, EMAIL, MAPS, tel_txt, wa, indirizzo_officina)
+                  I, TEL, EMAIL, MAPS, tel_txt, wa, indirizzo_officina, mappa)
 
 
 def costruisci():
@@ -32,8 +32,7 @@ def costruisci():
       <h2>Orari</h2>
       {orari()}
       <p class="stato" data-stato></p>
-      <a class="link" href="{MAPS}" target="_blank" rel="noopener">Apri in Google Maps {I["esterno"]}</a>
-      {foto("ingresso", "(max-width: 899px) 100vw, 45vw", "foto contatti-foto")}
+      {mappa()}
       <p class="piccolo">Prima di passare chiamami, così ti dico quando portare il mezzo.</p>
     </div>
   </div>

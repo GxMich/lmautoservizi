@@ -501,7 +501,8 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 }
 
 /* ---------- desktop stretto e tablet ---------- */
-@media (max-width: 1239px) {
+/* con cinque voci la barra completa sta già da 1024px (tablet in orizzontale); sotto, il pulsante del menu */
+@media (max-width: 1023px) {
   .nav { display: none; }
   .menu-bottone { display: block; }
   .testata-riga { gap: 12px; }

@@ -501,7 +501,8 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 }
 
 /* ---------- desktop stretto e tablet ---------- */
-@media (max-width: 1239px) {
+/* con cinque voci la barra completa sta già da 1024px (tablet in orizzontale); sotto, il pulsante del menu */
+@media (max-width: 1023px) {
   .nav { display: none; }
   .menu-bottone { display: block; }
   .testata-riga { gap: 12px; }
@@ -762,10 +763,6 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 /* ---------- home: recensioni ---------- */
 
 /* ---------- home: officina, ritiro e domicilio alla pari ---------- */
-.modi { padding-block: clamp(64px, 8vw, 110px); border-top: 1px solid var(--linea); }
-.modi-testa { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px clamp(32px, 6vw, 96px); align-items: end; margin-bottom: clamp(36px, 5vw, 60px); }
-.modi-testa h2 { margin: 0; max-width: 18ch; }
-.modi-testa .lead { margin: 0; max-width: 46ch; }
 .modi-lista { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .modi-lista .modi-etichetta { flex: none; margin: 0 0 10px; font-size: .8rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accento-testo); }
 .modi-lista .link { margin-top: 6px; }
@@ -810,7 +807,7 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 
 /* ---------- tablet ---------- */
 @media (max-width: 899px) {
-  .officina-home-griglia, .modi-testa, .officina-dove, .officina-cortesia, .officina-faq { grid-template-columns: minmax(0, 1fr); }
+  .officina-home-griglia, .officina-dove, .officina-cortesia, .officina-faq { grid-template-columns: minmax(0, 1fr); }
   /* i tre punti diventano righe: icona a sinistra, testo a destra */
   .modi-lista { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .officina-fascia { grid-template-columns: minmax(0, 1fr); }
@@ -837,6 +834,9 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 
 /* ---------- home: senza il permesso di chi le ha scritte, al posto delle recensioni c'è l'invito alla scheda Google ---------- */
 .recensioni-invito { max-width: 52ch; margin: 0 0 20px; }
+
+/* ---------- home: le tre carte (officina, ritiro, domicilio) sotto testo e foto dell'officina ---------- */
+.officina-home .modi-lista { margin-top: clamp(44px, 6vw, 80px); }
 
 /* Gomme e ricambi: il catalogo per macro aree e "come funziona l'ordine".
    Le caselle sono le .servizio--largo di 00-base.css (stessa tendina WhatsApp); qui solo la griglia e il riquadro. */
@@ -1032,3 +1032,41 @@ body.menu-aperto, html:has(dialog[open]) { overflow: hidden; }
   .menu:not([hidden]) .menu-ingranaggio { animation: menu-gira 1.2s var(--ease) both; }
 }
 @keyframes menu-gira { from { transform: rotate(-40deg) scale(.92); opacity: 0; } }
+
+/* ---------- home, telefono: apertura alta quanto il suo contenuto, ingranaggio più piccolo,
+   così nella prima schermata si vede già l'inizio della griglia dei servizi ---------- */
+@media (max-width: 599px) {
+  .eroe { min-height: 0; padding-bottom: 20px; }
+  .eroe-scena { flex: none; margin-block: 14px 4px; }
+  .eroe-ingranaggio { width: min(54vw, 30svh, 280px); }
+  .eroe-testo p { margin-bottom: 16px; }
+}
+
+/* ---------- la riga corta delle caselle compare solo nei quadrati del telefono ---------- */
+.servizio-breve { display: none; }
+@media (max-width: 599px) {
+  .servizi-griglia:not(.catalogo) .servizio-breve { display: block; margin-top: -4px; color: var(--testo-2); font-size: .8rem; line-height: 1.25; }
+  .servizi-griglia:not(.catalogo) .servizio-ico .ico { width: 44px; height: 44px; }
+  .servizi-griglia:not(.catalogo) .servizio:not(.servizio--largo) { gap: 8px; }
+}
+
+/* ---------- pagina Servizi, telefono: l'elenco di dettaglio diventa una lista di link compatti
+   (le descrizioni le mostra già la griglia sopra); "Servizi collegati" nelle pagine dei servizi resta com'è ---------- */
+@media (max-width: 599px) {
+  #dettaglio .dettaglio { gap: 14px; padding: 12px 0; }
+  #dettaglio .dettaglio-ico { width: 40px; height: 40px; }
+  #dettaglio .dettaglio-ico .ico { width: 21px; height: 21px; }
+  #dettaglio .dettaglio h3 { margin: 0; font-size: 1.15rem; }
+  #dettaglio .dettaglio p { display: none; }
+}
+
+/* ---------- mappa statica dell'officina (Contatti e Officina) ---------- */
+.mappa { margin: 18px 0 0; }
+.mappa a:first-child { position: relative; display: block; border-radius: 18px; overflow: hidden; border: 1px solid var(--linea-forte); }
+.mappa img { display: block; width: 100%; height: auto; aspect-ratio: 12 / 7; object-fit: cover; }
+.mappa-vai { position: absolute; left: 12px; bottom: 12px; display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; background: var(--asfalto-2); color: var(--testo); font-weight: 700; font-size: .9rem; box-shadow: 0 6px 18px -8px var(--ombra); }
+.mappa-vai .ico { width: 16px; height: 16px; color: var(--ico); }
+.mappa a:first-child:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.mappa figcaption { margin-top: 6px; font-size: .78rem; color: var(--grigio); }
+.mappa figcaption a { color: inherit; }
+.officina-dove > .mappa { grid-column: 1 / -1; margin-top: 0; }

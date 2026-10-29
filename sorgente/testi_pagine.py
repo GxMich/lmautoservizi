@@ -331,23 +331,11 @@ OFFICINA_PAGINA = {
          ("Paghi alla riconsegna, in contanti, con carta o con bancomat. "
           "Il preventivo è gratuito e i lavori in più li faccio solo dopo il tuo ok.")),
     ],
-    "cortesia_passi": [
-        ("Me lo dici quando prenoti",
-         "Quando mi chiami o mi scrivi, dimmi che ti serve la vettura di cortesia."),
-        ("La trovi pronta",
-         "Quando porti il tuo mezzo, la trovi con il pieno, pulita e igienizzata. Ti spiego le condizioni alla consegna."),
-        ("La tieni finché il tuo mezzo è pronto",
-         "Ti aggiorno io su come va il lavoro."),
-        ("Ci scambiamo le chiavi",
-         "Mi riporti la vettura di cortesia e riprendi il tuo mezzo. Paghi la riparazione alla riconsegna."),
-    ],
     "faq": [
         ("Quali sono gli orari dell'officina?",
          "Dal lunedì al venerdì, dalle 7:30 alle 19:30, orario continuato. Sabato e domenica sono chiuso."),
         ("Serve l'appuntamento?",
          "Meglio chiamare o scrivere prima, così ti dico quando portare il mezzo. Se ti serve la vettura di cortesia, dimmelo subito: ne ho una sola."),
-        ("Come funziona la vettura di cortesia?",
-         "È gratuita. Ne ho una sola: se è libera, la tieni finché il tuo mezzo è pronto. Chiedila quando prenoti. Te la consegno con il pieno, pulita e igienizzata, e ti spiego le condizioni alla consegna."),
         ("Come posso pagare?",
          "Paghi alla riconsegna, in contanti, con carta o con bancomat."),
         ("Se faccio il tagliando da te, perdo la garanzia della casa?",
@@ -357,11 +345,6 @@ OFFICINA_PAGINA = {
 }
 
 HOME = {
-    # Sezione subito dopo la griglia dei servizi: l'officina al centro.
-    "officina_titolo": "Ti aspetto in officina, a Frassineto Po.",
-    "officina_testo": ("La mia officina è a pochi chilometri da Casale Monferrato. "
-                       "Sono aperto dal lunedì al venerdì con orario continuato: lasci l'auto prima del lavoro e la riprendi dopo. "
-                       "Se ti serve e se è libera, hai la vettura di cortesia gratuita: dimmelo quando prenoti."),
     # Subito dopo la griglia dei servizi: officina, ritiro e domicilio sullo stesso piano (Luca, 29/10/2026).
     # Ogni voce: (titolo, etichetta breve, testo).
     "modi_titolo": "In officina, con il ritiro o a domicilio.",

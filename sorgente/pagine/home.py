@@ -1,5 +1,6 @@
-"""Home: "Riparti sereno.", le caselle dei servizi con la tendina WhatsApp, i tre modi alla pari (officina, ritiro
-e consegna, domicilio), l'officina a Frassineto Po, Luca, recensioni, dove e quando. Testi nuovi in testi_pagine.HOME."""
+"""Home: "Riparti sereno.", le caselle dei servizi con la tendina WhatsApp, l'officina a Frassineto Po con i tre modi
+alla pari (officina, ritiro e consegna, domicilio) in una sezione sola, Luca, recensioni, dove e quando.
+Testi nuovi in testi_pagine.HOME."""
 from contenuti import RECENSIONI, RECENSIONI_GOOGLE, RECENSIONI_CON_PERMESSO, GEAR_PIENO
 from testi_pagine import HOME
 from pagine.officina import ICO
@@ -56,22 +57,12 @@ def costruisci():
 
 {sezione_servizi("servizi", f'<a class="link" href="{href("servizi")}">Tutti i servizi nel dettaglio {I["freccia"]}</a>')}
 
-<section class="modi" aria-labelledby="modi-t">
-  <div class="wrap">
-    <div class="modi-testa">
-      <h2 id="modi-t">{HOME["modi_titolo"]}</h2>
-      <p class="lead">{HOME["modi_testo"]}</p>
-    </div>
-    <ul class="vantaggi-lista modi-lista">{modi}</ul>
-  </div>
-</section>
-
 <section class="officina-home" aria-labelledby="officina-t">
   <div class="wrap">
     <div class="officina-home-griglia">
       <div class="officina-home-testo">
-        <h2 id="officina-t">{HOME["officina_titolo"].replace(", ", ",<br>", 1)}</h2>
-        <p class="lead">{HOME["officina_testo"]}</p>
+        <h2 id="officina-t">{HOME["modi_titolo"]}</h2>
+        <p class="lead">{HOME["modi_testo"]}</p>
         <div class="azioni">
           <a class="btn btn--arancio" href="{href("officina")}">Scopri l'officina {I["freccia"]}</a>
           <a class="link" href="{MAPS}" target="_blank" rel="noopener">Apri in Google Maps {I["esterno"]}</a>
@@ -79,6 +70,7 @@ def costruisci():
       </div>
       <figure class="foto officina-home-foto" data-iride>{img("officina", "(max-width: 899px) 100vw, 50vw")}<p class="stato" data-stato></p>{nota_foto("officina")}</figure>
     </div>
+    <ul class="vantaggi-lista modi-lista">{modi}</ul>
   </div>
 </section>
 

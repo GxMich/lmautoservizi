@@ -22,7 +22,7 @@ API per i moduli delle pagine
 - Tendina WhatsApp: SERVIZI, EXTRA, dati_servizio(), apri(chiave, testo), apri_servizio(id, testo); scheda() è già nel piede.
 - Foto: foto_info(spazio), img(spazio, sizes, ...), foto(spazio, sizes, classe), nota_foto(spazio).
 - Pezzi: head(titolo, descrizione, schema=(), immagine="officina", noindex=False), testata(), intro(titolo, testo),
-  orari(), spunte(voci), casella(s), griglia_servizi(con_foto=True), sezione_servizi(id, link), finale(titolo=None, testo=None, pulsante=None), piede(extra=""), lightbox() da passare a piede().
+  orari(), mappa(), spunte(voci), casella(s), griglia_servizi(con_foto=True), sezione_servizi(id, link), finale(titolo=None, testo=None, pulsante=None), piede(extra=""), lightbox() da passare a piede().
 - Dati strutturati: azienda(), briciole(nome=None); sito_web() (WebSite) head() lo aggiunge da sé alla home.
   ZONA e zona_servita(): comuni serviti e areaServed; SERVIZI_PAGINE: le pagine dei servizi (catalogo nei dati strutturati, Servizi evidenziato nel menu).
 - Testi legali: senza_commenti(html) toglie le note interne <!-- ... --> dei testi di testi_legali.py;
@@ -294,6 +294,11 @@ MEZZI = [("auto", "Auto", "Auto",
          ]
 # Mezzi che la tendina propone: quelli di base, o quelli del servizio (allestimenti: furgoni, pick-up e camper, come dice Luca).
 MEZZI_BASE = "auto,fuoristrada,furgone,camper"
+# Riga cortissima sotto il nome nelle caselle quadrate del telefono, dove la descrizione intera non ci sta.
+BREVE = {"altro": "Lo capiamo insieme", "soccorso": "Batteria, gomma bucata", "meccanica": "Tagliandi e riparazioni",
+         "elettrauto": "Batteria, luci, clima", "gommista": "Cambio e deposito", "carrozzeria": "Urti, vernice, saldature",
+         "diagnosi": "Spie e revisione", "ricambi": "Da ritirare in officina", "allestimenti": "Furgoni, pick-up, camper",
+         "acquisto": "Controllo dell'usato", "noleggio": "Canone mensile"}
 MEZZI_SERVIZIO = {"allestimenti": "furgone,pickup,camper"}
 
 
@@ -508,6 +513,8 @@ def head(titolo, descrizione, schema=(), immagine="officina", noindex=False):
     ld = "".join(f'<script type="application/ld+json">{json.dumps(s, ensure_ascii=False).replace("</", "<\\/")}</script>\n' for s in schema)
     if STATISTICHE:  # statistiche senza cookie: lo script conta la pagina, 40-statistiche.js i clic su Chiama e WhatsApp
         ld += f'<script data-goatcounter="https://{STATISTICHE}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>\n'
+    # Script in testa, prima del CSS: tema (la scelta salvata o, senza scelta, quello del telefono), classe .mo per le entrate
+    # e paracadute che la toglie dopo 1,5 s.
     return f'''<!doctype html>
 <html lang="it">
 <head>
@@ -528,7 +535,7 @@ def head(titolo, descrizione, schema=(), immagine="officina", noindex=False):
 <link rel="icon" type="image/png" sizes="192x192" href="{risorsa("assets/img/favicon-192.png")}">
 <link rel="apple-touch-icon" href="{risorsa("assets/img/favicon-180.png")}">
 <link rel="manifest" href="{risorsa("site.webmanifest")}">
-<script>(function(d){{d.classList.add("js");try{{if(localStorage.getItem("lm-tema")==="chiaro"){{d.setAttribute("data-tema","chiaro");document.querySelector('meta[name="theme-color"]').content="#f3f4f6"}}}}catch(e){{}}try{{if(!matchMedia("(prefers-reduced-motion: reduce)").matches)d.classList.add("mo")}}catch(e){{}}setTimeout(function(){{d.classList.remove("mo")}},1500)}})(document.documentElement);</script>
+<script>(function(d){{d.classList.add("js");try{{var t=null;try{{t=localStorage.getItem("lm-tema")}}catch(e){{}}if(t==="chiaro"||(!t&&matchMedia("(prefers-color-scheme: light)").matches)){{d.setAttribute("data-tema","chiaro");document.querySelector('meta[name="theme-color"]').content="#f3f4f6"}}}}catch(e){{}}try{{if(!matchMedia("(prefers-reduced-motion: reduce)").matches)d.classList.add("mo")}}catch(e){{}}setTimeout(function(){{d.classList.remove("mo")}},1500)}})(document.documentElement);</script>
 <link rel="preload" href="{risorsa("assets/fonts/archivo-latin.woff2")}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{risorsa("assets/sito.css")}?v={V_CSS}">
 {ld}</head>
@@ -706,7 +713,7 @@ def casella(s, con_foto=True):
     foto_html = f'<span class="servizio-foto" aria-hidden="true">{img("servizio-" + chi, "", piccola=True, alt="")}</span>' if con_foto and "servizio-" + chi in FOTO_SLOT else ""
     return f'''<li><button type="button" class="servizio servizio--{chi}" {dati_servizio(nome_servizio, nota, opzioni, mezzi=MEZZI_SERVIZIO.get(chi))}>
   {foto_html}<span class="servizio-ico" aria-hidden="true">{ICONE[chi]}</span>
-  <span class="servizio-nome">{nome_servizio}</span><span class="servizio-desc">{desc}</span>
+  <span class="servizio-nome">{nome_servizio}</span><span class="servizio-desc">{desc}</span><span class="servizio-breve">{BREVE.get(chi, "")}</span>
 </button></li>'''
 
 
@@ -714,12 +721,12 @@ def griglia_servizi(con_foto=True):
     nome_altro, nota, opzioni, titolo = EXTRA["altro"]
     altro = f'''<li><button type="button" class="servizio" {dati_servizio(nome_altro, nota, opzioni, titolo)}>
   <span class="servizio-ico" aria-hidden="true">{ICONE["altro"]}</span>
-  <span class="servizio-nome">Non so cos'ha</span><span class="servizio-desc">Descrivimi il problema e lo capiamo insieme</span>
+  <span class="servizio-nome">Non so cos'ha</span><span class="servizio-desc">Descrivimi il problema e lo capiamo insieme</span><span class="servizio-breve">{BREVE["altro"]}</span>
 </button></li>'''
     # Il noleggio a lungo termine non apre la tendina: porta al sito dell'offerta, in una nuova scheda.
     noleggio = f'''<li><a class="servizio servizio--link" href="{NOLEGGIO_LINK}" target="_blank" rel="noopener">
   <span class="servizio-ico" aria-hidden="true">{ICONE["noleggio"]}</span>
-  <span class="servizio-nome">Noleggio a lungo termine</span><span class="servizio-desc">Auto e furgoni con un canone mensile: guarda le offerte {I["esterno"]}</span>
+  <span class="servizio-nome">Noleggio a lungo termine</span><span class="servizio-desc">Auto e furgoni con un canone mensile: guarda le offerte {I["esterno"]}</span><span class="servizio-breve">{BREVE["noleggio"]}</span>
 </a></li>''' if NOLEGGIO_LINK else ""
     # Prima le due caselle per chi è in difficoltà: non sa cos'ha, o ha il mezzo fermo. Poi i servizi dell'officina.
     domicilio = next(s for s in SERVIZI if s[0] == "soccorso")
@@ -761,6 +768,14 @@ def finale(titolo=None, testo=None, pulsante=None):
   </div>
 </section>
 '''
+
+
+def mappa():
+    """La mappa statica dell'officina (sorgente/mappa.py), che apre Google Maps per il navigatore; con la fonte OpenStreetMap."""
+    return f'''<figure class="mappa">
+  <a href="{MAPS}" target="_blank" rel="noopener"><img src="{risorsa("assets/img/mappa-officina.webp")}" srcset="{risorsa("assets/img/mappa-officina-600.webp")} 600w, {risorsa("assets/img/mappa-officina.webp")} 1200w" sizes="(max-width: 899px) 100vw, 560px" width="1200" height="700" alt="Mappa: l'officina in Via Ticineto 15, appena fuori dal centro di Frassineto Po. Apre Google Maps" loading="lazy" decoding="async"><span class="mappa-vai">{I["esterno"]}Apri nel navigatore</span></a>
+  <figcaption>Mappa © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></figcaption>
+</figure>'''
 
 
 def lightbox():

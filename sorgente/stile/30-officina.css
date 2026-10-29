@@ -18,10 +18,6 @@
 /* ---------- home: recensioni ---------- */
 
 /* ---------- home: officina, ritiro e domicilio alla pari ---------- */
-.modi { padding-block: clamp(64px, 8vw, 110px); border-top: 1px solid var(--linea); }
-.modi-testa { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px clamp(32px, 6vw, 96px); align-items: end; margin-bottom: clamp(36px, 5vw, 60px); }
-.modi-testa h2 { margin: 0; max-width: 18ch; }
-.modi-testa .lead { margin: 0; max-width: 46ch; }
 .modi-lista { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .modi-lista .modi-etichetta { flex: none; margin: 0 0 10px; font-size: .8rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accento-testo); }
 .modi-lista .link { margin-top: 6px; }
@@ -66,7 +62,7 @@
 
 /* ---------- tablet ---------- */
 @media (max-width: 899px) {
-  .officina-home-griglia, .modi-testa, .officina-dove, .officina-cortesia, .officina-faq { grid-template-columns: minmax(0, 1fr); }
+  .officina-home-griglia, .officina-dove, .officina-cortesia, .officina-faq { grid-template-columns: minmax(0, 1fr); }
   /* i tre punti diventano righe: icona a sinistra, testo a destra */
   .modi-lista { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .officina-fascia { grid-template-columns: minmax(0, 1fr); }
@@ -93,3 +89,6 @@
 
 /* ---------- home: senza il permesso di chi le ha scritte, al posto delle recensioni c'è l'invito alla scheda Google ---------- */
 .recensioni-invito { max-width: 52ch; margin: 0 0 20px; }
+
+/* ---------- home: le tre carte (officina, ritiro, domicilio) sotto testo e foto dell'officina ---------- */
+.officina-home .modi-lista { margin-top: clamp(44px, 6vw, 80px); }
