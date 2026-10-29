@@ -113,7 +113,7 @@ body.menu-aperto, html:has(dialog[open]) { overflow: hidden; }
 /* ---------- menu del telefono: tutto in una schermata, senza scorrere ----------
    Il pulsante Chiama c'è già nella testata. Voci e spazi seguono l'altezza dello schermo (svh), così le otto voci,
    lo stato aperto/chiuso e i due pulsanti affiancati stanno anche sui telefoni bassi. */
-.menu nav a { padding-block: clamp(5px, 1.2svh, 14px); font-size: clamp(1.2rem, calc(5.4svh - 8px), 2.4rem); line-height: 1.15; }
+.menu nav a { gap: 12px; padding-block: clamp(5px, 1.2svh, 14px); font-size: clamp(1.2rem, min(calc(5.4svh - 8px), 8.4vw), 2.4rem); line-height: 1.15; }
 @media (max-height: 600px) {
   .menu { padding-top: calc(var(--testata) + 12px); padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
   .menu nav a { padding-block: 5px; font-size: 1.2rem; }
@@ -143,3 +143,16 @@ body.menu-aperto, html:has(dialog[open]) { overflow: hidden; }
 @media (max-width: 389px) {
   body.menu-aperto .marchio > span { display: none; }
 }
+
+/* ---------- menu del telefono con più carattere: l'ingranaggio del marchio sullo sfondo, frecce arancio, WhatsApp pieno ---------- */
+.menu { isolation: isolate; }
+/* fisso allo schermo: esce dai bordi senza far scorrere il menu */
+.menu-ingranaggio { position: fixed; z-index: -1; right: -38%; bottom: -14%; width: 115%; max-width: 620px; aspect-ratio: 1; color: var(--arancio); opacity: .08; pointer-events: none; }
+.menu-ingranaggio svg { width: 100%; height: 100%; }
+.menu nav a .ico { flex: none; width: .7em; height: .7em; color: var(--ico); stroke-width: 2.2; transition: transform .25s var(--ease); }
+.menu nav a[aria-current] .ico { transform: translateX(4px); }
+@media (hover: hover) { .menu nav a:hover .ico { transform: translateX(6px); } }
+@media (prefers-reduced-motion: no-preference) {
+  .menu:not([hidden]) .menu-ingranaggio { animation: menu-gira 1.2s var(--ease) both; }
+}
+@keyframes menu-gira { from { transform: rotate(-40deg) scale(.92); opacity: 0; } }

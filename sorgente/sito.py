@@ -551,8 +551,8 @@ def corrente(pagina):
 
 
 def testata():
-    def voci(lista):
-        return "".join(f'<li><a href="{href(p)}"{corrente(p)}>{NAV_NOMI.get(p, nome(p))}</a></li>' for p in lista)
+    def voci(lista, freccia=""):
+        return "".join(f'<li><a href="{href(p)}"{corrente(p)}><span>{NAV_NOMI.get(p, nome(p))}</span>{freccia}</a></li>' for p in lista)
     etichetta_tema = "Passa al tema chiaro"
     return f'''<header class="testata">
   <div class="wrap testata-riga">
@@ -566,11 +566,12 @@ def testata():
   </div>
 </header>
 <div class="menu" id="menu" hidden>
-  <nav aria-label="Menu"><ul>{voci(MENU)}</ul></nav>
+  <div class="menu-ingranaggio" aria-hidden="true"><svg viewBox="-300 -300 600 600"><path fill="currentColor" fill-rule="evenodd" d="{GEAR_PIENO}"/></svg></div>
+  <nav aria-label="Menu"><ul>{voci(MENU, I["freccia"])}</ul></nav>
   <div class="menu-piede" role="region" aria-label="Contatti">
     <p class="stato" data-stato></p>
     <div class="azioni">
-      <a class="btn btn--vuoto" href="{wa()}" target="_blank" rel="noopener">{I["chat"]}WhatsApp</a>
+      <a class="btn btn--arancio" href="{wa()}" target="_blank" rel="noopener">{I["chat"]}Scrivimi su WhatsApp</a>
     </div>
   </div>
 </div>
