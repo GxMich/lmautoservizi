@@ -4,14 +4,14 @@
    data-iride (foto), .vantaggi-lista > li > .ico (icone a tratto), data-percorso (tappe). Niente JavaScript in più. */
 
 /* ---------- home: l'officina ---------- */
-.officina-home { padding-block: clamp(80px, 10vw, 140px); background: radial-gradient(50% 55% at 88% 18%, rgba(255, 92, 43, .09), transparent 70%), var(--notte); }
+.officina-home { padding-block: var(--sp-sezione); background: radial-gradient(50% 55% at 88% 18%, rgba(255, 92, 43, .09), transparent 70%), var(--notte); }
 .officina-home-griglia { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 40px clamp(32px, 6vw, 96px); align-items: center; }
 .officina-home h2 { margin-bottom: 24px; max-width: 17ch; }
 .officina-home .lead { margin-bottom: 30px; }
 .officina-home .azioni { gap: 12px 24px; }
 .officina-home-foto { aspect-ratio: 3 / 2; }
 /* aperto / chiuso in tempo reale, appoggiato sulla foto come un cartello */
-.foto > .stato { position: absolute; top: 14px; left: 14px; padding: 8px 14px; border-radius: 999px; background: var(--asfalto-2); box-shadow: 0 6px 18px -8px var(--ombra); }
+.foto > .stato { position: absolute; top: 14px; left: 14px; padding: 8px 14px; border-radius: var(--r-tondo); background: var(--asfalto-2); box-shadow: 0 6px 18px -8px var(--ombra); }
 /* Luca passa sul fondo asfalto: la sezione dell'officina, prima, resta sul fondo notte */
 .p-home .luca { background: var(--asfalto); }
 
@@ -33,7 +33,7 @@
 .officina-indirizzo span { display: block; margin-top: 6px; color: var(--grigio); font-size: 1rem; font-weight: 600; letter-spacing: 0; }
 .officina-dove-testo > p:not([class]) { color: var(--testo-2); max-width: 46ch; margin-bottom: 26px; }
 .officina-dove-testo .azioni { margin-bottom: 10px; }
-.officina-orari { padding: clamp(24px, 3vw, 36px); border-radius: 22px; background: var(--asfalto-2); border: 1px solid var(--linea); }
+.officina-orari { padding: clamp(24px, 3vw, 36px); border-radius: var(--r-l); background: var(--asfalto-2); border: 1px solid var(--linea); }
 .officina-orari h3 { margin-bottom: 12px; }
 .officina-orari .stato { display: flex; margin-bottom: 4px; }
 .officina-orari .orari { max-width: none; margin-bottom: 0; }
@@ -84,7 +84,7 @@
 
 /* ---------- ritiro: i comuni dove arrivo ---------- */
 .comuni { list-style: none; margin: 22px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-.comuni li { padding: 8px 14px; border: 1px solid var(--linea-forte); border-radius: 999px; font-size: .92rem; font-weight: 600; }
+.comuni li { padding: 8px 14px; border: 1px solid var(--linea-forte); border-radius: var(--r-tondo); font-size: .92rem; font-weight: 600; }
 .rimando-officina .azioni { gap: 8px 24px; }
 
 /* ---------- home: senza il permesso di chi le ha scritte, al posto delle recensioni c'è l'invito alla scheda Google ---------- */

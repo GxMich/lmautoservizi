@@ -23,8 +23,8 @@
 <link rel="apple-touch-icon" href="../assets/img/favicon-180.png">
 <link rel="manifest" href="../site.webmanifest">
 <script>(function(d){d.classList.add("js");try{var t=null;try{t=localStorage.getItem("lm-tema")}catch(e){}if(t==="chiaro"||(!t&&matchMedia("(prefers-color-scheme: light)").matches)){d.setAttribute("data-tema","chiaro");document.querySelector('meta[name="theme-color"]').content="#f3f4f6"}}catch(e){}try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches)d.classList.add("mo")}catch(e){}setTimeout(function(){d.classList.remove("mo")},1500)})(document.documentElement);</script>
-<link rel="preload" href="../assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/sito.css?v=490124d54f">
+<link rel="preload" href="../assets/fonts/archivo-latin-v2.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/sito.css?v=fae62a197b">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gxmich.github.io/lmautoservizi/"}, {"@type": "ListItem", "position": 2, "name": "Privacy e cookie", "item": "https://gxmich.github.io/lmautoservizi/privacy/"}]}</script>
 </head>
 <body class="p-privacy">
@@ -260,8 +260,6 @@
     </div>
   </form>
 </dialog>
-<script src="../assets/js/vendor/gsap.min.js" defer></script>
-<script src="../assets/js/vendor/ScrollTrigger.min.js" defer></script>
-<script src="../assets/sito.js?v=3e77450bab" defer></script>
+<script>(function(){var r=false;try{r=matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){}(r?[]:["../assets/js/vendor/gsap.min.js","../assets/js/vendor/ScrollTrigger.min.js"]).concat(["../assets/sito.js?v=3e77450bab"]).forEach(function(u){var s=document.createElement("script");s.src=u;s.async=false;document.body.appendChild(s)})})();</script>
 </body>
 </html>

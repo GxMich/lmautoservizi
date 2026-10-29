@@ -536,7 +536,7 @@ def head(titolo, descrizione, schema=(), immagine="officina", noindex=False):
 <link rel="apple-touch-icon" href="{risorsa("assets/img/favicon-180.png")}">
 <link rel="manifest" href="{risorsa("site.webmanifest")}">
 <script>(function(d){{d.classList.add("js");try{{var t=null;try{{t=localStorage.getItem("lm-tema")}}catch(e){{}}if(t==="chiaro"||(!t&&matchMedia("(prefers-color-scheme: light)").matches)){{d.setAttribute("data-tema","chiaro");document.querySelector('meta[name="theme-color"]').content="#f3f4f6"}}}}catch(e){{}}try{{if(!matchMedia("(prefers-reduced-motion: reduce)").matches)d.classList.add("mo")}}catch(e){{}}setTimeout(function(){{d.classList.remove("mo")}},1500)}})(document.documentElement);</script>
-<link rel="preload" href="{risorsa("assets/fonts/archivo-latin.woff2")}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{risorsa("assets/fonts/archivo-latin-v2.woff2")}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{risorsa("assets/sito.css")}?v={V_CSS}">
 {ld}</head>
 <body class="p-{PAGINA}">
@@ -687,9 +687,7 @@ def piede(extra=""):
   <a href="{href("home", frammento="servizi")}">{ICONE["meccanica"]}Cosa ti serve</a>
   <a href="{wa()}" target="_blank" rel="noopener">{I["chat"]}WhatsApp</a>
 </nav>
-{scheda()}{extra}<script src="{risorsa("assets/js/vendor/gsap.min.js")}" defer></script>
-<script src="{risorsa("assets/js/vendor/ScrollTrigger.min.js")}" defer></script>
-<script src="{risorsa("assets/sito.js")}?v={V_JS}" defer></script>
+{scheda()}{extra}<script>(function(){{var r=false;try{{r=matchMedia("(prefers-reduced-motion: reduce)").matches}}catch(e){{}}(r?[]:["{risorsa("assets/js/vendor/gsap.min.js")}","{risorsa("assets/js/vendor/ScrollTrigger.min.js")}"]).concat(["{risorsa("assets/sito.js")}?v={V_JS}"]).forEach(function(u){{var s=document.createElement("script");s.src=u;s.async=false;document.body.appendChild(s)}})}})();</script>
 </body>
 </html>
 '''

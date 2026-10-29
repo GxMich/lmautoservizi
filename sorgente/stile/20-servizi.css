@@ -28,12 +28,12 @@
 .sezione--stretta { padding-top: 0; }
 
 /* ---------- gommista: le date delle gomme invernali ---------- */
-.stagioni { display: grid; gap: 24px; padding: clamp(22px, 4vw, 44px); border-radius: 22px; background: var(--asfalto-2); border: 1px solid var(--linea); }
+.stagioni { display: grid; gap: 24px; padding: clamp(22px, 4vw, 44px); border-radius: var(--r-l); background: var(--asfalto-2); border: 1px solid var(--linea); }
 .stagioni-testa { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 10px 48px; }
 .stagioni-testa h2 { font-size: clamp(1.6rem, 2.8vw, 2.3rem); margin: 0; }
 .stagioni-testa p { margin: 0; max-width: 46ch; color: var(--testo-2); }
 .stagioni-date { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-.stagioni-date li { padding: 16px 18px 18px; border-radius: 16px; background: var(--notte); border: 1px solid var(--linea); box-shadow: inset 0 3px 0 var(--grigio-scuro); }
+.stagioni-date li { padding: 16px 18px 18px; border-radius: var(--r-m); background: var(--notte); border: 1px solid var(--linea); box-shadow: inset 0 3px 0 var(--grigio-scuro); }
 .stagioni-date li:nth-child(2) { box-shadow: inset 0 3px 0 var(--arancio-vivo); }
 .stagioni-date strong { display: block; margin: 4px 0 6px; font-size: 1.1rem; line-height: 1.25; font-variant-numeric: tabular-nums; }
 .stagioni-date span { display: block; color: var(--testo-2); font-size: .95rem; line-height: 1.45; }
@@ -42,7 +42,7 @@
 .revisione { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px clamp(32px, 6vw, 96px); align-items: start; padding: clamp(28px, 4vw, 48px) 0 0; border-top: 1px solid var(--linea); }
 .revisione-testo h2 { margin-bottom: 22px; }
 .revisione-testo > p:not(.lead):not(.piccolo) { color: var(--testo-2); max-width: 52ch; }
-.calcolo { padding: clamp(22px, 3vw, 36px); border-radius: 22px; background: var(--asfalto-2); border: 1px solid var(--linea); }
+.calcolo { padding: clamp(22px, 3vw, 36px); border-radius: var(--r-l); background: var(--asfalto-2); border: 1px solid var(--linea); }
 .calcolo[hidden], .calcolo [hidden] { display: none; }
 .calcolo h3 { font-size: clamp(1.4rem, 2.2vw, 1.75rem); margin-bottom: 20px; }
 .calcolo-data { margin: 0 0 20px; padding: 0; border: 0; min-width: 0; }
@@ -51,7 +51,7 @@
 .calcolo-campi .campo { margin: 0; }
 .calcolo-data--chiesta legend { color: var(--evidenza); }
 .calcolo-data--chiesta select { border-color: var(--arancio-vivo); }
-.calcolo-esito { margin: 4px 0 16px; padding: 18px 20px; border-radius: 16px; background: var(--notte); border: 1.5px solid var(--linea-forte); }
+.calcolo-esito { margin: 4px 0 16px; padding: 18px 20px; border-radius: var(--r-m); background: var(--notte); border: 1.5px solid var(--linea-forte); }
 .calcolo-esito:empty { display: none; }
 .calcolo-esito--ok, .calcolo-esito--mese { background: var(--brace); border-color: var(--arancio-vivo); }
 .calcolo-esito--scaduta, .calcolo-esito--errore { border-color: var(--bordo-errore); }
@@ -85,7 +85,7 @@
 .dettagli { list-style: none; margin: clamp(8px, 2vw, 20px) 0 0; padding: 0; border-top: 1px solid var(--linea-forte); }
 .dettagli li { border-bottom: 1px solid var(--linea-forte); scroll-margin-top: calc(var(--testata) + 28px); }
 .dettaglio { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 24px; padding: 24px 4px; color: var(--testo); text-decoration: none; }
-.dettaglio:focus-visible { outline-offset: 2px; border-radius: 12px; }
+.dettaglio:focus-visible { outline-offset: 2px; border-radius: var(--r-s); }
 .dettaglio-ico { width: 64px; height: 64px; transition: transform .5s var(--ease); }
 .dettaglio-ico .ico { width: 32px; height: 32px; }
 .dettaglio h3 { font-size: clamp(1.45rem, 2.6vw, 2.2rem); letter-spacing: -.025em; margin-bottom: 6px; transition: color .3s var(--ease); }
@@ -114,11 +114,11 @@
 .altri li:target { border-top-color: var(--arancio-vivo); }
 /* allestimenti: la galleria dei lavori, le foto si aprono nel lightbox */
 .lavori { list-style: none; margin: 24px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
-.lavori button { all: unset; display: block; width: 100%; cursor: pointer; border-radius: 16px; overflow: hidden; }
+.lavori button { all: unset; display: block; width: 100%; cursor: pointer; border-radius: var(--r-m); overflow: hidden; }
 .lavori button:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
 .lavori img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; transition: transform .5s var(--ease); }
 .lavori button:hover img { transform: scale(1.04); }
-.altri-qr { width: 120px; height: 120px; margin: 4px 0 14px; border-radius: 10px; background: #fff; padding: 6px; }
+.altri-qr { width: 120px; height: 120px; margin: 4px 0 14px; border-radius: var(--r-s); background: #fff; padding: 6px; }
 .altri li:target h3 { color: var(--evidenza); }
 .link--bottone { padding: 0; border: 0; background: none; font: inherit; font-weight: 700; cursor: pointer; }
 

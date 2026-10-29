@@ -22,7 +22,7 @@
 .documento-indice ol { border-left: 2px solid var(--linea); }
 .documento-indice a { display: block; margin-left: -2px; padding: 6px 0 6px 16px; border-left: 2px solid transparent; color: var(--testo-2); font-size: .92rem; line-height: 1.35; text-decoration: none; transition: border-color .3s var(--ease), color .3s var(--ease); }
 .documento-indice a:hover { border-left-color: var(--arancio-vivo); color: var(--testo); }
-.documento-tendina { display: none; margin: 4px 0 8px; border: 1px solid var(--linea-forte); border-radius: 16px; background: var(--asfalto); }
+.documento-tendina { display: none; margin: 4px 0 8px; border: 1px solid var(--linea-forte); border-radius: var(--r-m); background: var(--asfalto); }
 .documento-tendina summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding: 0 18px; font-weight: 700; cursor: pointer; list-style: none; }
 .documento-tendina summary::-webkit-details-marker { display: none; }
 .documento-tendina summary::after { content: ""; width: 9px; height: 9px; margin-top: -4px; border: solid currentColor; border-width: 0 2px 2px 0; transform: rotate(45deg); transition: transform .3s var(--ease); }
@@ -186,11 +186,17 @@ body.menu-aperto, html:has(dialog[open]) { overflow: hidden; }
 
 /* ---------- mappa statica dell'officina (Contatti e Officina) ---------- */
 .mappa { margin: 18px 0 0; }
-.mappa a:first-child { position: relative; display: block; border-radius: 18px; overflow: hidden; border: 1px solid var(--linea-forte); }
+.mappa a:first-child { position: relative; display: block; border-radius: var(--r-m); overflow: hidden; border: 1px solid var(--linea-forte); }
 .mappa img { display: block; width: 100%; height: auto; aspect-ratio: 12 / 7; object-fit: cover; }
-.mappa-vai { position: absolute; left: 12px; bottom: 12px; display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; background: var(--asfalto-2); color: var(--testo); font-weight: 700; font-size: .9rem; box-shadow: 0 6px 18px -8px var(--ombra); }
+.mappa-vai { position: absolute; left: 12px; bottom: 12px; display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: var(--r-tondo); background: var(--asfalto-2); color: var(--testo); font-weight: 700; font-size: .9rem; box-shadow: 0 6px 18px -8px var(--ombra); }
 .mappa-vai .ico { width: 16px; height: 16px; color: var(--ico); }
 .mappa a:first-child:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
 .mappa figcaption { margin-top: 6px; font-size: .78rem; color: var(--grigio); }
 .mappa figcaption a { color: inherit; }
 .officina-dove > .mappa { grid-column: 1 / -1; margin-top: 0; }
+
+/* ---------- telefono: la griglia dei servizi non deve più stare in una schermata (va a righe di quadrati),
+   quindi niente spazio in alto per la testata: segue subito l'apertura; le ancore usano lo scroll-padding della pagina ---------- */
+@media (max-width: 599px) {
+  .servizi { padding-top: 28px; scroll-margin-top: 0; }
+}
