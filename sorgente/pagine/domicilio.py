@@ -31,8 +31,8 @@ def pagina_ritiro():
       <h2>Come funziona</h2>
       <div class="percorso" data-percorso><span class="percorso-linea" aria-hidden="true"><span></span></span><ol class="percorso-tappe">{tappe}</ol></div>
       <div class="rimando-officina">
-        <p>Se preferisci portarmelo tu, l\'officina è aperta dal lunedì al venerdì, dalle 7:30 alle 19:30, orario continuato.</p>
-        <a class="link" href="{href("officina")}">Scopri l\'officina {I["freccia"]}</a>
+        <p>Se preferisci portarmelo tu, l'officina è aperta dal lunedì al venerdì, dalle 7:30 alle 19:30, orario continuato.</p>
+        <a class="link" href="{href("officina")}">Scopri l'officina {I["freccia"]}</a>
       </div>
     </div>
     {foto("ritiro", "(max-width: 899px) 100vw, 40vw", "foto ritiro-foto")}
@@ -60,7 +60,7 @@ def pagina_mobile():
 <section class="sezione">
   <div class="wrap mobile-griglia">
     <div class="mobile-presentazione">
-      <h2>L\'officina arriva da te.</h2>
+      <h2>L'officina arriva da te.</h2>
       <p class="lead">Un intervento sul posto, quando si può. Il ritiro in officina, quando serve.</p>
       {foto("officina-mobile", "(max-width: 899px) 100vw, 50vw", "foto mobile-foto")}
     </div>
@@ -68,9 +68,9 @@ def pagina_mobile():
       <h2>Cosa faccio sul posto</h2>
       {spunte(["Riparazione delle forature", "Cambio delle ruote già montate sui cerchi",
                "Diagnosi elettronica e lettura delle spie", "Problemi elettrici e di avviamento, nei casi semplici"])}
-      <h2>E quando serve l\'officina</h2>
+      <h2>E quando serve l'officina</h2>
       <p>Se il lavoro richiede il ponte o tempi lunghi, ritiro il mezzo e ti lascio una vettura di cortesia gratuita. Il preventivo è sempre gratuito e arriva prima di iniziare.</p>
-      <a class="link" href="{href("officina")}">Scopri l\'officina {I["freccia"]}</a>
+      <a class="link" href="{href("officina")}">Scopri l'officina {I["freccia"]}</a>
       <div class="azioni">{apri_servizio("soccorso", "Chiedi assistenza a domicilio")}<a class="btn btn--vuoto" href="tel:{TEL}">{I["tel"]}Chiama {tel_txt()}</a></div>
       <p class="piccolo">Lavoro a Casale Monferrato e nei paesi vicini. Chiama per sapere se arrivo anche da te.</p>
     </div>

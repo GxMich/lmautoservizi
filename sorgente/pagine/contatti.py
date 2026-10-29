@@ -35,7 +35,7 @@ def costruisci():
       <p class="stato" data-stato></p>
       <a class="link" href="{MAPS}" target="_blank" rel="noopener">Apri in Google Maps {I["esterno"]}</a>
       {foto("ingresso", "(max-width: 899px) 100vw, 45vw", "foto contatti-foto")}
-      <p class="piccolo">Prima di passare chiamami: concordiamo l\'intervento e ti do le indicazioni per arrivare.</p>
+      <p class="piccolo">Prima di passare chiamami: concordiamo l'intervento e ti do le indicazioni per arrivare.</p>
     </div>
   </div>
 </section>

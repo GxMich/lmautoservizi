@@ -192,7 +192,7 @@ def revisione():
     <div class="revisione-testo">
       <h2 id="revisione-t">Quando scade la revisione?</h2>
       <p class="lead">La prima revisione va fatta entro quattro anni dalla prima immatricolazione, poi ogni due anni.</p>
-      <p>La scadenza è la fine del mese: un\'auto immatricolata a marzo 2023 va in revisione entro marzo 2027. Dopo, entro lo stesso mese dell\'ultima revisione, due anni più tardi.</p>
+      <p>La scadenza è la fine del mese: un'auto immatricolata a marzo 2023 va in revisione entro marzo 2027. Dopo, entro lo stesso mese dell'ultima revisione, due anni più tardi.</p>
       <p class="piccolo">Vale per auto e mezzi fino a 3,5 tonnellate: per quelli più pesanti, come alcuni camper, la revisione è ogni anno.</p>
     </div>
     <form class="calcolo" data-revisione data-tel="+39 {TEL_TXT}" data-pagina="{url()}" novalidate hidden aria-labelledby="calcolo-t">

@@ -60,7 +60,7 @@ def costruisci():
       <div class="campo"><label for="rc-pezzo">Che pezzo ti serve</label><input id="rc-pezzo" name="pezzo" data-etichetta="Pezzo" required placeholder="Es. pastiglie dei freni anteriori"><p class="errore" aria-live="polite"></p></div>
       <div class="campo"><label for="rc-mezzo">Mezzo <span>(facoltativo)</span></label><input id="rc-mezzo" name="mezzo" data-etichetta="Mezzo" placeholder="Es. Fiat Panda 2015"></div>
       <button class="btn btn--arancio btn--pieno" type="submit">{I["chat"]}Chiedi su WhatsApp</button>
-      <p class="nota">Si apre WhatsApp con il messaggio già scritto. L\'invio lo confermi tu.</p>
+      <p class="nota">Si apre WhatsApp con il messaggio già scritto. L'invio lo confermi tu.</p>
       <p class="esito" role="status" hidden></p>
     </form>
   </div>

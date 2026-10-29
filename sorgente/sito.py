@@ -563,7 +563,7 @@ def scheda():
         <button type="submit" class="btn btn--arancio" data-invia>{I["chat"]}Invia su WhatsApp</button>
         <a class="btn btn--vuoto" href="tel:{TEL}" data-chiama>{I["tel"]}Chiama {tel_txt()}</a>
       </div>
-      <p class="scheda-nota" data-esito role="status">Si apre WhatsApp con il messaggio già scritto: l\'invio lo confermi tu.</p>
+      <p class="scheda-nota" data-esito role="status">Si apre WhatsApp con il messaggio già scritto: l'invio lo confermi tu.</p>
     </div>
   </form>
 </dialog>
@@ -648,7 +648,7 @@ def griglia_servizi(con_foto=True):
     nome_altro, nota, opzioni, titolo = EXTRA["altro"]
     altro = f'''<li><button type="button" class="servizio" {dati_servizio(nome_altro, nota, opzioni, titolo)}>
   <span class="servizio-ico" aria-hidden="true">{ICONE["altro"]}</span>
-  <span class="servizio-nome">Non so cos\'ha</span><span class="servizio-desc">Descrivimi il problema e lo capiamo insieme</span>
+  <span class="servizio-nome">Non so cos'ha</span><span class="servizio-desc">Descrivimi il problema e lo capiamo insieme</span>
 </button></li>'''
     return f'<ul class="servizi-griglia">{"".join(casella(s, con_foto) for s in SERVIZI)}{altro}</ul>'
 

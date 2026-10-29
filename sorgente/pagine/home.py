@@ -72,7 +72,7 @@ def costruisci():
         <h2 id="officina-t">{HOME["officina_titolo"].replace(", ", ",<br>", 1)}</h2>
         <p class="lead">{HOME["officina_testo"]}</p>
         <div class="azioni">
-          <a class="btn btn--arancio" href="{href("officina")}">Scopri l\'officina {I["freccia"]}</a>
+          <a class="btn btn--arancio" href="{href("officina")}">Scopri l'officina {I["freccia"]}</a>
           <a class="link" href="{MAPS}" target="_blank" rel="noopener">Apri in Google Maps {I["esterno"]}</a>
         </div>
       </div>
@@ -86,13 +86,13 @@ def costruisci():
   <div class="wrap luca-griglia">
     {foto("luca", "(max-width: 899px) 100vw, 45vw", "foto luca-foto")}
     <div class="luca-testo">
-      <h2 id="luca-t">Un solo riferimento, dall\'inizio alla fine.</h2>
+      <h2 id="luca-t">Un solo riferimento, dall'inizio alla fine.</h2>
       <p class="lead">Mi chiamo Luca Miglietta. Lavoro da solo: il tuo mezzo lo segue una persona sola, e al telefono rispondo io.</p>
       <p>Prima ascolto il problema, poi ti dico cosa serve e quanto costa. Il preventivo è gratuito e si parte solo quando ti va bene.</p>
       <dl class="fatti">
         <div><dt>Esperienza</dt><dd>Più di dieci anni, tutte le marche</dd></div>
         <div><dt>Abilitazione</dt><dd>Responsabile tecnico delle revisioni</dd></div>
-        <div><dt>Qualifica</dt><dd>Riparazioni elettromeccaniche dell\'autoveicolo</dd></div>
+        <div><dt>Qualifica</dt><dd>Riparazioni elettromeccaniche dell'autoveicolo</dd></div>
         <div><dt>Climatizzatori</dt><dd>Recupero dei gas fluorurati, Reg.&nbsp;CE&nbsp;307/2008</dd></div>
       </dl>
       <a class="link" href="{href("chi")}">Conosci Luca {I["freccia"]}</a>
@@ -127,7 +127,7 @@ def costruisci():
       {orari()}
       <p class="stato" data-stato></p>
       <div class="contatti-home-link">
-        <a class="link" href="{href("officina")}">Tutto sull\'officina {I["freccia"]}</a>
+        <a class="link" href="{href("officina")}">Tutto sull'officina {I["freccia"]}</a>
         <a class="link" href="{MAPS}" target="_blank" rel="noopener">Apri in Google Maps {I["esterno"]}</a>
       </div>
     </div>
