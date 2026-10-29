@@ -450,7 +450,7 @@ def briciole(nome_pagina=None):
 def sito_web():
     """WebSite: head() lo aggiunge da solo ai dati strutturati della home."""
     return {"@context": "https://schema.org", "@type": "WebSite", "@id": url("home") + "#sito",
-            "name": "L.M. Autoservizi", "alternateName": "L.M. Autoservizi di Miglietta Luca",
+            "name": "L.M. Autoservizi di Miglietta Luca", "alternateName": "L.M. Autoservizi",
             "url": url("home"), "inLanguage": "it", "publisher": {"@id": URL + "#azienda"}}
 
 
@@ -489,7 +489,7 @@ def head(titolo, descrizione, schema=(), immagine="officina", noindex=False):
 <meta name="theme-color" content="#0b0d10">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="it_IT">
-<meta property="og:site_name" content="L.M. Autoservizi">
+<meta property="og:site_name" content="L.M. Autoservizi di Miglietta Luca">
 <meta property="og:title" content="{attr(titolo)}">
 <meta property="og:description" content="{attr(descrizione)}">
 <meta property="og:url" content="{indirizzo}">

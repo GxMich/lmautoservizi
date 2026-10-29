@@ -38,7 +38,7 @@ PREZZI = None                      # Luca non pubblica prezzi, solo preventivo (
 # Noleggio a lungo termine: il link dedicato del PDF «QR NOLEGGIO LUNGO TERMINE» che Luca ha mandato il 29/10/2026.
 NOLEGGIO_LINK = None
 NOLEGGIO_QR = "assets/img/noleggio-qr.png"   # il QR dello stesso PDF: compare accanto al link solo se il file c'è in docs/
-RECENSIONI_CON_PERMESSO = None     # True quando Luca conferma che le recensioni vengono da Google e chi le ha scritte è d'accordo
+RECENSIONI_CON_PERMESSO = None     # True quando Beatrice, Denise e Paolo hanno detto sì a vedere la loro recensione sul sito
 
 # Spiegazione dei dati mancanti: genera.py la stampa per ogni valore rimasto None.
 DA_COMPLETARE = {
@@ -48,12 +48,15 @@ DA_COMPLETARE = {
     "RECENSIONI_GOOGLE": "link diretto «scrivi una recensione» dal Profilo dell'attività su Google (Chiedi recensioni): aggiunge il pulsante sotto le recensioni.",
     "NOLEGGIO_LINK": "il link del noleggio a lungo termine, dal PDF «QR NOLEGGIO LUNGO TERMINE» di Luca (29/10/2026): con il link compaiono la casella in home e la scheda in Servizi. Il QR va salvato in docs/assets/img/noleggio-qr.png.",
     "PREZZI": "Luca preferisce solo il preventivo, senza prezzi sul sito (29/10/2026): resta None (non serve completarlo).",
-    "RECENSIONI_CON_PERMESSO": "conferma che le recensioni in home vengono da Google e che gli autori sono d'accordo: con True compare la nota del Codice del Consumo (nota_recensioni).",
+    "RECENSIONI_CON_PERMESSO": "le tre recensioni in home vengono dalla scheda Google (29/10/2026): manca il sì di chi le ha scritte (Beatrice D., Denise F., Paolo C.), da chiedere con il modulo 07. Con True compare la nota del Codice del Consumo (nota_recensioni).",
 }
 
-RECENSIONI = [("Un servizio inimitabile! Ritira la tua auto direttamente da casa tua e te la riporta riparata e sanificata. Stupendo!", "Marco"),
-              ("Dovevo fare un cambio gomme e mi sono affidata a LM Autoservizi. Luca è molto gentile e ha fatto un buon lavoro, senza che io gli portassi l'auto.", "Alessia"),
-              ("Adoro il suo modo di lavorare, sempre impeccabile, grazie!", "Giacomo")]
+# Recensioni vere della scheda Google (lette il 29/10/2026, tutte a 5 stelle), con nome e iniziale come ha detto Luca.
+# Le tre di prima (Marco, Alessia, Giacomo) sulla scheda non ci sono: Luca non sapeva da dove venissero.
+RECENSIONI = [("Trovare un meccanico bravo è difficile, ma trovare una persona di cui fidarsi CIECAMENTE è quasi impossibile. Lui è super attento, onesto e trasparente. "
+               "Ormai gli lascio le chiavi della macchina e non ci penso più, sapendo che è in mani sicure. Un professionista serio e sincero come pochi. Consigliatissimo!", "Beatrice D."),
+              ("Estremamente competente, gentile e disponibile. Ti spiega molto bene il lavoro che andrà a fare e come. Onesto ed esperto, consiglio a chiunque.", "Denise F."),
+              ("Sostituzione batteria. Passaggio a casa e viceversa. Persona a mio avviso affidabile. Tutto ok", "Paolo C.")]
 
 DETT = [
     ("manutenzione", "Tagliando e manutenzione", "Manutenzione ordinaria e straordinaria su auto di tutte le marche. Ti dico cosa serve e quanto costa prima di iniziare.",

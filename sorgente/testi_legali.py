@@ -185,7 +185,7 @@ GARANZIA_SITO_IT = """<p>Se sei un consumatore hai sempre la <strong>garanzia di
 <p>La mia garanzia si aggiunge a quella di legge: non la sostituisce e non la riduce.</p>"""
 
 # -------------------------------------------- nota sotto le recensioni (sito)
-RECENSIONI_NOTA_IT = """<p>Queste recensioni vengono dal mio profilo Google e le pubblico qui con il permesso di chi le ha scritte. Sono di clienti per cui ho fatto un lavoro: le confronto con i miei lavori prima di pubblicarle. Non pago e non premio nessuno per le recensioni. Le trovi tutte, anche quelle critiche, sul mio profilo Google.</p>
+RECENSIONI_NOTA_IT = """<p>Queste recensioni vengono dal mio profilo Google e le pubblico qui con il permesso di chi le ha scritte. Le riporto come sono state scritte, con il nome e l'iniziale del cognome. Sono di clienti per cui ho fatto un lavoro: le confronto con i miei lavori prima di pubblicarle. Non pago e non premio nessuno per le recensioni. Le trovi tutte, anche quelle critiche, sul mio profilo Google.</p>
 <!-- DA VERIFICARE: art. 22, comma 5-bis, Codice del Consumo; che Luca controlli davvero ogni recensione con i suoi lavori. -->"""
 
 __all__ = [
