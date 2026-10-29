@@ -68,9 +68,12 @@ PAGINE = {
     "404": ("404.html", "Pagina non trovata"),
 }
 # Menu: officina, ritiro e domicilio alla pari (Luca, 29/10/2026). NAV_NOMI accorcia le voci lunghe; il menu del telefono ha anche Home e Chi sono.
-NAV = ["servizi", "officina", "ritiro", "mobile", "gomme", "contatti"]
-NAV_NOMI = {"ritiro": "Ritiro gratis", "mobile": "A domicilio"}
-MENU = ["home"] + NAV + ["chi"]
+# Menu a cinque voci (scelta dell'utente, 29/10/2026): ritiro e domicilio stanno in una voce sola, che porta al ritiro
+# e resta evidenziata anche nella pagina del domicilio. Home è il marchio, Chi sono sta nel piede. Lo stesso menu sul telefono.
+NAV = ["servizi", "officina", "ritiro", "gomme", "contatti"]
+NAV_NOMI = {"ritiro": "Ritiro e domicilio"}
+NAV_ANCHE = {"ritiro": ["mobile"]}
+MENU = NAV
 # Piede: una colonna con le pagine dei servizi, una con il resto (le pagine legali stanno nella riga in fondo).
 PIEDE_OFFICINA = ["officina", "ritiro", "mobile", "gomme", "chi", "contatti"]
 ASSOLUTE = {"404"}          # servite a indirizzi qualsiasi: link e risorse assoluti
@@ -539,6 +542,8 @@ def corrente(pagina):
     (Servizi è evidenziato anche in servizi/meccanica/ e nelle altre pagine dei servizi)."""
     if pagina == PAGINA:
         return ' aria-current="page"'
+    if PAGINA in NAV_ANCHE.get(pagina, []):
+        return ' aria-current="true"'
     cartella = PAGINE[pagina][0]
     if PAGINA and cartella.endswith("/") and PAGINE[PAGINA][0].startswith(cartella):
         return ' aria-current="true"'
@@ -566,7 +571,6 @@ def testata():
     <p class="stato" data-stato></p>
     <div class="azioni">
       <a class="btn btn--vuoto" href="{wa()}" target="_blank" rel="noopener">{I["chat"]}WhatsApp</a>
-      <button class="btn btn--vuoto" type="button" data-tema-bottone aria-label="{etichetta_tema}">{I["sole"]}{I["luna"]}<span data-tema-testo>Tema chiaro</span></button>
     </div>
   </div>
 </div>

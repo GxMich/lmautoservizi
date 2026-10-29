@@ -1010,3 +1010,12 @@ body.menu-aperto, html:has(dialog[open]) { overflow: hidden; }
   .piede a { padding-block: 6px; }
   .piede-basso { margin-top: 32px; }
 }
+
+/* ---------- telefono, menu aperto: il cambio di tema sale nella barra in alto, accanto a Chiama ---------- */
+@media (max-width: 599px) {
+  body.menu-aperto .testata .tema-bottone { display: inline-grid; }
+}
+/* sui telefoni stretti, a menu aperto, il marchio resta solo come logo: così tema, Chiama e chiudi stanno nella riga */
+@media (max-width: 389px) {
+  body.menu-aperto .marchio > span { display: none; }
+}

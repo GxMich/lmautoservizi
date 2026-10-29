@@ -16,13 +16,13 @@ def schema_servizio(tipo, nome, descrizione):
             "provider": {"@id": azienda()["@id"]}, "url": url(), "areaServed": zona_servita()}
 
 
-def cta(pulsante):
+def cta(pulsante, nota="Il messaggio si apre su WhatsApp, già pronto: l'invio lo confermi tu."):
     """Pulsanti subito sotto l'introduzione: chi arriva su queste pagine ha già deciso, non deve scorrere per chiedere."""
     return f'''
 <div class="servizio-cta">
   <div class="wrap">
     <div class="azioni">{pulsante}<a class="btn btn--vuoto" href="tel:{TEL}">{I["tel"]}Chiama {tel_txt()}</a></div>
-    <p class="piccolo">Il messaggio si apre su WhatsApp, già pronto: l'invio lo confermi tu.</p>
+    <p class="piccolo">{nota}</p>
   </div>
 </div>'''
 
@@ -44,7 +44,9 @@ def pagina_ritiro():
                 [azienda(), schema_servizio("Ritiro e consegna del veicolo", "Ritiro e consegna gratis entro 20 km", descrizione),
                  faq_schema, briciole("Ritiro e consegna")], immagine="ritiro") + testata()
            + intro("Ritiro e consegna gratis", "Se non puoi portarmi il mezzo, passo io a prenderlo a casa o al lavoro e te lo riporto riparato. È gratis entro 20 km da Frassineto Po. La riparazione la faccio nella mia officina.")
-           + cta(apri("ritiro", "Chiedi il ritiro")) + f'''
+           # dal menu si arriva qui anche per il domicilio (voce "Ritiro e domicilio"): il collegamento sta subito sotto i pulsanti
+           + cta(apri("ritiro", "Chiedi il ritiro"),
+                 f'Ti serve solo una batteria, una diagnosi o la gomma bucata riparata? <a class="link" href="{href("mobile")}">Arrivo io, a domicilio {I["freccia"]}</a>') + f'''
 <section class="sezione">
   <div class="wrap ritiro-griglia">
     <div>

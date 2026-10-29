@@ -26,7 +26,7 @@
     misura: "Misura: ", erroreMisura: "Scrivi la misura completa, per esempio 205 / 55 / 16.", errorePezzo: "Scrivi cosa ti serve.", erroreMisuraTarga: "Scrivi la misura della gomma oppure la targa.",
     esempioMisura: "Esempio di misura", tuaMisura: "La misura che cerchi",
     apriMenu: "Apri il menu", chiudiMenu: "Chiudi il menu",
-    temaChiaro: "Passa al tema chiaro", temaScuro: "Passa al tema scuro", breveChiaro: "Tema chiaro", breveScuro: "Tema scuro"
+    temaChiaro: "Passa al tema chiaro", temaScuro: "Passa al tema scuro"
   };
 
   function anima(el, fotogrammi, opzioni) {
@@ -100,7 +100,6 @@
   var bottoniTema = $$("[data-tema-bottone]");
   function segnaTema(chiaro) {
     bottoniTema.forEach(function (b) { b.setAttribute("aria-label", chiaro ? T.temaScuro : T.temaChiaro); });
-    $$("[data-tema-testo]").forEach(function (el) { el.textContent = chiaro ? T.breveScuro : T.breveChiaro; });
     var meta = $('meta[name="theme-color"]');
     if (meta) meta.content = chiaro ? "#f3f4f6" : "#0b0d10";
   }
