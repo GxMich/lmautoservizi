@@ -116,7 +116,7 @@ SERVIZI_PAGINE = {
         "h1": "Gommista a Frassineto Po",
         "risposta": ("Sono Luca Miglietta e faccio il gommista nella mia officina a Frassineto Po, vicino a Casale Monferrato. "
                      "Lavoro da solo, con le attrezzature per montaggio, equilibratura e convergenza. "
-                     "Riparo forature, faccio il cambio stagionale e vendo gomme estive, invernali e quattro stagioni. "
+                     "Riparo forature, faccio il cambio stagionale con il deposito delle gomme e vendo gomme estive, invernali e quattro stagioni. "
                      "Sono aperto dal lunedì al venerdì, dalle 7:30 alle 19:30, orario continuato. "
                      "Scrivimi su WhatsApp o chiamami: il preventivo è gratuito e arriva prima di iniziare."),
         "comprende": [
@@ -130,6 +130,8 @@ SERVIZI_PAGINE = {
              "Se il foro si può riparare in sicurezza, lo riparo. Altrimenti ti dico quale gomma conviene montare."),
             ("Cambio stagionale",
              "Monto le invernali in autunno e le estive in primavera, nei periodi previsti."),
+            ("Deposito gomme",
+             "Le gomme della stagione che non usi restano da me, al riparo, fino al prossimo cambio."),
             ("Vendita pneumatici",
              "Estive, invernali e quattro stagioni. Dimmi la misura o la targa e ti rispondo con disponibilità e prezzo."),
         ],
@@ -153,6 +155,8 @@ SERVIZI_PAGINE = {
             ("Vendi anche le gomme?",
              ("Sì, estive, invernali e quattro stagioni. Scrivimi la misura che trovi sul fianco della gomma, per esempio 205/55 R16, oppure la targa. "
               "Ti rispondo con disponibilità e prezzo.")),
+            ("Mi tieni tu le gomme che non uso?",
+             "Sì, faccio il deposito: le gomme della stagione che non usi restano da me fino al prossimo cambio. Chiedimi il prezzo quando prenoti."),
             ("Fai anche equilibratura e convergenza?",
              "Sì, in officina ho le attrezzature per montaggio, equilibratura e convergenza. Se la convergenza serve, te lo dico prima di farla."),
         ],

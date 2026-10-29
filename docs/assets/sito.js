@@ -23,7 +23,7 @@
     aperto: "Aperto ora, fino alle ", apre: "Chiuso, apre alle ", riapre: "Chiuso, riapre ", domani: "domani", alle: " alle ", chiuso: "Chiuso",
     ciao: "Ciao Luca, ti scrivo dal sito.", servizio: "Servizio: ", mezzo: "Mezzo: ",
     pronto: "Messaggio pronto: premi Invia in WhatsApp. Se non si è aperto, ", apriQui: "aprilo da qui",
-    misura: "Misura: ", erroreMisura: "Scrivi la misura completa, per esempio 205 / 55 / 16.", errorePezzo: "Scrivi quale pezzo ti serve.",
+    misura: "Misura: ", erroreMisura: "Scrivi la misura completa, per esempio 205 / 55 / 16.", errorePezzo: "Scrivi cosa ti serve.",
     esempioMisura: "Esempio di misura", tuaMisura: "La misura che cerchi",
     apriMenu: "Apri il menu", chiudiMenu: "Chiudi il menu",
     temaChiaro: "Passa al tema chiaro", temaScuro: "Passa al tema scuro", breveChiaro: "Tema chiaro", breveScuro: "Tema scuro"
@@ -149,6 +149,7 @@
   /* ---------- tendina "scrivi a Luca" ---------- */
   if (scheda) {
     var form = $("form", scheda), titolo = $("#scheda-t", scheda), mezzi = $("[data-mezzi]", scheda), venditaCampi = $("[data-vendita-campi]", scheda), tipoVendita = $("[name='tipo']", scheda);
+    var campoTipo = $("[data-campo-tipo]", scheda), esempioPezzo = form.elements.pezzo.placeholder;
     var note = form.elements.note, aiuto = $("[data-aiuto]", scheda), esito = $("[data-esito]", scheda);
     var testoEsito = esito.textContent;
     var servizio = "", nota = "", senzaMezzo = false, vendita = false, origine = null, chiudendo = false;
@@ -163,7 +164,7 @@
           if (form.elements["targa-gomme"].value.trim()) righe.push("Targa: " + form.elements["targa-gomme"].value.trim());
         } else {
           if (form.elements["targa-ricambi"].value.trim()) righe.push("Targa: " + form.elements["targa-ricambi"].value.trim());
-          righe.push("Ricambio: " + form.elements.pezzo.value.trim());
+          righe.push("Cosa cerco: " + form.elements.pezzo.value.trim());
           if (form.elements["mezzo-ricambi"].value.trim()) righe.push(T.mezzo + form.elements["mezzo-ricambi"].value.trim());
         }
       } else if (!senzaMezzo) { righe.push(T.mezzo + mezzoScelto().value); }
@@ -187,7 +188,12 @@
       nota = b.getAttribute("data-nota") || "";
       senzaMezzo = b.hasAttribute("data-senza-mezzo");
       vendita = b.hasAttribute("data-vendita");
-      if (vendita) tipoVendita.value = "gomme";
+      if (vendita) {
+        // le caselle del catalogo arrivano con la categoria già scelta: niente scelta gomme/ricambi, esempio su misura
+        tipoVendita.value = b.getAttribute("data-tipo") || "gomme";
+        campoTipo.hidden = b.hasAttribute("data-tipo");
+        form.elements.pezzo.placeholder = b.getAttribute("data-esempio") || esempioPezzo;
+      }
       titolo.textContent = b.getAttribute("data-titolo") || servizio;
       mezzi.hidden = senzaMezzo || vendita;
       scheda.classList.toggle("is-urgente", b.hasAttribute("data-urgente"));

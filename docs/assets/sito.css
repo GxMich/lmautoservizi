@@ -877,6 +877,42 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 }
 
 
+/* Gomme e ricambi: il catalogo per macro aree e "come funziona l'ordine".
+   Le caselle sono le .servizio--largo di 00-base.css (stessa tendina WhatsApp); qui solo la griglia e il riquadro. */
+
+/* ---------- catalogo ---------- */
+.catalogo-lead { margin: 0 0 clamp(24px, 3vw, 36px); max-width: 52ch; }
+.catalogo { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.catalogo .servizio--largo { justify-content: flex-start; min-height: 112px; }
+.catalogo .servizio-desc { font-size: .88rem; }
+
+/* ---------- come funziona l'ordine ---------- */
+.ordine { margin-top: clamp(36px, 5vw, 56px); padding: clamp(22px, 3vw, 32px); border: 1.5px solid var(--linea-forte); border-radius: 22px; background: var(--asfalto); }
+.ordine h3 { margin: 0 0 20px; font-size: 1.2rem; }
+.ordine-passi { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 32px; }
+.ordine-passi li { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 14px; align-items: start; }
+.ordine-n { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--arancio-vivo); color: var(--su-arancio); font-weight: 800; }
+.ordine-passi h3 { margin: 4px 0 4px; font-size: 1.02rem; }
+.ordine-passi p { margin: 0; color: var(--testo-2); font-size: .95rem; }
+.ordine-nota { margin: 22px 0 0; padding-top: 18px; border-top: 1px solid var(--linea); color: var(--testo-2); }
+.ordine-nota strong { color: var(--testo); }
+
+/* ---------- tablet ---------- */
+@media (max-width: 1099px) {
+  .catalogo { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 899px) {
+  .ordine-passi { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------- telefono: due colonne, icona sopra il testo ---------- */
+@media (max-width: 599px) {
+  .catalogo .servizio--largo { flex-direction: column; justify-content: center; gap: 8px; padding: 16px 12px; text-align: center; min-height: 0; }
+  .catalogo .servizio--largo .servizio-ico .ico { width: 36px; height: 36px; }
+  .catalogo .servizio-nome { font-size: 1.02rem; }
+  .catalogo .servizio-desc { font-size: .8rem; }
+}
+
 /* Aggiunte al nucleo: voce di menu della sezione corrente, dati legali nel piede, pagine legali con indice.
    Stessi colori e misure di 00-base.css, che resta quello della versione semplice. */
 

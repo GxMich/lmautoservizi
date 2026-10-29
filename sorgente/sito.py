@@ -288,7 +288,7 @@ SERVIZI = [
      "Avviamento, batteria e ricarica, luci, climatizzatore",
      "Es. non parte, la batteria si scarica, il clima non raffredda.", ""),
     ("gommista", "Gommista",
-     "Cambio, equilibratura, convergenza e vendita di pneumatici",
+     "Cambio, equilibratura, convergenza, deposito e vendita di pneumatici",
      "Es. cambio stagionale o foratura. La misura è scritta sul fianco della gomma.", ""),
     ("carrozzeria", "Carrozzeria",
      "Carrozzeria, verniciatura e saldatura",
@@ -300,7 +300,7 @@ SERVIZI = [
      "Batteria, diagnosi e gomma bucata: arrivo io, dove sei",
      "Dimmi dove si trova il mezzo e di che intervento hai bisogno.", ""),
     ("ricambi", "Vendita ricambi e gomme",
-     "Ricambi e pneumatici: chiedimi disponibilità e prezzo",
+     "Ricambi, gomme, lubrificanti e accessori: chiedimi disponibilità e prezzo",
      "Scrivimi marca, modello e anno del mezzo; per le gomme, anche la misura.", "vendita"),
 ]
 # Pagina di approfondimento di ogni servizio (id del registro PAGINE)
@@ -559,7 +559,7 @@ def scheda():
         <div>{"".join(scelte)}</div>
       </fieldset>
       <div class="scheda-vendita" data-vendita-campi hidden>
-        <div class="campo"><label for="scheda-tipo">Cosa cerchi?</label><select id="scheda-tipo" name="tipo"><option value="gomme">Gomme</option><option value="ricambi">Ricambi</option></select></div>
+        <div class="campo" data-campo-tipo><label for="scheda-tipo">Cosa cerchi?</label><select id="scheda-tipo" name="tipo"><option value="gomme">Gomme</option><option value="ricambi">Ricambi</option></select></div>
         <div data-pannello-vendita="gomme">
           <fieldset class="campo misura-scheda"><legend>Misura della gomma</legend><div class="misura">
             <label><span class="sr">Larghezza</span><input name="larghezza" inputmode="numeric" maxlength="3" placeholder="205" autocomplete="off"></label><i aria-hidden="true">/</i>
@@ -571,9 +571,10 @@ def scheda():
         </div>
         <div data-pannello-vendita="ricambi" hidden>
           <div class="campo"><label for="scheda-targa-ricambi">Targa <span>(facoltativa)</span></label><input id="scheda-targa-ricambi" name="targa-ricambi" maxlength="8" placeholder="AB123CD" autocomplete="off" autocapitalize="characters"></div>
-          <div class="campo"><label for="scheda-pezzo">Che pezzo ti serve</label><input id="scheda-pezzo" name="pezzo" placeholder="Es. pastiglie dei freni anteriori"><p class="errore" data-errore-pezzo aria-live="polite"></p></div>
+          <div class="campo"><label for="scheda-pezzo">Cosa ti serve</label><input id="scheda-pezzo" name="pezzo" placeholder="Es. pastiglie dei freni anteriori"><p class="errore" data-errore-pezzo aria-live="polite"></p></div>
           <div class="campo"><label for="scheda-mezzo-ricambi">Mezzo <span>(facoltativo)</span></label><input id="scheda-mezzo-ricambi" name="mezzo-ricambi" placeholder="Es. Fiat Panda 2015"></div>
         </div>
+        <p class="aiuto">Niente spedizioni: ritiri in officina. Ordino il pezzo dopo il pagamento.</p>
       </div>
       <div class="campo">
         <label for="scheda-note">Scrivimi due righe <span>(facoltativo)</span></label>
