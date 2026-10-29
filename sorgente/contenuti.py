@@ -12,36 +12,35 @@ EMAIL = "lucamiglietta4@gmail.com"
 PEC = "lucamiglie@pec.it"
 PIVA = "02625920067"
 MAPS = "https://maps.app.goo.gl/MKwoz3CKAvCdeNwj8"
-# Il biglietto conferma questo indirizzo come sede legale, non come officina.
+# Sede legale e officina coincidono (risposta di Luca al questionario, 29/10/2026).
 SEDE_LEGALE = "Via Ticineto 15, 15040 Frassineto Po (AL)"
 GEAR = open(os.path.join(QUI, "ingranaggio.txt"), encoding="utf-8").read().strip()
 GEAR_PIENO = f"{GEAR} M197 0A197 197 0 1 0 -197 0A197 197 0 1 0 197 0Z"
 
-# Officina: l'indirizzo esatto va confermato da Luca. Frassineto Po ha un solo CAP (15040).
-INDIRIZZO_OFFICINA = None          # via e numero civico
+# Officina: Via Ticineto 15, lo stesso indirizzo della sede legale. Frassineto Po ha un solo CAP (15040).
+INDIRIZZO_OFFICINA = "Via Ticineto 15"
 CAP_OFFICINA = "15040"
 COMUNE_OFFICINA = "Frassineto Po"
 PROVINCIA = "AL"
-GEO = None                         # (latitudine, longitudine) in gradi decimali
-REA = None                         # nella forma "AL-numero"
+GEO = (45.1284713, 8.5431679)      # il punto della scheda Google (link MAPS), in gradi decimali
+RAGGIO_KM = 20                     # ritiro, consegna e domicilio: raggio dall'officina, ritiro sempre gratis
+ANNO_INIZIO = 2006                 # inizio dell'esperienza di Luca: 20 anni nel 2026, il sito ricalcola il numero ogni anno
+REA = "AL-271409"
 # La pagina https://www.facebook.com/L.M.AUTOSERVIZI/ è di Luca, ma per scelta non va sul sito (28/10/2026).
 # Instagram non c'è.
 FACEBOOK = None
 INSTAGRAM = None
 RECENSIONI_GOOGLE = None           # link diretto "scrivi una recensione" della scheda Google
-PREZZI = None                      # fascia di prezzo per i dati strutturati, es. "€€"
+PREZZI = None                      # Luca non pubblica prezzi, solo preventivo (29/10/2026)
 RECENSIONI_CON_PERMESSO = None     # True quando Luca conferma che le recensioni vengono da Google e chi le ha scritte è d'accordo
 
 # Spiegazione dei dati mancanti: genera.py la stampa per ogni valore rimasto None.
 DA_COMPLETARE = {
-    "INDIRIZZO_OFFICINA": "via e numero civico dell'officina (il biglietto riporta solo la sede legale): va in Contatti, nel piede e nei dati strutturati per Google.",
     "CAP_OFFICINA": "CAP dell'officina.",
-    "GEO": "coordinate dell'officina (latitudine, longitudine), da Google Maps: tasto destro sul punto e clic sui numeri.",
-    "REA": "numero REA della Camera di Commercio (visura camerale), da mostrare nel piede accanto alla partita IVA.",
     "FACEBOOK": "la pagina è di Luca ma per scelta non va sul sito: resta None (non serve completarlo).",
     "INSTAGRAM": "Luca dice di non avere Instagram: resta None finché non apre un profilo.",
     "RECENSIONI_GOOGLE": "link diretto «scrivi una recensione» dal Profilo dell'attività su Google (Chiedi recensioni): aggiunge il pulsante sotto le recensioni.",
-    "PREZZI": "fascia di prezzo o listino indicativo: per ora il sito non mostra prezzi.",
+    "PREZZI": "Luca preferisce solo il preventivo, senza prezzi sul sito (29/10/2026): resta None (non serve completarlo).",
     "RECENSIONI_CON_PERMESSO": "conferma che le recensioni in home vengono da Google e che gli autori sono d'accordo: con True compare la nota del Codice del Consumo (nota_recensioni).",
 }
 
@@ -65,12 +64,12 @@ DETT = [
     ("revisione", "Pre-revisione", "Non farti trovare impreparato: ti controllo l'auto gratis prima della revisione periodica e ti prenoto la revisione.",
      ["Controllo generale gratuito", "Prenotazione della revisione", "Sono abilitato come responsabile tecnico delle revisioni"]),
     ("aziende", "Consulenza alle imprese", "Consulenza per le imprese che operano nel settore automobilistico. Ne parliamo e capiamo insieme di cosa hai bisogno.",
-     ["Un tecnico con esperienza decennale multimarca", "Un confronto su misura per la tua attività"]),
+     ["Un tecnico con vent'anni di esperienza multimarca", "Un confronto su misura per la tua attività"]),
 ]
 
-FAQ_R = [("Quanto costa il ritiro?", "Dimmi dove si trova l'auto: ti dico subito se e quanto costa, prima di muovermi."),
-         ("Fino a dove arrivi?", "Ritiro e riconsegno a Casale Monferrato e nei paesi vicini. Chiama per sapere se passo anche da te."),
-         ("Quanto costa la vettura di cortesia?", "Niente: è sempre gratuita. Te la lascio con il pieno, pulita e igienizzata, per tutto il tempo che serve."),
+FAQ_R = [("Quanto costa il ritiro?", "Niente: ritiro e riconsegna sono sempre gratis, entro 20 km dall'officina."),
+         ("Fino a dove arrivi?", "In un raggio di 20 km da Frassineto Po: Casale Monferrato, Valenza, Occimiano, San Salvatore, Mede e la Lomellina vicina. Chiama se non sei sicuro."),
+         ("Quanto costa la vettura di cortesia?", "Niente: è gratuita. Ne ho una, quindi dimmelo quando prenoti. Te la lascio con il pieno, pulita e igienizzata."),
          ("E se la riparazione richiede più giorni?", "La vettura di cortesia resta con te per tutto il tempo della riparazione. Ti aggiorno io sull'avanzamento."),
          ("Come pago?", "In contanti, con carta o con bancomat, alla riconsegna.")]
 

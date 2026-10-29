@@ -71,8 +71,10 @@ NON_INDICIZZATE = {"404"}   # fuori dalla sitemap, sempre noindex
 LINGUE = ("it", "en")
 # Le cinque pagine dei servizi principali (sotto servizi/): catalogo nei dati strutturati
 SERVIZI_PAGINE = ["meccanica", "elettrauto", "gommista", "carrozzeria", "diagnosi"]
-# Comuni serviti (dati strutturati e llms.txt): Frassineto Po, Casale Monferrato e i paesi vicini
-ZONA = ["Frassineto Po", "Casale Monferrato", "Ticineto", "Borgo San Martino", "Valmacca", "Occimiano"]
+# Comuni serviti (dati strutturati e llms.txt): i principali entro RAGGIO_KM in linea d'aria dall'officina (calcolati il 29/10/2026)
+ZONA = ["Frassineto Po", "Casale Monferrato", "Valenza", "Ticineto", "Borgo San Martino", "Valmacca", "Occimiano", "Giarole",
+        "Villanova Monferrato", "Mirabello Monferrato", "San Salvatore Monferrato", "Pomaro Monferrato", "Bozzole", "Terruggia",
+        "Balzola", "Breme", "Candia Lomellina", "Sartirana Lomellina", "Mede"]
 
 # Stato: lingua e pagina che si sta costruendo.
 LINGUA, PAGINA = "it", None
@@ -628,7 +630,7 @@ def piede(extra=""):
     # Dati obbligatori in ogni pagina (D.Lgs. 70/2003, art. 7; P.IVA: DPR 633/1972, art. 35): vedi materiali/testi-legali/05.
     # Ogni dato è un pezzo che non si spezza; il REA compare appena è in contenuti.py.
     dati_legali = [f'© <span data-anno>2026</span> L.M. Autoservizi di Miglietta Luca, {t("ditta individuale", "sole proprietorship")}',
-                   f'{t("Sede legale", "Registered office")}: {SEDE_LEGALE}',
+                   f'{t("Sede legale e officina", "Registered office and workshop") if indirizzo_officina() == SEDE_LEGALE else t("Sede legale", "Registered office")}: {SEDE_LEGALE}',
                    f'{t("P.IVA", "VAT no.")} {PIVA}'] + ([f"REA {REA}"] if REA else []) + [f'PEC <a href="mailto:{PEC}">{PEC}</a>']
     legale = " · ".join(f'<span class="piede-dato">{d}</span>' for d in dati_legali)
     return f'''</main>
