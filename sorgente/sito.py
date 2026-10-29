@@ -565,7 +565,6 @@ def testata():
   <div class="menu-piede" role="region" aria-label="Contatti">
     <p class="stato" data-stato></p>
     <div class="azioni">
-      <a class="btn btn--arancio" href="tel:{TEL}">{I["tel"]}Chiama {tel_txt()}</a>
       <a class="btn btn--vuoto" href="{wa()}" target="_blank" rel="noopener">{I["chat"]}WhatsApp</a>
       <button class="btn btn--vuoto" type="button" data-tema-bottone aria-label="{etichetta_tema}">{I["sole"]}{I["luna"]}<span data-tema-testo>Tema chiaro</span></button>
     </div>

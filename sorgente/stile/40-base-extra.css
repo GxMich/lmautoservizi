@@ -109,3 +109,16 @@ body.menu-aperto, html:has(dialog[open]) { overflow: hidden; }
 @media (max-width: 599px) {
   .mezzi > div:not(:has(> label:not([hidden]) ~ label:not([hidden]) ~ label:not([hidden]) ~ label:not([hidden]))) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+
+/* ---------- menu del telefono: tutto in una schermata, senza scorrere ----------
+   Il pulsante Chiama c'è già nella testata. Voci e spazi seguono l'altezza dello schermo (svh), così le otto voci,
+   lo stato aperto/chiuso e i due pulsanti affiancati stanno anche sui telefoni bassi. */
+.menu nav a { padding-block: clamp(5px, 1.2svh, 14px); font-size: clamp(1.2rem, calc(5.4svh - 8px), 2.4rem); line-height: 1.15; }
+@media (max-height: 600px) {
+  .menu { padding-top: calc(var(--testata) + 12px); padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
+  .menu nav a { padding-block: 5px; font-size: 1.2rem; }
+}
+.menu-piede { gap: 12px; padding-top: clamp(14px, 2.4svh, 28px); }
+.menu-piede .azioni { flex-wrap: nowrap; }
+.menu-piede .azioni .btn { flex: 1 1 0; min-width: 0; padding-inline: 1em; white-space: nowrap; }
+@media (max-width: 374px) { .menu-piede .azioni .btn { font-size: .88rem; padding-inline: .7em; gap: .4em; } }
