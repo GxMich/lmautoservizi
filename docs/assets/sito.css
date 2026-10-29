@@ -953,6 +953,8 @@ body.menu-aperto, html:has(dialog[open]) { overflow: hidden; }
    Le ultime caselle si allargano per non lasciare buchi in fondo. */
 @media (max-width: 599px) {
   .servizi-griglia:not(.catalogo) { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  /* a righe la griglia non deve riempire lo schermo: ogni casella è alta quanto il suo testo */
+  .servizi .servizi-griglia:not(.catalogo) { flex: none; grid-auto-rows: auto; }
   .servizi-griglia:not(.catalogo) .servizio { aspect-ratio: auto; display: grid; grid-template-columns: 40px minmax(0, 1fr); grid-template-areas: "ico nome" "ico desc"; align-items: center; justify-items: start; column-gap: 14px; row-gap: 2px; padding: 12px 16px; min-height: 64px; text-align: left; border-radius: 18px; }
   .servizi-griglia:not(.catalogo) .servizio-ico { grid-area: ico; }
   .servizi-griglia:not(.catalogo) .servizio-ico .ico { width: 36px; height: 36px; }
@@ -987,3 +989,6 @@ body.menu-aperto, html:has(dialog[open]) { overflow: hidden; }
 .percorso-pagina { margin: 0 0 14px; font-size: .92rem; font-weight: 600; color: var(--grigio); }
 .percorso-pagina a { color: var(--accento-testo); text-decoration: none; }
 .percorso-pagina a:hover { text-decoration: underline; }
+
+/* ---------- tema chiaro: il titolo dell'apertura passa sopra la foto scura; un contorno chiaro dietro le lettere lo stacca ---------- */
+:root[data-tema="chiaro"] #eroe-t .riga > span { -webkit-text-stroke: .06em var(--notte); paint-order: stroke fill; }
