@@ -104,7 +104,7 @@ DA VERIFICARE: se uno script di statistica senza cookie richieda comunque il con
 <li>Per le multe: come proprietario dell'auto devo comunicare chi guidava all'organo di polizia entro 60 giorni dalla notifica (art. 126-bis del Codice della strada; obbligo di legge, art. 6.1.c GDPR).</li>
 <li>Per sinistri, danni, pedaggi e ZTL, con l'assicurazione e gli enti interessati: contratto e legittimo interesse (art. 6.1.b e 6.1.f GDPR).</li>
 </ul>
-<!-- DA VERIFICARE: intestatario della vettura di cortesia; presenza di scatola nera o localizzatore GPS, da dichiarare qui se c'è. -->
+<!-- DA VERIFICARE: la vettura è a noleggio con Ayvens (Luca, 29/10/2026): con le multe notificate ad Ayvens cambia la procedura dell'art. 126-bis; presenza di scatola nera o localizzatore GPS, da dichiarare qui se c'è. -->
 
 <h2>Recensioni e foto</h2>
 <ul>
@@ -122,6 +122,7 @@ DA VERIFICARE: se uno script di statistica senza cookie richieda comunque il con
 <li>commercialista, per fatture e contabilità;</li>
 <li>Agenzia delle Entrate e Sistema di Interscambio, per le fatture elettroniche, e il fornitore del programma di fatturazione;</li>
 <li>assicurazioni e periti, per sinistri e vettura di cortesia;</li>
+<li>la società di noleggio della vettura di cortesia (Ayvens), per sinistri, multe e pedaggi;</li>
 <li>fornitori di ricambi e gomme: solo targa, telaio o modello, per ordinare il pezzo giusto;</li>
 <li>altre officine o centri di revisione, solo se affido loro una parte del lavoro e te lo dico prima;</li>
 <li>banca e gestore del POS, per i pagamenti;</li>
@@ -166,10 +167,11 @@ DA VERIFICARE: se uno script di statistica senza cookie richieda comunque il con
 # ------------------------------------------------- vettura di cortesia (sito)
 VETTURA_CORTESIA_IT = """<ul>
 <li>È gratuita per tutto il tempo della riparazione: non paghi il prestito. Te la lascio con il pieno: riportala con lo stesso carburante.</li>
+<li>Ne ho una sola: chiedila quando prenoti il lavoro.</li>
 <li>Serve una patente valida: la guardo alla consegna e annoto i dati. Guidi tu, o la persona che indichi nel contratto.</li>
 <li>Alla consegna e alla riconsegna compiliamo insieme un verbale con chilometri, carburante e foto dell'auto.</li>
-<li>L'auto è assicurata. Se causi un danno, potresti pagare al massimo la franchigia scritta nelle condizioni.</li>
-<!-- DA VERIFICARE con l'assicuratore: coperture e importo della franchigia; se la parola "gratuita" resta corretta con carburante e franchigia a carico del cliente. -->
+<li>È un'auto a noleggio, assicurata anche con la kasko. Se causi un danno, potresti pagare al massimo la franchigia scritta nelle condizioni.</li>
+<!-- DA VERIFICARE: Luca (29/10/2026) dice che è tutto coperto, kasko, contratto di noleggio con Ayvens. Restano da sapere: importo della franchigia; che il contratto Ayvens permetta di prestare l'auto ai clienti; se la parola "gratuita" resta corretta con carburante e franchigia a carico del cliente. -->
 <li>Multe, ZTL, pedaggi e parcheggi durante il prestito sono a carico di chi guida: per legge comunico i dati del conducente all'autorità che fa la multa.</li>
 <li>Le condizioni complete le leggi e le firmi quando ti consegno l'auto.</li>
 </ul>"""
@@ -178,7 +180,8 @@ VETTURA_CORTESIA_IT = """<ul>
 GARANZIA_SITO_IT = """<p>Se sei un consumatore hai sempre la <strong>garanzia di legge</strong>: per i ricambi che monto vale 2 anni dalla consegna dell'auto, come prevede il Codice del Consumo.</p>
 <p>In più ti do una <strong>garanzia mia sul lavoro</strong>: se un intervento che ho fatto non funziona come deve, lo sistemo gratis, ricambi e manodopera compresi. Vale anche per chi ha la partita IVA.</p>
 <!-- DA VERIFICARE: togliere "Vale anche per chi ha la partita IVA" se Luca non estende la garanzia ai clienti con P.IVA. Il sito non deve promettere più del testo completo (file 04). -->
-<p>La durata della garanzia sul lavoro te la scrivo sul preventivo, insieme alle condizioni. Quando ritiri l'auto ti do le condizioni complete per iscritto.</p>
+<p>La garanzia sul lavoro dura <strong>12 mesi</strong> dalla riconsegna del mezzo. Le condizioni te le scrivo sul preventivo e, quando ritiri l'auto, te le do complete per iscritto.</p>
+<!-- DA VERIFICARE: Luca ha risposto «12 mesi per legge» (29/10/2026). Per i consumatori la garanzia di legge sui ricambi resta di 2 anni (Codice del Consumo): i 12 mesi qui sono la garanzia di Luca sul lavoro. Confermare con lui che è questo che intende. -->
 <p>La mia garanzia si aggiunge a quella di legge: non la sostituisce e non la riduce.</p>"""
 
 # -------------------------------------------- nota sotto le recensioni (sito)

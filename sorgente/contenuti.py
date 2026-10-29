@@ -27,6 +27,8 @@ RAGGIO_KM = 20                     # ritiro, consegna e domicilio: raggio dall'o
 ANNO_INIZIO = 2006                 # inizio dell'esperienza di Luca: 20 anni nel 2026 (lo ha detto lui il 29/10/2026)
 ANNI_ESPERIENZA = datetime.date.today().year - ANNO_INIZIO   # alla generazione; nella pagina lo ricalcola anche 00-base.js
 REA = "AL-271409"
+# Sezioni dell'abilitazione di autoriparazione (legge 122/1992, come modificata dalla legge 224/2012), confermate da Luca il 29/10/2026.
+ABILITAZIONI = ["meccatronica", "carrozzeria", "gommista"]
 # La pagina https://www.facebook.com/L.M.AUTOSERVIZI/ è di Luca, ma per scelta non va sul sito (28/10/2026).
 # Instagram non c'è.
 FACEBOOK = None

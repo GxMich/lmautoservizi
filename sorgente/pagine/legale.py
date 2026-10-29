@@ -5,7 +5,7 @@ Con le statistiche accese (LM_GOATCOUNTER) l'informativa cambia le frasi su cook
 import datetime, re
 import testi_legali as TL
 from contenuti import PEC, PIVA, SEDE_LEGALE
-from sito import (inizia, scrivi, head, testata, intro, piede, briciole, href, nome, slug, senza_commenti,
+from sito import (inizia, scrivi, head, testata, intro, piede, briciole, href, nome, slug, senza_commenti, abilitazioni,
                   EMAIL, TEL, tel_txt, STATISTICHE)
 
 # Data dell'ultima modifica dei testi legali, mostrata in cima all'informativa.
@@ -121,6 +121,7 @@ def condizioni():
 {vettura}
 <h2 id="altre-informazioni">Altre informazioni</h2>
 <p>Come tratto i dati della patente, del contratto e del verbale lo spiego nella pagina <a href="{href("privacy", frammento="vettura-di-cortesia")}">{nome("privacy")}</a>. Dove si trova l'officina e come lavoro lo trovi in <a href="{href("officina")}">{nome("officina")}</a>; come funzionano il ritiro dell'auto e la vettura di cortesia in <a href="{href("ritiro")}">{nome("ritiro")}</a>.</p>
+<p>L'officina è abilitata per {abilitazioni()}, come prevede la legge 122/1992 sull'autoriparazione.</p>
 <p>Per qualsiasi dubbio chiamami al <a href="tel:{TEL}">{tel_txt()}</a> o scrivimi a <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>'''
     scrivi(head("Garanzia e condizioni | L.M. Autoservizi",
                 "Garanzia di legge, garanzia sul lavoro e regole della vettura di cortesia gratuita: cosa sapere prima di lasciare l'auto a L.M. Autoservizi.",

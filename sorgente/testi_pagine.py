@@ -39,7 +39,7 @@ SERVIZI_PAGINE = {
             ("Un solo riferimento",
              "Lavoro da solo: la tua auto la segue la stessa persona, dalla prima telefonata alla riconsegna."),
             ("Vettura di cortesia gratuita",
-             "Per tutta la riparazione hai un'auto con il pieno, pulita e igienizzata."),
+             "Ti lascio un'auto con il pieno, pulita e igienizzata. Ne ho una: chiedila quando prenoti."),
         ],
         "faq": [
             ("Fai il tagliando su auto di tutte le marche?",
@@ -199,7 +199,7 @@ SERVIZI_PAGINE = {
             ("Ripari anche ruggine e parti da saldare?",
              "Faccio saldature e sistemazioni varie, anche su furgoni e camper. Mandami una foto della zona e ti dico se conviene intervenire."),
             ("Quanto resta in officina il mezzo?",
-             "Dipende dal lavoro: ne parliamo quando ti do il preventivo. Intanto hai la vettura di cortesia gratuita, per tutta la riparazione."),
+             "Dipende dal lavoro: ne parliamo quando ti do il preventivo. Intanto puoi avere la vettura di cortesia gratuita: dimmelo quando prenoti."),
             ("Quando e come pago?",
              "Paghi alla riconsegna, in contanti, con carta o con bancomat."),
         ],
@@ -280,6 +280,7 @@ OFFICINA_PAGINA = {
         ("Cosa trovi in officina",
          ("Il ponte, per lavorare sotto il mezzo. La diagnosi, con software aggiornato ogni giorno. "
           "Le attrezzature per le gomme: montaggio, equilibratura e convergenza. "
+          "L'officina è abilitata per meccatronica, carrozzeria e gommista, come chiede la legge 122/1992. "
           "E ci sono io, che seguo il tuo mezzo dall'inizio alla fine.")),
         ("Orario continuato, dal lunedì al venerdì",
          ("Sono aperto dalle 7:30 alle 19:30, senza pausa pranzo. "
@@ -287,7 +288,7 @@ OFFICINA_PAGINA = {
           "Sabato e domenica sono chiuso.")),
         ("Vettura di cortesia gratuita",
          ("Mentre riparo il tuo mezzo, ti lascio una vettura di cortesia gratuita, per tutta la riparazione. "
-          "Te la consegno con il pieno, pulita e igienizzata. Le condizioni te le spiego alla consegna.")),
+          "Ne ho una sola, quindi chiedila quando prenoti. Te la consegno con il pieno, pulita e igienizzata, e le condizioni te le spiego alla consegna.")),
         ("Pagamenti",
          ("Paghi alla riconsegna, in contanti, con carta o con bancomat. "
           "Il preventivo è gratuito e i lavori in più li faccio solo dopo il tuo ok.")),
@@ -308,7 +309,7 @@ OFFICINA_PAGINA = {
         ("Serve l'appuntamento?",
          "Meglio chiamare o scrivere prima, così ti dico quando portarla. Se ti serve la vettura di cortesia, dimmelo subito."),
         ("Come funziona la vettura di cortesia?",
-         "È gratuita e la tieni per tutta la riparazione. Te la consegno con il pieno, pulita e igienizzata, e ti spiego le condizioni alla consegna."),
+         "È gratuita e la tieni per tutta la riparazione. Ne ho una: chiedila quando prenoti. Te la consegno con il pieno, pulita e igienizzata, e ti spiego le condizioni alla consegna."),
         ("Come posso pagare?",
          "Paghi alla riconsegna, in contanti, con carta o con bancomat."),
         ("Se faccio il tagliando da te, perdo la garanzia della casa?",
@@ -322,12 +323,12 @@ HOME = {
     "officina_titolo": "Ti aspetto in officina, a Frassineto Po.",
     "officina_testo": ("La mia officina è a pochi chilometri da Casale Monferrato. "
                        "Sono aperto dal lunedì al venerdì con orario continuato: lasci l'auto prima del lavoro e la riprendi dopo. "
-                       "Per tutta la riparazione hai una vettura di cortesia gratuita."),
+                       "Se ti serve, hai una vettura di cortesia gratuita: dimmelo quando prenoti."),
     "officina_punti": [
         ("Orario continuato 7:30–19:30",
          "Dal lunedì al venerdì, senza pausa pranzo. Sabato e domenica chiuso."),
         ("Vettura di cortesia gratuita",
-         "Con il pieno, pulita e igienizzata, per tutta la riparazione."),
+         "Con il pieno, pulita e igienizzata. Ne ho una: chiedila quando prenoti."),
         ("Preventivo gratuito prima di iniziare",
          "Ti dico cosa serve e quanto costa. Si parte solo quando ti va bene."),
     ],
