@@ -40,7 +40,8 @@ FACEBOOK = None
 INSTAGRAM = None
 RECENSIONI_GOOGLE = None           # link diretto "scrivi una recensione" della scheda Google
 PREZZI = None                      # Luca non pubblica prezzi, solo preventivo (29/10/2026)
-# Noleggio a lungo termine: il link dedicato del PDF «QR NOLEGGIO LUNGO TERMINE» che Luca ha mandato il 29/10/2026.
+# Noleggio a lungo termine: il 30/10/2026 Luca ha detto di non metterlo sul sito («no tasto noleggio lungo termine»).
+# Il link del PDF «QR NOLEGGIO LUNGO TERMINE» (Money Motive) resta in materiali/, se un giorno cambia idea.
 NOLEGGIO_LINK = None
 NOLEGGIO_QR = "assets/img/noleggio-qr.png"   # il QR dello stesso PDF: compare accanto al link solo se il file c'è in docs/
 RECENSIONI_CON_PERMESSO = None     # True quando Beatrice, Denise e Paolo hanno detto sì a vedere la loro recensione sul sito
@@ -50,7 +51,7 @@ DA_COMPLETARE = {
     "FACEBOOK": "la pagina è di Luca ma per scelta non va sul sito: resta None (non serve completarlo).",
     "INSTAGRAM": "Luca dice di non avere Instagram: resta None finché non apre un profilo.",
     "RECENSIONI_GOOGLE": "link diretto «scrivi una recensione» dal Profilo dell'attività su Google (Chiedi recensioni): aggiunge il pulsante sotto le recensioni.",
-    "NOLEGGIO_LINK": "il link del noleggio a lungo termine, dal PDF «QR NOLEGGIO LUNGO TERMINE» di Luca (29/10/2026): con il link compaiono la casella in home e la scheda in Servizi. Il QR va salvato in docs/assets/img/noleggio-qr.png.",
+    "NOLEGGIO_LINK": "Luca non vuole il noleggio a lungo termine sul sito (30/10/2026): resta None (non serve completarlo).",
     "PREZZI": "Luca preferisce solo il preventivo, senza prezzi sul sito (29/10/2026): resta None (non serve completarlo).",
     "RECENSIONI_CON_PERMESSO": "le tre recensioni in home vengono dalla scheda Google (29/10/2026): manca il sì di chi le ha scritte (Beatrice D., Denise F., Paolo C.), da chiedere con il modulo 07. Con True compare la nota del Codice del Consumo (nota_recensioni).",
 }

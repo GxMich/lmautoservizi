@@ -10,7 +10,7 @@ Finché un valore resta `None`, il sito lo omette.
 - `INSTAGRAM`: Luca dice di non avere Instagram: resta None finché non apre un profilo.
 - `RECENSIONI_GOOGLE`: link diretto «scrivi una recensione» dal Profilo dell'attività su Google (Chiedi recensioni): aggiunge il pulsante sotto le recensioni.
 - `PREZZI`: Luca preferisce solo il preventivo, senza prezzi sul sito (29/10/2026): resta None (non serve completarlo).
-- `NOLEGGIO_LINK`: il link del noleggio a lungo termine, dal PDF «QR NOLEGGIO LUNGO TERMINE» di Luca (29/10/2026): con il link compaiono la casella in home e la scheda in Servizi. Il QR va salvato in docs/assets/img/noleggio-qr.png.
+- `NOLEGGIO_LINK`: Luca non vuole il noleggio a lungo termine sul sito (30/10/2026): resta None (non serve completarlo).
 - `RECENSIONI_CON_PERMESSO`: le tre recensioni in home vengono dalla scheda Google (29/10/2026): manca il sì di chi le ha scritte (Beatrice D., Denise F., Paolo C.), da chiedere con il modulo 07. Con True compare la nota del Codice del Consumo (nota_recensioni).
 
 ## Foto ancora di esempio
