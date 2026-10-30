@@ -40,8 +40,8 @@ FACEBOOK = None
 INSTAGRAM = None
 RECENSIONI_GOOGLE = None           # link diretto "scrivi una recensione" della scheda Google
 PREZZI = None                      # Luca non pubblica prezzi, solo preventivo (29/10/2026)
-# Noleggio a lungo termine: il 30/10/2026 Luca ha detto di non metterlo sul sito («no tasto noleggio lungo termine»).
-# Il link del PDF «QR NOLEGGIO LUNGO TERMINE» (Money Motive) resta in materiali/, se un giorno cambia idea.
+# Noleggio a lungo termine: chiesto da Luca nel questionario del 29/10/2026, poi ritirato il 30/10/2026
+# («è più lo sbatti che il profitto»): non va sul sito. Il PDF «QR NOLEGGIO LUNGO TERMINE» (Money Motive) resta in materiali/.
 NOLEGGIO_LINK = None
 NOLEGGIO_QR = "assets/img/noleggio-qr.png"   # il QR dello stesso PDF: compare accanto al link solo se il file c'è in docs/
 RECENSIONI_CON_PERMESSO = None     # True quando Beatrice, Denise e Paolo hanno detto sì a vedere la loro recensione sul sito
