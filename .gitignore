@@ -12,3 +12,5 @@ materiali/*.pdf
 # documenti di lavoro con il cliente (bozze legali, messaggi): restano in locale, il repository è pubblico
 materiali/messaggio-per-luca*.md
 materiali/testi-legali/
+# proposte di grafica per i mezzi di Luca: lavoro con il cliente, resta in locale
+grafiche-mezzi/
