@@ -3,7 +3,7 @@ l'ordine (niente spedizioni, si ritira in officina dopo il pagamento) e i due mo
 (misura della gomma, pezzo di ricambio)."""
 import math
 from sito import (inizia, scrivi, head, testata, intro, finale, piede, spunte, azienda, briciole, risorsa, svg, dati_servizio,
-                  attr, I, ICONE)
+                  attr, I, ICONE, MISURA_GOMMA)
 
 TARGA_UE = ('<span class="targa-ue" aria-hidden="true"><svg viewBox="0 0 44 64" width="44" height="64">'
             + "".join(f'<circle cx="{22 + 11 * math.cos(math.radians(a * 30)):.1f}" cy="{19 + 11 * math.sin(math.radians(a * 30)):.1f}" r="1.35" fill="#f2c230"/>' for a in range(12))
@@ -69,15 +69,11 @@ def costruisci():
   <div class="wrap gomme-griglia">
     <div>
       <h2 id="gomme-t">Vendita pneumatici</h2>
-      <p class="lead">Estive, invernali e quattro stagioni. La misura è scritta sul fianco, per esempio 205/55 R16: se non la trovi, dimmi la targa e la ricavo io.</p>
+      <p class="lead">Estive, invernali e quattro stagioni. La misura è scritta sul fianco, per esempio <span class="nowrap">205/55 R16 91V</span>: se non la trovi, dimmi la targa e la ricavo io.</p>
       <form class="modulo" data-wa data-intro="{attr("Ciao Luca, vorrei un preventivo per delle gomme.")}" data-misura-o-targa novalidate aria-labelledby="gomme-t">
         <fieldset class="campo">
           <legend>Misura della gomma <span>(oppure la targa, qui sotto)</span></legend>
-          <div class="misura">
-            <label><span class="sr">Larghezza</span><input name="larghezza" inputmode="numeric" maxlength="3" placeholder="205" autocomplete="off"></label><i aria-hidden="true">/</i>
-            <label><span class="sr">Spalla</span><input name="spalla" inputmode="numeric" maxlength="2" placeholder="55" autocomplete="off"></label><i aria-hidden="true">R</i>
-            <label><span class="sr">Cerchio in pollici</span><input name="cerchio" inputmode="numeric" maxlength="2" placeholder="16" autocomplete="off"></label>
-          </div>
+          {MISURA_GOMMA}
           <p class="errore" aria-live="polite"></p>
         </fieldset>
         <div class="campo"><label for="g-targa">Targa <span>(se non trovi la misura)</span></label>
@@ -94,7 +90,7 @@ def costruisci():
     </div>
     <figure class="gomma">
       <div class="gomma-foto"><img src="{risorsa("assets/img/3d/pneumatico-realista-v1.webp")}" srcset="{risorsa("assets/img/3d/pneumatico-realista-v1-640.webp")} 640w, {risorsa("assets/img/3d/pneumatico-realista-v1.webp")} 1254w" sizes="(max-width: 899px) 90vw, 520px" width="1254" height="1254" alt="Render illustrativo di un pneumatico con cerchio in lega" loading="lazy" decoding="async"></div>
-      <figcaption class="gomma-dati"><div><span data-misura-etichetta>Esempio di misura</span><strong data-misura-testo>205/55 R16</strong></div><p>Immagine illustrativa</p></figcaption>
+      <figcaption class="gomma-dati"><div><span data-misura-etichetta>Esempio di misura</span><strong data-misura-testo>205/55 R16 91V</strong></div><p>Immagine illustrativa</p></figcaption>
     </figure>
   </div>
 </section>

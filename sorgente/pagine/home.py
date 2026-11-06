@@ -1,7 +1,7 @@
 """Home: "Riparti sereno.", le caselle dei servizi con la tendina WhatsApp, l'officina a Frassineto Po con i tre modi
 alla pari (officina, ritiro e consegna, domicilio) in una sezione sola, Luca, recensioni, dove e quando.
 Testi nuovi in testi_pagine.HOME."""
-from contenuti import RECENSIONI, RECENSIONI_GOOGLE, RECENSIONI_CON_PERMESSO, GEAR_PIENO
+from contenuti import RECENSIONI, RECENSIONI_GOOGLE, RECENSIONI_CON_PERMESSO, GEAR_PIENO, LOGO_LM
 from testi_pagine import HOME
 from pagine.officina import ICO
 from sito import (inizia, scrivi, head, testata, piede, orari, sezione_servizi, foto, img, foto_info, nota_foto, azienda,
@@ -27,7 +27,6 @@ def costruisci():
                        else '<p class="lead recensioni-invito">Le recensioni dei miei clienti sono sulla mia scheda Google: le trovi tutte, anche quelle critiche.</p>')
     if RECENSIONI_GOOGLE:  # con il link diretto, i due collegamenti stanno in riga
         tutte = f'<div class="azioni">{tutte}<a class="link" href="{RECENSIONI_GOOGLE}" target="_blank" rel="noopener">Lascia una recensione {I["esterno"]}</a></div>'
-    eroe_stock = foto_info("eroe")[4]
     scrivi(head("Meccanico a Frassineto Po e Casale Monferrato | L.M. Autoservizi",
                 "Meccanico a Frassineto Po, vicino a Casale: tagliandi, elettrauto, gomme e carrozzeria su tutte le marche. Ritiro gratis entro 20 km, preventivo gratuito.",
                 [azienda()], immagine="officina") + testata() + f'''
@@ -35,8 +34,11 @@ def costruisci():
   <div class="eroe-fascio" aria-hidden="true"></div>
   <div class="eroe-scena" aria-hidden="true">
     <div class="eroe-ingranaggio">
-      <svg class="eroe-aloni" viewBox="-400 -400 800 800"><circle r="340"/><circle r="390"/></svg>
-      <div class="eroe-finestra">{img("eroe", "(max-width: 899px) 46vw, 24vw", priorita=True, alt="")}</div>
+      <svg class="eroe-scritta" viewBox="-400 -400 800 800"><path id="eroe-arco-su" d="M-322 0A322 322 0 0 1 322 0" fill="none"/><path id="eroe-arco-giu" d="M-384 0A384 384 0 0 0 384 0" fill="none"/>
+        <text><textPath href="#eroe-arco-su" startOffset="50%" text-anchor="middle">L.M. AUTOSERVIZI</textPath></text>
+        <text><textPath href="#eroe-arco-giu" startOffset="50%" text-anchor="middle">DI MIGLIETTA LUCA</textPath></text>
+        <circle cx="-353" r="13"/><circle cx="353" r="13"/></svg>
+      <div class="eroe-finestra"><svg class="eroe-lm" viewBox="-200 -200 400 400"><path d="{LOGO_LM}"/></svg></div>
       <svg class="eroe-anello" viewBox="-300 -300 600 600"><path fill="currentColor" fill-rule="evenodd" d="{GEAR_PIENO}"/></svg>
     </div>
   </div>
@@ -51,7 +53,7 @@ def costruisci():
         <a class="btn btn--vuoto eroe-chiama" href="tel:{TEL}">{I["tel"]}{tel_txt()}</a>
       </div>
     </div>
-    <div class="eroe-info"><p class="stato" data-stato></p>{f'<p class="nota-foto">Foto di esempio</p>' if eroe_stock else ""}</div>
+    <div class="eroe-info"><p class="stato" data-stato></p></div>
   </div>
 </section>
 

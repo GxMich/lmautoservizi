@@ -161,8 +161,8 @@ body.menu-aperto, html:has(dialog[open]) { overflow: hidden; }
    così nella prima schermata si vede già l'inizio della griglia dei servizi ---------- */
 @media (max-width: 599px) {
   .eroe { min-height: 0; padding-bottom: 20px; }
-  .eroe-scena { flex: none; margin-block: 14px 4px; }
-  .eroe-ingranaggio { width: min(54vw, 30svh, 280px); }
+  .eroe-scena { flex: none; margin-block: 6px 0; }
+  .eroe-ingranaggio { --g: min(50vw, 28svh, 260px); }
   .eroe-testo p { margin-bottom: 16px; }
 }
 

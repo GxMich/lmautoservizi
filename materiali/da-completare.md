@@ -17,7 +17,6 @@ Finché un valore resta `None`, il sito lo omette.
 
 Gli scatti vanno in `materiali/foto/` con i nomi di `materiali/foto/LEGGIMI.md`, poi `python sorgente/foto.py` e `python sorgente/genera.py`.
 
-- `eroe`
 - `luca`
 - `officina`
 - `ingresso`

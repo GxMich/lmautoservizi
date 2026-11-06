@@ -6,14 +6,13 @@ Ogni file prende il nome dello spazio in cui finirà (gli spazi sono in `FOTO_SL
 
 | File | Spazio | Formato |
 |---|---|---|
-| `eroe.jpg` | Apertura della home, dentro il cerchio dell'ingranaggio | quadrata 1:1, soggetto al centro |
 | `luca.jpg` | Ritratto di Luca (home e Chi sono) | verticale 4:5 |
 | `officina.jpg` | Interno dell'officina (pagina L'officina, fascia della pagina Servizi, anteprima social) | orizzontale 3:2 |
 | `ingresso.jpg` | Ingresso dell'officina (Contatti) | orizzontale 3:2 |
 | `officina-mobile.jpg` | Furgone dell'officina mobile | orizzontale 3:2 |
 | `ritiro.jpg` | Consegna delle chiavi / vettura di cortesia | orizzontale 3:2 |
 | `servizio-meccanica.jpg` | Casella Meccanica e pagina Meccanica | orizzontale 3:2 |
-| `servizio-elettrauto.jpg` | Casella Elettrauto e pagina Elettrauto | orizzontale 3:2 |
+| `servizio-elettrauto.jpg` | Casella e pagina Elettrauto e climatizzazione | orizzontale 3:2 |
 | `servizio-gommista.jpg` | Casella Gommista, pagine Gommista e Gomme e ricambi | orizzontale 3:2 |
 | `servizio-carrozzeria.jpg` | Casella Carrozzeria e pagina Carrozzeria | orizzontale 3:2 |
 | `servizio-diagnosi.jpg` | Casella Diagnosi e pre-revisione e la sua pagina | orizzontale 3:2 |

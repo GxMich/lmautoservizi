@@ -24,7 +24,7 @@
 <link rel="manifest" href="https://gxmich.github.io/lmautoservizi/site.webmanifest">
 <script>(function(d){d.classList.add("js");try{var t=null;try{t=localStorage.getItem("lm-tema")}catch(e){}if(t==="chiaro"||(!t&&matchMedia("(prefers-color-scheme: light)").matches)){d.setAttribute("data-tema","chiaro");document.querySelector('meta[name="theme-color"]').content="#f3f4f6"}}catch(e){}try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches)d.classList.add("mo")}catch(e){}setTimeout(function(){d.classList.remove("mo")},1500)})(document.documentElement);</script>
 <link rel="preload" href="https://gxmich.github.io/lmautoservizi/assets/fonts/archivo-latin-v2.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="https://gxmich.github.io/lmautoservizi/assets/sito.css?v=fae62a197b">
+<link rel="stylesheet" href="https://gxmich.github.io/lmautoservizi/assets/sito.css?v=0418524aa8">
 </head>
 <body class="p-404">
 <a class="salta-link" href="#contenuto">Vai al contenuto</a>
@@ -63,7 +63,7 @@
       <img src="https://gxmich.github.io/lmautoservizi/assets/img/logo-arancio-84.png" width="52" height="52" alt="" loading="lazy">
       <p><strong>L.M. Autoservizi di Miglietta Luca</strong><br>Officina multimarca a Frassineto Po. Ritiro e consegna gratis entro 20 km, assistenza a domicilio e vettura di cortesia gratuita.</p>
     </div>
-    <div><h2>Servizi</h2><ul><li><a href="https://gxmich.github.io/lmautoservizi/servizi/meccanica/">Meccanica</a></li><li><a href="https://gxmich.github.io/lmautoservizi/servizi/elettrauto/">Elettrauto</a></li><li><a href="https://gxmich.github.io/lmautoservizi/servizi/gommista/">Gommista</a></li><li><a href="https://gxmich.github.io/lmautoservizi/servizi/carrozzeria/">Carrozzeria</a></li><li><a href="https://gxmich.github.io/lmautoservizi/servizi/diagnosi-e-pre-revisione/">Diagnosi e pre-revisione</a></li><li><a href="https://gxmich.github.io/lmautoservizi/servizi/allestimenti-camping-fuoristrada/">Allestimenti camping e fuoristrada</a></li></ul></div>
+    <div><h2>Servizi</h2><ul><li><a href="https://gxmich.github.io/lmautoservizi/servizi/meccanica/">Meccanica</a></li><li><a href="https://gxmich.github.io/lmautoservizi/servizi/elettrauto/">Elettrauto e climatizzazione</a></li><li><a href="https://gxmich.github.io/lmautoservizi/servizi/gommista/">Gommista</a></li><li><a href="https://gxmich.github.io/lmautoservizi/servizi/carrozzeria/">Carrozzeria</a></li><li><a href="https://gxmich.github.io/lmautoservizi/servizi/diagnosi-e-pre-revisione/">Diagnosi e pre-revisione</a></li><li><a href="https://gxmich.github.io/lmautoservizi/servizi/allestimenti-camping-fuoristrada/">Allestimenti camping e fuoristrada</a></li></ul></div>
     <div><h2>L'officina</h2><ul><li><a href="https://gxmich.github.io/lmautoservizi/officina/">L'officina</a></li><li><a href="https://gxmich.github.io/lmautoservizi/ritiro-e-consegna/">Ritiro e consegna</a></li><li><a href="https://gxmich.github.io/lmautoservizi/assistenza-a-domicilio/">Assistenza a domicilio</a></li><li><a href="https://gxmich.github.io/lmautoservizi/gomme-e-ricambi/">Gomme e ricambi</a></li><li><a href="https://gxmich.github.io/lmautoservizi/chi-sono/">Chi sono</a></li><li><a href="https://gxmich.github.io/lmautoservizi/contatti/">Contatti</a></li></ul></div>
     <div><h2>Contatti</h2><ul>
       <li><a href="tel:+393426436085">342 643 6085</a></li>
@@ -106,7 +106,9 @@
             <label><span class="sr">Larghezza</span><input name="larghezza" inputmode="numeric" maxlength="3" placeholder="205" autocomplete="off"></label><i aria-hidden="true">/</i>
             <label><span class="sr">Spalla</span><input name="spalla" inputmode="numeric" maxlength="2" placeholder="55" autocomplete="off"></label><i aria-hidden="true">R</i>
             <label><span class="sr">Cerchio in pollici</span><input name="cerchio" inputmode="numeric" maxlength="2" placeholder="16" autocomplete="off"></label>
-          </div><p class="errore" data-errore-misura aria-live="polite"></p></fieldset>
+            <label class="misura-codice"><span class="sr">Indice di carico e di velocità, facoltativo</span><input name="codice" maxlength="8" placeholder="91V" autocomplete="off" autocapitalize="characters" spellcheck="false"></label>
+          </div>
+          <p class="aiuto">Il codice dopo il cerchio (per esempio 91V) è facoltativo.</p><p class="errore" data-errore-misura aria-live="polite"></p></fieldset>
           <div class="campo"><label for="scheda-stagione">Che gomme cerchi</label><select id="scheda-stagione" name="stagione"><option>Estive</option><option>Invernali</option><option>Quattro stagioni</option><option>Non lo so, consigliami tu</option></select></div>
           <div class="campo"><label for="scheda-targa-gomme">Targa <span>(se non trovi la misura)</span></label><input id="scheda-targa-gomme" name="targa-gomme" maxlength="8" placeholder="AB123CD" autocomplete="off" autocapitalize="characters"></div>
         </div>
@@ -130,6 +132,6 @@
     </div>
   </form>
 </dialog>
-<script>(function(){var r=false;try{r=matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){}(r?[]:["https://gxmich.github.io/lmautoservizi/assets/js/vendor/gsap.min.js","https://gxmich.github.io/lmautoservizi/assets/js/vendor/ScrollTrigger.min.js"]).concat(["https://gxmich.github.io/lmautoservizi/assets/sito.js?v=3e77450bab"]).forEach(function(u){var s=document.createElement("script");s.src=u;s.async=false;document.body.appendChild(s)})})();</script>
+<script>(function(){var r=false;try{r=matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){}(r?[]:["https://gxmich.github.io/lmautoservizi/assets/js/vendor/gsap.min.js","https://gxmich.github.io/lmautoservizi/assets/js/vendor/ScrollTrigger.min.js"]).concat(["https://gxmich.github.io/lmautoservizi/assets/sito.js?v=554282bf6a"]).forEach(function(u){var s=document.createElement("script");s.src=u;s.async=false;document.body.appendChild(s)})})();</script>
 </body>
 </html>

@@ -150,10 +150,12 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 .eroe-scena { position: absolute; inset: 0; display: grid; place-items: center; padding-bottom: 8svh; }
 .eroe-ingranaggio { position: relative; width: min(56svh, 64vw); aspect-ratio: 1; }
 .eroe-ingranaggio > * { position: absolute; inset: 0; margin: auto; }
-.eroe-aloni { inset: -16.7%; width: 133.4%; height: 133.4%; max-width: none; }
-.eroe-aloni circle { fill: none; stroke: rgba(255, 92, 43, .26); stroke-width: 1; }
+/* il logo di Luca: scritta in cerchio, ingranaggio e monogramma LM. Il disco resta scuro, come il logo della testata:
+   bianco, starebbe proprio dietro al titolo bianco e lo renderebbe illeggibile */
+.eroe-scritta { inset: -16.7%; width: 133.4%; height: 133.4%; max-width: none; overflow: visible; fill: #dc4f2b; }
+.eroe-scritta text { font: 800 70px var(--font); letter-spacing: .05em; }
 .eroe-finestra { width: 66.7%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: var(--asfalto); box-shadow: 0 40px 120px -30px rgba(255, 92, 43, .42); }
-.eroe-finestra img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; }
+.eroe-lm { display: block; width: 100%; height: 100%; fill: #dc4f2b; }
 .eroe-anello { width: 100%; height: 100%; color: #dc4f2b; }
 .eroe-righe { position: absolute; inset: 0 0 8svh; display: flex; align-items: center; padding-inline: var(--gutter); pointer-events: none; }
 /* --car: caratteri della riga più lunga, così il titolo entra sempre nello schermo */
@@ -170,7 +172,7 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 .eroe-info { display: grid; justify-items: end; gap: 8px; text-align: right; }
 .eroe-fascio { position: absolute; top: -10%; bottom: -10%; left: 0; z-index: 2; width: clamp(140px, 26vw, 440px); pointer-events: none; opacity: 0; background: linear-gradient(90deg, transparent, rgba(255, 217, 160, .14) 48%, transparent); transform: translateX(-180%) skewX(-18deg); }
 .mo .eroe-finestra { clip-path: inset(49% 0 49% 0); }
-.mo .eroe-anello, .mo .eroe-aloni { opacity: 0; }
+.mo .eroe-anello, .mo .eroe-scritta { opacity: 0; }
 .mo .eroe .riga > span { transform: translateY(115%); }
 
 /* ---------- intro delle pagine interne ---------- */
@@ -356,6 +358,12 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 .misura input:focus { outline: 0; border-bottom-color: #ffd9a0; }
 .misura input[aria-invalid="true"] { border-bottom-color: #ff9b85; }
 .misura i { color: #ff5c2b; font: 800 1.6rem var(--font); }
+/* il codice di carico e velocità (91V): facoltativo, staccato dal cerchio come sul fianco, in arancio come la R */
+.misura .misura-codice { margin-left: 6px; }
+.misura .misura-codice input { width: 3.9ch; color: #ff8a5c; text-transform: uppercase; }
+.misura .misura-codice input::placeholder { color: #a8664c; }
+.misura + .aiuto { margin-top: 6px; }
+.nowrap { white-space: nowrap; }
 .targa { display: flex; align-items: stretch; min-width: 0; overflow: hidden; background: #fff; border: 3px solid #111; border-radius: var(--r-s); box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 3px #111; }
 .targa-ue { flex: none; width: 44px; background: #0a3a9a; display: block; }
 .targa-ue svg { width: 100%; height: 100%; }
@@ -522,7 +530,8 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
   .eroe-righe { position: relative; inset: auto; order: 1; }
   .eroe h1 { font-size: min(15.5vw, calc((100vw - 2 * var(--gutter)) / (var(--car) * .7))); }
   .eroe-scena { position: relative; inset: auto; order: 2; padding: 0; margin-block: 20px 8px; flex: 1; }
-  .eroe-ingranaggio { width: min(68vw, 46svh, 420px); }
+  /* la scritta del logo esce di un sesto dall'ingranaggio: il margine le fa spazio, così non copre titolo e testo */
+  .eroe-ingranaggio { --g: min(68vw, 46svh, 420px); width: var(--g); margin-block: calc(var(--g) * .17); }
   .eroe-basso { position: relative; order: 3; padding-bottom: 0; flex-direction: column; align-items: stretch; gap: 14px; }
   .eroe-info { justify-items: start; text-align: left; }
   .servizi-griglia { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
@@ -1041,8 +1050,8 @@ body.menu-aperto, html:has(dialog[open]) { overflow: hidden; }
    così nella prima schermata si vede già l'inizio della griglia dei servizi ---------- */
 @media (max-width: 599px) {
   .eroe { min-height: 0; padding-bottom: 20px; }
-  .eroe-scena { flex: none; margin-block: 14px 4px; }
-  .eroe-ingranaggio { width: min(54vw, 30svh, 280px); }
+  .eroe-scena { flex: none; margin-block: 6px 0; }
+  .eroe-ingranaggio { --g: min(50vw, 28svh, 260px); }
   .eroe-testo p { margin-bottom: 16px; }
 }
 

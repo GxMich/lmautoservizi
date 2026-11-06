@@ -59,12 +59,12 @@ SERVIZI_PAGINE = {
         "correlati": ["elettrauto", "diagnosi"],
     },
 
-    # ------------------------------------------------------------------ ELETTRAUTO (con climatizzatore)
+    # ------------------------------------------------------------------ ELETTRAUTO E CLIMATIZZAZIONE
     "elettrauto": {
-        "nome": "Elettrauto",
-        "title": "Elettrauto a Frassineto Po, vicino a Casale | L.M. Autoservizi",
-        "description": "Avviamento, batteria, luci, cablaggi e climatizzatore: trovo e riparo i difetti elettrici. Officina a Frassineto Po, vicino a Casale. Scrivimi su WhatsApp.",
-        "h1": "Elettrauto a Frassineto Po",
+        "nome": "Elettrauto e climatizzazione",
+        "title": "Elettrauto e climatizzazione a Frassineto Po | L.M. Autoservizi",
+        "description": "Avviamento, batteria, luci, cablaggi e climatizzatore: trovo e riparo i difetti elettrici e ricarico il clima. Officina a Frassineto Po, vicino a Casale.",
+        "h1": "Elettrauto e climatizzazione a Frassineto Po",
         "risposta": ("Sono Luca Miglietta e lavoro da solo nella mia officina, L.M. Autoservizi, a Frassineto Po, vicino a Casale Monferrato. "
                      "Mi occupo di avviamento, batteria e ricarica, impianto luci, accessori e cablaggi. "
                      "Controllo e ricarico anche il climatizzatore. "
@@ -153,7 +153,7 @@ SERVIZI_PAGINE = {
             ("Si può riparare una foratura o devo cambiare la gomma?",
              "Dipende da dove si trova il foro e da quanto è grande. La guardo e ti dico se si ripara in sicurezza o se conviene cambiarla."),
             ("Vendi anche le gomme?",
-             ("Sì, estive, invernali e quattro stagioni. Scrivimi la misura che trovi sul fianco della gomma, per esempio 205/55 R16, oppure la targa. "
+             ("Sì, estive, invernali e quattro stagioni. Scrivimi la misura che trovi sul fianco della gomma, per esempio 205/55 R16 91V, oppure la targa. "
               "Ti rispondo con disponibilità e prezzo.")),
             ("Mi tieni tu le gomme che non uso?",
              "Sì, faccio il deposito: le gomme della stagione che non usi restano da me fino al prossimo cambio. Chiedimi il prezzo quando prenoti."),

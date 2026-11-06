@@ -70,7 +70,7 @@ def pagina_servizi():
     inizia("servizi")
     # (id per i link già esistenti, icona, nome, testo, link o bottone)
     altri = [("acquisto", ICONE["acquisto"], "Consulenza acquisto auto",
-              "Prima di comprare un'auto usata, te la controllo da cima a fondo e ti dico cosa va sistemato. Se sei indeciso, ti aiuto a scegliere quella giusta per te.",
+              "Prima di comprare un'auto usata, te la controllo da cima a fondo e ti dico cosa va sistemato. Se sei indeciso, ti aiuto a scegliere quella giusta per te. È un servizio a pagamento: quanto costa te lo dico prima.",
               apri_servizio("acquisto", "Chiedimi un controllo", "link link--bottone")),
              ("aziende", ICONE["aziende"], "Consulenza alle imprese",
               f"Consulenza per le imprese che lavorano nel settore automobilistico, da un tecnico con {anni_esperienza()} anni di esperienza multimarca. Ne parliamo e capiamo insieme di cosa hai bisogno.",

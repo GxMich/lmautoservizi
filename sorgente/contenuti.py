@@ -18,6 +18,10 @@ SCHEDA_GOOGLE = "https://maps.google.com/?cid=17666814833850856409"
 SEDE_LEGALE = "Via Ticineto 15, 15040 Frassineto Po (AL)"
 GEAR = open(os.path.join(QUI, "ingranaggio.txt"), encoding="utf-8").read().strip()
 GEAR_PIENO = f"{GEAR} M197 0A197 197 0 1 0 -197 0A197 197 0 1 0 197 0Z"
+# Il logo di Luca (foto della scheda Google, 1080 px): il monogramma LM dentro il disco bianco dell'ingranaggio,
+# ridisegnato in vettoriale. Coordinate centrate sul disco, raggio 200 (viewBox -200 -200 400 400).
+LOGO_LM = ("M-124.3 -116.8L-75.7 -116.8L-75.7 74.8L65.4 74.8L65.4 117.8L-124.3 117.8Z"
+           "M-60.7 -116.8L4.7 -58.9L78.5 -116.8L124.3 -116.8L124.3 117.8L78.5 117.8L78.5 -56.1L4.7 0.9L-60.7 -56.1Z")
 
 # Officina: Via Ticineto 15, lo stesso indirizzo della sede legale. Frassineto Po ha un solo CAP (15040).
 INDIRIZZO_OFFICINA = "Via Ticineto 15"
@@ -74,7 +78,6 @@ FAQ_R = [("Quanto costa il ritiro?", "Niente: ritiro e riconsegna sono sempre gr
 # sorgente/foto.py ritaglia gli scatti su questi rapporti; appena esiste docs/assets/img/foto/<spazio>.webp
 # il generatore usa quella al posto della stock.
 FOTO_SLOT = {
-    "eroe": ((1, 1), "eroe", "", ""),   # si vede in un cerchio: quadrata, così non si scaricano pixel che non si vedono
     "luca": ((4, 5), "mani", "Foto di esempio: mani di un meccanico al lavoro sul motore", "Luca Miglietta al lavoro nella sua officina"),
     "officina": ((3, 2), "officina", "Foto di esempio: auto e attrezzature in un'officina", "L'interno dell'officina di L.M. Autoservizi a Frassineto Po"),
     "ingresso": ((3, 2), "officina", "Foto di esempio: ambiente di un'officina con auto e ponte sollevatore", "L'ingresso dell'officina di L.M. Autoservizi"),
@@ -92,7 +95,7 @@ FOTO_SLOT = {
     **{f"allestimento-{n}": ((3, 2), "mobile", "", "Un allestimento camping e fuoristrada realizzato da Luca") for n in range(1, 7)},
 }
 # Dimensioni delle foto stock in docs/assets/img/campione/ (ognuna ha anche la versione -800).
-STOCK = {"eroe": (1200, 1200), "officina": (1600, 1067), "mani": (1600, 2400), "meccanica": (1600, 1067),
+STOCK = {"officina": (1600, 1067), "mani": (1600, 2400), "meccanica": (1600, 1067),
          "diagnosi": (1600, 1067), "gomme": (1600, 1067), "ritiro": (1600, 1067), "riconsegna": (1600, 2001), "mobile": (1600, 1067)}
 
 ATT = [("qualifica-professionale", "Operatore di riparazioni elettromeccaniche per l'autoveicolo", "Qualifica professionale, 400 ore, 2010"),

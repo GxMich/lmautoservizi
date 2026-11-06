@@ -23,7 +23,7 @@
     aperto: "Aperto ora, fino alle ", apre: "Chiuso, apre alle ", riapre: "Chiuso, riapre ", domani: "domani", alle: " alle ", chiuso: "Chiuso",
     ciao: "Ciao Luca, ti scrivo dal sito.", servizio: "Servizio: ", mezzo: "Mezzo: ",
     pronto: "Messaggio pronto: premi Invia in WhatsApp. Se non si è aperto, ", apriQui: "aprilo da qui",
-    misura: "Misura: ", erroreMisura: "Scrivi la misura completa, per esempio 205 / 55 / 16.", errorePezzo: "Scrivi cosa ti serve.", erroreMisuraTarga: "Scrivi la misura della gomma oppure la targa.",
+    misura: "Misura: ", erroreMisura: "Scrivi la misura completa, per esempio 205/55 R16.", errorePezzo: "Scrivi cosa ti serve.", erroreMisuraTarga: "Scrivi la misura della gomma oppure la targa.",
     esempioMisura: "Esempio di misura", tuaMisura: "La misura che cerchi",
     apriMenu: "Apri il menu", chiudiMenu: "Chiudi il menu",
     temaChiaro: "Passa al tema chiaro", temaScuro: "Passa al tema scuro"
@@ -181,7 +181,7 @@
       var righe = [T.ciao, "", T.servizio + servizio];
       if (vendita) {
         if (tipoVendita.value === "gomme") {
-          if (form.elements.larghezza.value) righe.push(T.misura + form.elements.larghezza.value + "/" + form.elements.spalla.value + " R" + form.elements.cerchio.value);
+          if (form.elements.larghezza.value) righe.push(T.misura + misuraScritta(form.elements));
           righe.push("Stagione: " + form.elements.stagione.value);
           if (form.elements["targa-gomme"].value.trim()) righe.push("Targa: " + form.elements["targa-gomme"].value.trim());
         } else {
@@ -308,7 +308,7 @@
       obbligatori.forEach(function (c) { if (!controlla(c) && !primo) primo = c; });
       if (form.hasAttribute("data-misura-o-targa")) {
         // basta la misura completa oppure la targa: chi non trova la misura non resta bloccato
-        var campiMisura = $$(".misura input", form), erroreMisura = $(".misura", form).parentNode.querySelector(".errore");
+        var campiMisura = $$(".misura [inputmode='numeric']", form), erroreMisura = $(".misura", form).parentNode.querySelector(".errore");
         var vuota = campiMisura.every(function (c) { return !c.value.trim(); });
         var piena = campiMisura.every(function (c) { return /^\d+$/.test(c.value.trim()); });
         var ok = piena || (vuota && form.elements.targa.value.trim());
@@ -318,7 +318,7 @@
       }
       if (primo) { primo.focus(); return; }
       var f = form.elements, righe = [form.getAttribute("data-intro"), ""];
-      if (f.larghezza && f.larghezza.value) righe.push(T.misura + f.larghezza.value + "/" + f.spalla.value + " R" + f.cerchio.value);
+      if (f.larghezza && f.larghezza.value) righe.push(T.misura + misuraScritta(f));
       $$("[data-etichetta]", form).forEach(function (c) {
         var v = (c.value || "").trim();
         if (v) righe.push(c.getAttribute("data-etichetta") + ": " + v);
@@ -328,19 +328,25 @@
       if (esito) esitoPronto(esito, url);
     });
   });
+  // La misura come sul fianco: 205/55 R16, più il codice di carico e velocità se c'è (91V)
+  function misuraScritta(f) {
+    var codice = f.codice && f.codice.value.trim();
+    return f.larghezza.value + "/" + f.spalla.value + " R" + f.cerchio.value + (codice ? " " + codice : "");
+  }
   // La misura scritta compare accanto al pneumatico
   var testoMisura = $("[data-misura-testo]"), etichettaMisura = $("[data-misura-etichetta]");
   $$(".misura").forEach(function (gruppo) {
     var campi = $$("input", gruppo);
     var agg = function (animata) {
       var vuota = campi.every(function (c) { return !c.value; });
-      if (testoMisura) testoMisura.textContent = vuota ? "205/55 R16" : (campi[0].value || "—") + "/" + (campi[1].value || "—") + " R" + (campi[2].value || "—");
+      if (testoMisura) testoMisura.textContent = vuota ? "205/55 R16 91V" : (campi[0].value || "—") + "/" + (campi[1].value || "—") + " R" + (campi[2].value || "—") + (campi[3] && campi[3].value ? " " + campi[3].value : "");
       if (etichettaMisura) etichettaMisura.textContent = vuota ? T.esempioMisura : T.tuaMisura;
       if (animata) anima(testoMisura, [{ transform: "translateY(4px)", opacity: .5 }, { transform: "none", opacity: 1 }], { duration: 260, easing: ESCE });
     };
     campi.forEach(function (c, i) {
       c.addEventListener("input", function () {
-        c.value = c.value.replace(/\D/g, "");
+        // le prime tre parti sono numeri; il codice di carico e velocità ha anche lettere (91V, 109/107R)
+        c.value = c.name === "codice" ? c.value.toUpperCase().replace(/[^0-9A-Z\/]/g, "") : c.value.replace(/\D/g, "");
         agg(true);
         if (c.value.length >= c.maxLength && campi[i + 1]) campi[i + 1].focus();
       });
@@ -403,9 +409,9 @@
     if (ENTRATA) {
       gsap.timeline({ defaults: { ease: "expo.out" }, onStart: function () { H.classList.remove("mo"); } })
         .fromTo(".eroe-anello", { rotation: -80, scale: .7, opacity: .35, transformOrigin: "50% 50%" }, { rotation: 0, scale: 1, opacity: 1, duration: 1, ease: "power3.out" }, 0)
-        .fromTo(".eroe-aloni", { scale: .85, opacity: 0 }, { scale: 1, opacity: 1, duration: .9 }, .1)
+        .fromTo(".eroe-scritta", { rotation: 30, scale: .85, opacity: 0, transformOrigin: "50% 50%" }, { rotation: 0, scale: 1, opacity: 1, duration: 1.1 }, .1)
         .fromTo(".eroe-finestra", { clipPath: "inset(49% 0% 49% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: .75, clearProps: "clipPath" }, .1)
-        .fromTo(".eroe-finestra img", { scale: 1.25, yPercent: 6 }, { scale: 1, yPercent: 0, duration: 1, clearProps: "transform" }, .1)
+        .fromTo(".eroe-lm", { scale: 1.25, opacity: 0, transformOrigin: "50% 50%" }, { scale: 1, opacity: 1, duration: 1, clearProps: "transform,opacity" }, .2)
         .fromTo(".riga-a > span", { xPercent: -12, yPercent: 115, y: 0 }, { xPercent: 0, yPercent: 0, y: 0, duration: .7 }, .05)
         .fromTo(".riga-b > span", { xPercent: 10, yPercent: 115, y: 0 }, { xPercent: 0, yPercent: 0, y: 0, duration: .7 }, .15)
         .fromTo(".eroe-fascio", { xPercent: -180, opacity: 0 }, { xPercent: 520, opacity: 1, duration: 1, ease: "power1.inOut" }, .05)

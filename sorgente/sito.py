@@ -52,7 +52,7 @@ PAGINE = {
     "home": ("", "Home"),
     "servizi": ("servizi/", "Servizi"),
     "meccanica": ("servizi/meccanica/", "Meccanica"),
-    "elettrauto": ("servizi/elettrauto/", "Elettrauto"),
+    "elettrauto": ("servizi/elettrauto/", "Elettrauto e climatizzazione"),
     "gommista": ("servizi/gommista/", "Gommista"),
     "carrozzeria": ("servizi/carrozzeria/", "Carrozzeria"),
     "diagnosi": ("servizi/diagnosi-e-pre-revisione/", "Diagnosi e pre-revisione"),
@@ -298,7 +298,7 @@ MEZZI_BASE = "auto,fuoristrada,furgone,camper"
 BREVE = {"altro": "Lo capiamo insieme", "soccorso": "Batteria, gomma bucata", "meccanica": "Tagliandi e riparazioni",
          "elettrauto": "Batteria, luci, clima", "gommista": "Cambio e deposito", "carrozzeria": "Urti, vernice, saldature",
          "diagnosi": "Spie e revisione", "ricambi": "Da ritirare in officina", "allestimenti": "Furgoni, pick-up, camper",
-         "acquisto": "Controllo dell'usato", "noleggio": "Canone mensile"}
+         "acquisto": "Controllo dell'usato, a pagamento","noleggio": "Canone mensile"}
 MEZZI_SERVIZIO = {"allestimenti": "furgone,pickup,camper"}
 
 
@@ -312,8 +312,8 @@ SERVIZI = [
     ("meccanica", "Meccanica",
      "Tagliandi, riparazioni, manutenzione ordinaria e straordinaria",
      "Es. tagliando, rumore in frenata, perdita d'olio.", ""),
-    ("elettrauto", "Elettrauto",
-     "Avviamento, batteria e ricarica, luci, climatizzatore",
+    ("elettrauto", "Elettrauto e climatizzazione",
+     "Avviamento, batteria e ricarica, luci, controllo e ricarica del clima",
      "Es. non parte, la batteria si scarica, il clima non raffredda.", ""),
     ("gommista", "Gommista",
      "Cambio, equilibratura, convergenza, deposito e vendita di pneumatici",
@@ -334,8 +334,8 @@ SERVIZI = [
      "Furgoni, pick-up e camper: progettati e costruiti da me",
      "Dimmi che mezzo hai e cosa vorresti realizzare.", ""),
     ("acquisto", "Consulenza acquisto auto",
-     "Controllo dell'usato prima di comprarlo e consigli sulla scelta",
-     "Mandami il link dell'annuncio, oppure marca, modello, anno e chilometri.", ""),
+     "Servizio a pagamento: controllo dell'usato prima di comprarlo e consigli sulla scelta",
+     "Mandami il link dell'annuncio, oppure marca, modello, anno e chilometri. Il controllo è a pagamento: quanto costa te lo dico prima.", ""),
 ]
 # Pagina di approfondimento di ogni servizio (id del registro PAGINE)
 PAGINA_SERVIZIO = {"meccanica": "meccanica", "elettrauto": "elettrauto", "gommista": "gommista", "carrozzeria": "carrozzeria",
@@ -586,6 +586,17 @@ def testata():
 '''
 
 
+# La misura come è scritta sul fianco della gomma: 205/55 R16 91V. Le prime tre parti servono; l'ultimo codice
+# (indice di carico e di velocità) è facoltativo, perché non tutti lo trovano o sanno leggerlo.
+MISURA_GOMMA = '''<div class="misura">
+            <label><span class="sr">Larghezza</span><input name="larghezza" inputmode="numeric" maxlength="3" placeholder="205" autocomplete="off"></label><i aria-hidden="true">/</i>
+            <label><span class="sr">Spalla</span><input name="spalla" inputmode="numeric" maxlength="2" placeholder="55" autocomplete="off"></label><i aria-hidden="true">R</i>
+            <label><span class="sr">Cerchio in pollici</span><input name="cerchio" inputmode="numeric" maxlength="2" placeholder="16" autocomplete="off"></label>
+            <label class="misura-codice"><span class="sr">Indice di carico e di velocità, facoltativo</span><input name="codice" maxlength="8" placeholder="91V" autocomplete="off" autocapitalize="characters" spellcheck="false"></label>
+          </div>
+          <p class="aiuto">Il codice dopo il cerchio (per esempio 91V) è facoltativo.</p>'''
+
+
 def scheda():
     scelte = []
     for i, (chi, nome_mezzo, valore, aiuto) in enumerate(MEZZI):
@@ -607,11 +618,7 @@ def scheda():
       <div class="scheda-vendita" data-vendita-campi hidden>
         <div class="campo" data-campo-tipo><label for="scheda-tipo">Cosa cerchi?</label><select id="scheda-tipo" name="tipo"><option value="gomme">Gomme</option><option value="ricambi">Ricambi</option></select></div>
         <div data-pannello-vendita="gomme">
-          <fieldset class="campo misura-scheda"><legend>Misura della gomma</legend><div class="misura">
-            <label><span class="sr">Larghezza</span><input name="larghezza" inputmode="numeric" maxlength="3" placeholder="205" autocomplete="off"></label><i aria-hidden="true">/</i>
-            <label><span class="sr">Spalla</span><input name="spalla" inputmode="numeric" maxlength="2" placeholder="55" autocomplete="off"></label><i aria-hidden="true">R</i>
-            <label><span class="sr">Cerchio in pollici</span><input name="cerchio" inputmode="numeric" maxlength="2" placeholder="16" autocomplete="off"></label>
-          </div><p class="errore" data-errore-misura aria-live="polite"></p></fieldset>
+          <fieldset class="campo misura-scheda"><legend>Misura della gomma</legend>{MISURA_GOMMA}<p class="errore" data-errore-misura aria-live="polite"></p></fieldset>
           <div class="campo"><label for="scheda-stagione">Che gomme cerchi</label><select id="scheda-stagione" name="stagione"><option>Estive</option><option>Invernali</option><option>Quattro stagioni</option><option>Non lo so, consigliami tu</option></select></div>
           <div class="campo"><label for="scheda-targa-gomme">Targa <span>(se non trovi la misura)</span></label><input id="scheda-targa-gomme" name="targa-gomme" maxlength="8" placeholder="AB123CD" autocomplete="off" autocapitalize="characters"></div>
         </div>
