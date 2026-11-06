@@ -171,18 +171,18 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 .eroe-testo strong { color: var(--testo); }
 .eroe-info { display: grid; justify-items: end; gap: 8px; text-align: right; }
 .eroe-fascio { position: absolute; top: -10%; bottom: -10%; left: 0; z-index: 2; width: clamp(140px, 26vw, 440px); pointer-events: none; opacity: 0; background: linear-gradient(90deg, transparent, rgba(255, 217, 160, .14) 48%, transparent); transform: translateX(-180%) skewX(-18deg); }
-/* computer: titolo a sinistra, sopra il testo; il logo nella metà destra, così nessuna lettera lo copre.
-   --g è il lato dell'ingranaggio: la scritta in cerchio esce di un sesto per parte (1.34 --g in tutto),
-   e il titolo prende la larghezza che resta */
+/* computer: come sul telefono, il titolo sta sopra e il logo centrato sotto, così nessuna lettera lo copre.
+   Il titolo resta sfalsato ("Riparti" a sinistra, "sereno." spostato a destra); --g è il lato dell'ingranaggio,
+   la scritta in cerchio esce di un sesto per parte e il margine le fa spazio */
 @media (min-width: 900px) {
-  /* --lato: margine del contenitore .wrap, così titolo, testo e logo stanno sulle stesse linee del resto della pagina */
-  .eroe { --g: min(52svh, 34vw); --lato: max(var(--gutter), (100vw - var(--wrap)) / 2); background: radial-gradient(40% 50% at 72% 46%, rgba(255, 217, 160, .05), transparent 70%); }
-  .eroe-scena { justify-items: end; padding-inline-end: calc(var(--lato) + var(--g) * .17); }
-  .eroe-ingranaggio { width: var(--g); }
-  .eroe-righe { padding-inline: var(--lato); }
-  .eroe h1 { width: auto; font-size: min(9.5rem, calc((100vw - 2 * var(--lato) - 1.34 * var(--g) - 4vw) / (var(--car) * .7))); }
-  .eroe .riga-b { text-align: left; }
-  .eroe-testo { max-width: min(580px, 100vw - 2 * var(--lato) - 1.34 * var(--g) - 2vw); }
+  .eroe { height: auto; min-height: 100svh; max-height: none; display: flex; flex-direction: column; padding: calc(var(--testata) + 2svh) 0 clamp(20px, 3svh, 40px); }
+  .eroe-righe { position: relative; inset: auto; order: 1; justify-content: center; }
+  .eroe h1 { width: auto; font-size: min(8rem, 9vw, 9.5svh); }
+  .eroe .riga-b { padding-left: 1.4em; }
+  .eroe-scena { position: relative; inset: auto; order: 2; flex: 1; padding: 0; }
+  /* alto quanto basta perché titolo, logo, testo e pulsanti stiano in una schermata */
+  .eroe-ingranaggio { --g: min(30svh, 34vw, 420px); width: var(--g); margin-block: calc(var(--g) * .17 + 1svh); }
+  .eroe-basso { position: relative; order: 3; padding-bottom: 0; }
 }
 .mo .eroe-finestra { clip-path: inset(49% 0 49% 0); }
 .mo .eroe-anello, .mo .eroe-scritta { opacity: 0; }
