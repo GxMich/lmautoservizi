@@ -171,6 +171,11 @@ body.menu-aperto .testata { background: var(--notte); border-bottom-color: var(-
 .eroe-testo strong { color: var(--testo); }
 .eroe-info { display: grid; justify-items: end; gap: 8px; text-align: right; }
 .eroe-fascio { position: absolute; top: -10%; bottom: -10%; left: 0; z-index: 2; width: clamp(140px, 26vw, 440px); pointer-events: none; opacity: 0; background: linear-gradient(90deg, transparent, rgba(255, 217, 160, .14) 48%, transparent); transform: translateX(-180%) skewX(-18deg); }
+/* computer: "Riparti" scende di poco, così non copre la L di "L.M." nella scritta in cerchio del logo.
+   Si sposta tutta la riga (non la parola dentro), perché la riga taglia ciò che esce durante l'entrata */
+@media (min-width: 900px) {
+  .eroe .riga-a { position: relative; top: .3em; }
+}
 .mo .eroe-finestra { clip-path: inset(49% 0 49% 0); }
 .mo .eroe-anello, .mo .eroe-scritta { opacity: 0; }
 .mo .eroe .riga > span { transform: translateY(115%); }
